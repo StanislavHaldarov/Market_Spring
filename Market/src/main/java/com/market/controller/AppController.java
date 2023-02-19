@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AppController {
 
-    @GetMapping("/s")
+    @GetMapping("/index")
     public String index(){
-        return "checkout";
+        return "index";
     }
 }
