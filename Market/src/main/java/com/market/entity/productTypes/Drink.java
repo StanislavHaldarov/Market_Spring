@@ -1,8 +1,6 @@
 package com.market.entity.productTypes;
 
 
-import com.market.entity.Product;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
