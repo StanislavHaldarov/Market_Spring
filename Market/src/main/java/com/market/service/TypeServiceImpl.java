@@ -15,15 +15,10 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public void initTypes() {
-        if (typeRepository.count() == 0){
-            Type food = new Type(ProductTypeEnum.FOOD);
-            Type drinks = new Type(ProductTypeEnum.DRINKS);
-            Type sanitary = new Type(ProductTypeEnum.SANITARY);
-            Type cosmetics = new Type(ProductTypeEnum.COSMETICS);
-            typeRepository.save(food);
-            typeRepository.save(drinks);
-            typeRepository.save(sanitary);
-            typeRepository.save(cosmetics);
+        for (ProductTypeEnum t : ProductTypeEnum.values()) {
+            if (typeRepository.findTypeByName(t) == null) {
+                typeRepository.save(new Type(t));
+            }
         }
     }
 }
