@@ -13,12 +13,5 @@ public class TypeServiceImpl implements TypeService {
         this.typeRepository = typeRepository;
     }
 
-    @Override
-    public void initTypes() {
-        for (ProductTypeEnum t : ProductTypeEnum.values()) {
-            if (typeRepository.findTypeByName(t) == null) {
-                typeRepository.save(new Type(t));
-            }
-        }
-    }
+
 }

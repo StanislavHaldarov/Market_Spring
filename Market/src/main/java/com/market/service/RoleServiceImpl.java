@@ -16,12 +16,6 @@ public class RoleServiceImpl implements RoleService {
         this.roleRepository = roleRepository;
     }
 
-    @Override
-    public void initRoles() {
-        for (RoleNameEnum r : RoleNameEnum.values()) {
-            if (roleRepository.findRoleByName(r) == null) {
-                roleRepository.save(new Role(r));
-            }
-        }
-    }
+
+
 }
