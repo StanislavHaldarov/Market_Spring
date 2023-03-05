@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-@Service
+
 public interface RoleService {
-    void initRoles();
+
     Role findRole(RoleNameEnum roleNameEnum);
     List<Role> getAllRoles();
 

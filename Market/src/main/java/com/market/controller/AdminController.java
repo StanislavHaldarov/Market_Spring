@@ -1,32 +1,27 @@
 package com.market.controller;
 
 import com.market.entity.Role;
-import com.market.entity.RoleNameEnum;
 import com.market.entity.User;
-import com.market.repository.RoleRepository;
-import com.market.repository.UserRepository;
 import com.market.service.RoleService;
 import com.market.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Optional;
-
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
+
+    private final UserService userService;
+
+    private final RoleService roleService;
+
+    public AdminController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @GetMapping("/user-manager")
     public String getAllUsers(Model model) {

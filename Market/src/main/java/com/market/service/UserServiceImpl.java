@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final ModelMapper modelMapper;
@@ -23,10 +23,11 @@ public class UserServiceImpl implements UserService{
         this.modelMapper = modelMapper;
     }
 
+
     @Override
     public void registerUser(UserServiceModel userServiceModel) {
         User user = modelMapper.map(userServiceModel, User.class);
-        if(userRepository.getUserByEmail(user.getEmail())==null) {
+        if (userRepository.getUserByEmail(user.getEmail()) == null) {
             user.setRole(roleService.findRole(RoleNameEnum.CUSTOMER));
             System.out.println("CUSTOMER");
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -35,8 +36,7 @@ public class UserServiceImpl implements UserService{
             user.setPassword(encodedPassword);
 
             userRepository.save(user);
-        }
-        else{
+        } else {
             throw new NotFoundException("Потребител с такъв имейл вече е регистриран!");
         }
     }
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService{
     public User findUserByUsername(String username, String password) {
         User user = new User();
         user = userRepository.getUserByUsername(username);
-        if(verifyPassword(password,user.getPassword())) {
+        if (verifyPassword(password, user.getPassword())) {
             return user;
         }
         return null;
@@ -55,12 +55,12 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<User> getAllUsers() {
         List<User> allUsers = userRepository.findAll();
-        if(allUsers.isEmpty())
-        {
+        if (allUsers.isEmpty()) {
             return null;
         }
         return allUsers;
     }
+
     @Override
     public void updateUserRole(User user) {
         User existingUser = userRepository.findById(user.getId()).orElse(null);
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteUser(Long id) {
         Optional<User> existingUser = userRepository.findById(id);
-        if(existingUser.isPresent()){
+        if (existingUser.isPresent()) {
             userRepository.deleteById(id);
         }
     }

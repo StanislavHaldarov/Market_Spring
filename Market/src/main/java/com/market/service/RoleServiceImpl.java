@@ -6,9 +6,11 @@ import com.market.entity.RoleNameEnum;
 import com.market.entity.User;
 
 import com.market.repository.RoleRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 
 public class RoleServiceImpl implements RoleService {
 
@@ -22,8 +24,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> getAllRoles() {
         List<Role> allRoles = roleRepository.findAll();
-        if(allRoles.isEmpty())
-        {
+        if (allRoles.isEmpty()) {
             return null;
         }
         return allRoles;

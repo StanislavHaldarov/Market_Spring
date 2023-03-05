@@ -3,8 +3,9 @@ package com.market.service;
 import com.market.dto.ProductCreate;
 import com.market.dto.mapper.ProductCreateToCosmeticsEntityMapper;
 import com.market.repository.CosmeticRepository;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class CosmeticServiceImpl implements CosmeticService {
     private final CosmeticRepository cosmeticRepository;
     private final ProductCreateToCosmeticsEntityMapper productCreateToCosmeticsEntityMapper;

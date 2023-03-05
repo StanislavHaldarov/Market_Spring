@@ -4,8 +4,10 @@ import com.market.dto.ProductCreate;
 import com.market.entity.productTypes.Product;
 import com.market.repository.ProductRepository;
 import com.market.utility.exception.NotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+@Service
 
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;

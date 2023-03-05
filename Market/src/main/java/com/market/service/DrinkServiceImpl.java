@@ -5,7 +5,7 @@ import com.market.dto.mapper.ProductCreateToDrinkEntityMapper;
 import com.market.repository.DrinkRepository;
 import org.springframework.stereotype.Service;
 
-
+@Service
 public class DrinkServiceImpl implements DrinkService {
     private final DrinkRepository drinkRepository;
     private final ProductCreateToDrinkEntityMapper productCreateToDrinkEntityMapper;

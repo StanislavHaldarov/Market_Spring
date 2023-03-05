@@ -5,6 +5,7 @@ import com.market.dto.mapper.ProductCreateToFoodEntityMapper;
 import com.market.repository.FoodRepository;
 import org.springframework.stereotype.Service;
 
+@Service
 
 public class FoodServiceImpl implements FoodService {
     private final FoodRepository foodRepository;

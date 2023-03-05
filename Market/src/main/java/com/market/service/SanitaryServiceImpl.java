@@ -5,6 +5,7 @@ import com.market.dto.mapper.ProductCreateToSanitaryEntityMapper;
 import com.market.repository.SanitaryRepository;
 import org.springframework.stereotype.Service;
 
+@Service
 
 public class SanitaryServiceImpl implements SanitaryService {
     private final SanitaryRepository sanitaryRepository;
