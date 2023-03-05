@@ -5,6 +5,7 @@ import com.market.entity.RoleNameEnum;
 import com.market.entity.productTypes.ProductTypeEnum;
 import com.market.entity.productTypes.Type;
 import com.market.repository.RoleRepository;
+//import com.market.repository.TypeRepository;
 import com.market.repository.TypeRepository;
 import com.market.service.RoleService;
 import org.springframework.boot.CommandLineRunner;
@@ -15,19 +16,16 @@ public class DataBaseInit implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
     private final TypeRepository typeRepository;
-    private final RoleService roleService;
 
-    public DataBaseInit(RoleRepository roleRepository, TypeRepository typeRepository, RoleService roleService) {
+    public DataBaseInit(RoleRepository roleRepository, TypeRepository typeRepository) {
         this.roleRepository = roleRepository;
         this.typeRepository = typeRepository;
-        this.roleService = roleService;
     }
 
     @Override
     public void run(String... args) throws Exception {
         this.initRoles();
         this.initTypes();
-        roleService.initRoles();
     }
 
 
