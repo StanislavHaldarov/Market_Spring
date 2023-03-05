@@ -1,26 +1,26 @@
 package com.market.entity.productTypes;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.sql.Date;
+import java.time.LocalDate;
+
 
 @Entity
-@Table(name="food")
+@DiscriminatorValue("food")
 public class Food extends Product {
-    @Column(nullable = false, name="expired_date", columnDefinition = "DATE")
-    private Date expiredDate;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Double weight;
     public Food() {
     }
 
-    public Date getExpiredDate() {
-        return expiredDate;
+    public String getType() {
+        return "food";
     }
 
-    public void setExpiredDate(Date expiredDate) {
-        this.expiredDate = expiredDate;
+    public Food(String name, LocalDate expiredDate, String description, Integer availableQuantity, Double priceBGN, String imageUrl, Double weight) {
+        super(name, expiredDate, description, availableQuantity, priceBGN, imageUrl);
+        this.weight = weight;
     }
 
     public Double getWeight() {

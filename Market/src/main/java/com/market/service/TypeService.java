@@ -1,5 +1,9 @@
 package com.market.service;
 
-public interface TypeService {
+import com.market.entity.productTypes.Type;
 
+import java.util.List;
+
+public interface TypeService {
+    List<Type> findAllTypes();
 }
