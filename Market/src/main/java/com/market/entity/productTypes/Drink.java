@@ -1,28 +1,34 @@
 package com.market.entity.productTypes;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
-@Table(name="drinks")
+@DiscriminatorValue("drinks")
 public class Drink extends Product {
-    @Column(nullable = false, name="expired_date", columnDefinition = "DATE")
-    private Date expiredDate;
-    @Column(nullable = false)
+    @Min(0)
     private Double volume;
     public Drink() {
     }
 
-    public Date getExpiredDate() {
-        return expiredDate;
+    public Drink(String name
+            , LocalDate expiredDate, String description, Integer availableQuantity, Double priceBGN, String imageUrl, Double volume) {
+        super(name, expiredDate, description, availableQuantity, priceBGN, imageUrl);
+        this.volume = volume;
     }
 
-    public void setExpiredDate(Date expiredDate) {
-        this.expiredDate = expiredDate;
+    public String getType() {
+        return "drink";
     }
+
 
     public Double getVolume() {
         return volume;
