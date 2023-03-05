@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="buttonBackToMenu.css">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+</head>
+<body>
+
+<div class="fr">
+    <h1 align="center">LOGIN</h1>
+    <form th:action="@{/users/login}" method="POST" th:object="${userLoginBindingModel}">
+        <label>USERNAME</label>
+        <p><input th:field="*{username}" type="text" class="form-control" id="username" name="username" placeholder="username" required>
+            <br>
+        <label>PASSWORD</label>
+        <p><input th:field="*{password}" type="password" class="form-control" id="password" name="password" placeholder="password" required>
+        <button type="submit" class="btn btn-default">LOG IN</button>
+        <br>
+        <a th:href="@{/index}">Home</a><br>
+        <a th:href="@{register}">No account? Make a registration</a>
+    </form>
+</div>
+</body>
+</html>
+
+<style>
+div.fr {
+width: 500px;
+margin: auto;
+}
+</style>
