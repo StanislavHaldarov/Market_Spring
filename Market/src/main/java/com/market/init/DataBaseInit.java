@@ -7,6 +7,7 @@ import com.market.entity.productTypes.Type;
 import com.market.repository.RoleRepository;
 //import com.market.repository.TypeRepository;
 import com.market.repository.TypeRepository;
+import com.market.service.RoleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,6 @@ public class DataBaseInit implements CommandLineRunner {
     public DataBaseInit(RoleRepository roleRepository, TypeRepository typeRepository) {
         this.roleRepository = roleRepository;
         this.typeRepository = typeRepository;
-        ;
     }
 
     @Override
@@ -27,8 +27,6 @@ public class DataBaseInit implements CommandLineRunner {
         this.initRoles();
         this.initTypes();
     }
-
-
 
 
     private void initRoles() {
