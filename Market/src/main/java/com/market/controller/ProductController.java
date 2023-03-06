@@ -22,30 +22,33 @@ public class ProductController {
         this.productServiceImpl = productServiceImpl;
         this.typeService = typeService;
     }
-
     @GetMapping("/products")
     public String getAllProducts(Model model) {
         model.addAttribute("products", productServiceImpl.findAll());
+        return "products";
+    }
+    @GetMapping("/save")
+    public String addProduct(Model model){
         model.addAttribute("types", typeService.findAllTypes());
         if (!model.containsAttribute("product")) {
             model.addAttribute("product", new ProductCreate());
         }
-        return "products";
+
+        return "addproduct";
     }
 
-    @PostMapping("/products")
+    @PostMapping("/save")
     public ModelAndView createProduct(@Valid @ModelAttribute ProductCreate product,
                                       BindingResult bindingResult,
                                       RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("product", product);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.product", bindingResult);
-            return new ModelAndView("redirect:/products");
+            return new ModelAndView("redirect:/save");
         }
 
         productServiceImpl.saveProduct(product);
         return new ModelAndView("redirect:/products");
-
     }
 
     @PostMapping("delete/{id}")
