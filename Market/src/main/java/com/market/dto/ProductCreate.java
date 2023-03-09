@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 public class ProductCreate {
 
+    Long id;
     @NotNull
     private String type;
     @Length(min = 3)
@@ -26,6 +27,7 @@ public class ProductCreate {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @ValidateExpiredDate
+    @NotNull
     private LocalDate expiredDate;
     @Min(0)
     private Double weight;
@@ -34,6 +36,27 @@ public class ProductCreate {
     @Min(1)
     private Integer count;
 
+
+    public ProductCreate(Long id, String type, String name, Integer availableQuantity, Double priceBGN, String imageUrl, LocalDate expiredDate, Double weight, Double volume, Integer count) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.availableQuantity = availableQuantity;
+        this.priceBGN = priceBGN;
+        this.imageUrl = imageUrl;
+        this.expiredDate = expiredDate;
+        this.weight = weight;
+        this.volume = volume;
+        this.count = count;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public ProductCreate() {
     }

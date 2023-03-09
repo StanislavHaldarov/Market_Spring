@@ -1,26 +1,42 @@
 package com.market.entity.productTypes;
 
+import com.market.entity.BaseEntity;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.time.LocalDate;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 
 @Entity
-@DiscriminatorValue("food")
-public class Food extends Product {
+public class Food extends BaseEntity {
     @Column(nullable = true)
     private Double weight;
+
+    @ManyToOne()
+    @JoinColumn(name = "product_id")
+    @Cascade(CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Product product;
+
+    public Food(Double weight, Product product) {
+        this.weight = weight;
+        this.product = product;
+    }
+
     public Food() {
     }
 
-    public String getType() {
-        return "food";
+    public Product getProduct() {
+        return product;
     }
 
-    public Food(String name, LocalDate expiredDate, String description, Integer availableQuantity, Double priceBGN, String imageUrl, Double weight) {
-        super(name, expiredDate, description, availableQuantity, priceBGN, imageUrl);
-        this.weight = weight;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Double getWeight() {
@@ -30,4 +46,6 @@ public class Food extends Product {
     public void setWeight(Double weight) {
         this.weight = weight;
     }
+
+
 }

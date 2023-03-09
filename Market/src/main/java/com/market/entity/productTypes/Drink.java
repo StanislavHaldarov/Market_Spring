@@ -1,34 +1,44 @@
 package com.market.entity.productTypes;
 
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.market.entity.BaseEntity;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
-import java.sql.Date;
-import java.time.LocalDate;
 
 @Entity
-@DiscriminatorValue("drinks")
-public class Drink extends Product {
+public class Drink extends BaseEntity {
     @Min(0)
     private Double volume;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    @Cascade(CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Product product;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+
     public Drink() {
     }
 
-    public Drink(String name
-            , LocalDate expiredDate, String description, Integer availableQuantity, Double priceBGN, String imageUrl, Double volume) {
-        super(name, expiredDate, description, availableQuantity, priceBGN, imageUrl);
+    public Drink(Double volume, Product product) {
         this.volume = volume;
+        this.product = product;
     }
-
-    public String getType() {
-        return "drink";
-    }
-
 
     public Double getVolume() {
         return volume;
@@ -37,4 +47,5 @@ public class Drink extends Product {
     public void setVolume(Double volume) {
         this.volume = volume;
     }
+
 }

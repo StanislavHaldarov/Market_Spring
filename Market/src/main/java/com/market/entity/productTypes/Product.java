@@ -11,20 +11,24 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "products")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-public abstract class Product extends BaseEntity {
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+public class Product extends BaseEntity {
     @NotNull
     @Length(min = 3)
     private String name;
+
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private ProductTypeEnum type;
+
+    private String description;
 
     @Column(nullable = true, name="expired_date", columnDefinition = "DATE")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate expiredDate;
 
-    @Column(columnDefinition = "TEXT")
-    @NotNull
-    private String description;
     @NotNull
     @Min(0)
     private Integer availableQuantity;
@@ -36,13 +40,23 @@ public abstract class Product extends BaseEntity {
     private String imageUrl;
 
 
-    public Product(String name, LocalDate expiredDate, String description, Integer availableQuantity, Double priceBGN, String imageUrl) {
+    public Product(Long id,String name, ProductTypeEnum type, String description, LocalDate expiredDate, Integer availableQuantity, Double priceBGN, String imageUrl) {
+        super.setId(id);
         this.name = name;
-        this.expiredDate = expiredDate;
+        this.type = type;
         this.description = description;
+        this.expiredDate = expiredDate;
         this.availableQuantity = availableQuantity;
         this.priceBGN = priceBGN;
         this.imageUrl = imageUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getExpiredDate() {
@@ -64,13 +78,6 @@ public abstract class Product extends BaseEntity {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public Integer getAvailableQuantity() {
         return availableQuantity;
@@ -94,5 +101,13 @@ public abstract class Product extends BaseEntity {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public ProductTypeEnum getType() {
+        return type;
+    }
+
+    public void setType(ProductTypeEnum type) {
+        this.type = type;
     }
 }

@@ -1,37 +1,48 @@
 package com.market.entity.productTypes;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.market.entity.BaseEntity;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
-import java.sql.Date;
-import java.time.LocalDate;
 
 @Entity
-@DiscriminatorValue("cosmetic")
-public class Cosmetic extends Product {
+public class Cosmetic extends BaseEntity {
 
     @Min(0)
     private Double weight;
     @Min(0)
     private Double volume;
 
-    public Cosmetic() {
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    @Cascade(CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Product product;
+
+    public Product getProduct() {
+        return product;
     }
 
-    public Cosmetic(String name,
-                    LocalDate expiredDate,
-                    String description,
-                    Integer availableQuantity,
-                    Double priceBGN,
-                    String imageUrl, Double weight, Double volume) {
-        super(name, expiredDate, description, availableQuantity, priceBGN, imageUrl);
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Cosmetic() {
+
+    }
+
+    public Cosmetic(Double weight, Double volume, Product product) {
         this.weight = weight;
         this.volume = volume;
+        this.product = product;
     }
+
 
     public Double getWeight() {
         return weight;
@@ -39,10 +50,6 @@ public class Cosmetic extends Product {
 
     public void setWeight(Double weight) {
         this.weight = weight;
-    }
-
-    public String getType() {
-        return "cosmetic";
     }
 
     public Double getVolume() {

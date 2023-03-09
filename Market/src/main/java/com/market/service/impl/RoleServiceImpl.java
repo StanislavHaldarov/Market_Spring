@@ -1,4 +1,4 @@
-package com.market.service;
+package com.market.service.impl;
 
 
 import com.market.entity.Role;
@@ -6,6 +6,7 @@ import com.market.entity.RoleNameEnum;
 import com.market.entity.User;
 
 import com.market.repository.RoleRepository;
+import com.market.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
