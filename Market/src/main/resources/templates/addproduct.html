@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="Or​ga​ni​">
     <meta name="description" content="">
-    <title>addproduct</title>
+    <title>Добави продукт</title>
     <link rel="stylesheet" href="/nicepage.css" media="screen">
     <link rel="stylesheet" href="/addproduct.css" media="screen">
     <script class="u-script" type="text/javascript" src="/jquery.js" defer=""></script>
@@ -128,11 +128,11 @@
                         <ul class="u-nav u-unstyled u-nav-3">
                             <li class="u-nav-item"><a
                                     class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                    href="products.html" style="padding: 16px 12px;">Пазарувай</a>
+                                    href="/products/available" style="padding: 16px 12px;">Пазарувай</a>
                             </li>
                             <li class="u-nav-item"><a
                                     class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                    href="products.html" target="_blank" style="padding: 16px 12px;">Управление на
+                                    href="/products/all" target="_blank" style="padding: 16px 12px;">Управление на
                                 продукти</a>
                             </li>
                             <li class="u-nav-item"><a
@@ -152,9 +152,9 @@
                             <div class="u-inner-container-layout u-sidenav-overflow">
                                 <div class="u-menu-close"></div>
                                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4">
-                                    <li class="u-nav-item"><a class="u-button-style u-nav-link" href="products.html">Пазарувай</a>
+                                    <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/products/available">Пазарувай</a>
                                     </li>
-                                    <li class="u-nav-item"><a class="u-button-style u-nav-link" href="products.html"
+                                    <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/products/all"
                                                               target="_blank">Управление на продукти</a>
                                     </li>
                                     <li class="u-nav-item"><a class="u-button-style u-nav-link"
@@ -198,7 +198,7 @@
 <!--  ADD PRODUCT-->
 <section class="u-clearfix u-section-1" id="sec-3a9a">
     <h2>Добавяне на продукт</h2>
-    <form th:action="@{/save}" th:object="${product}" method="POST">
+    <form th:action="@{/products/add}" th:object="${product}" method="POST">
 
         <select onchange="renderFields(this)" id='typeOption' th:field="*{type}" required>
             <option th:value="null"></option>

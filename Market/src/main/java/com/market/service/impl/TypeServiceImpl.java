@@ -1,8 +1,9 @@
-package com.market.service;
+package com.market.service.impl;
 
 import com.market.entity.productTypes.ProductTypeEnum;
 import com.market.entity.productTypes.Type;
 import com.market.repository.TypeRepository;
+import com.market.service.TypeService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

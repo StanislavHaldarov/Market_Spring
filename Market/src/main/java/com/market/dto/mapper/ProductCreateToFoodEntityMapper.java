@@ -2,27 +2,16 @@ package com.market.dto.mapper;
 
 import com.market.dto.ProductCreate;
 import com.market.entity.productTypes.Food;
+import com.market.entity.productTypes.Product;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductCreateToFoodEntityMapper {
 
-    public Food apply(ProductCreate productCreate) {
-        String description = getDescription(productCreate);
+    public Food apply(ProductCreate productCreate, Product product) {
 
-        return new Food(productCreate.getName(),
-                productCreate.getExpiredDate(),
-                description,
-                productCreate.getAvailableQuantity(),
-                productCreate.getPriceBGN(),
-                productCreate.getImageUrl(),
-                productCreate.getWeight()
-        );
-    }
+        return new Food(productCreate.getWeight(), product);
 
-    private static String getDescription(ProductCreate productCreate) {
-        String description = "грамаж: " + productCreate.getWeight() + "кг\n";
-        return description;
     }
 
 

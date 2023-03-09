@@ -2,18 +2,23 @@ package com.market.service;
 
 import com.market.dto.ProductCreate;
 import com.market.entity.productTypes.Product;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 public interface ProductService {
-    public List<Product> findAll();
+    List<Product> findAll();
 
-    void saveProduct(ProductCreate productCreate);
+    List<Product> findAllWithAvailableQuantityMoreThanZero();
 
     Product findProductById(Long id);
 
+    void saveProduct(ProductCreate productCreate);
+
+    void updateProduct(ProductCreate productCreate);
+
     void deleteProductById(Long id);
+
+
 }
 
