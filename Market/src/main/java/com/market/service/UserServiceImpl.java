@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void registerUser(UserServiceModel userServiceModel) {
         User user = modelMapper.map(userServiceModel, User.class);
-        if (userRepository.getUserByEmail(user.getEmail()) == null) {
+        if (userRepository.getUserByUsername(user.getUsername())== null && userRepository.getUserByEmail(user.getEmail()) == null) {
             user.setRole(roleService.findRole(RoleNameEnum.CUSTOMER));
             System.out.println("CUSTOMER");
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -37,7 +37,12 @@ public class UserServiceImpl implements UserService {
 
             userRepository.save(user);
         } else {
-            throw new NotFoundException("Потребител с такъв имейл вече е регистриран!");
+            if(userRepository.getUserByUsername(user.getUsername())!=null) {
+                throw new NotFoundException("Използваното потребителско име вече е заето!");
+            }
+            else{
+                throw new NotFoundException("Потребител с такъв имейл вече е регистриран!");
+            }
         }
     }
 

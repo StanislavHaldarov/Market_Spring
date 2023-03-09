@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="en"><head>
+<html style="font-size: 16px;" lang="en" xmlns:th="http://www.w3.org/1999/xhtml"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta name="keywords" content="INTUITIVE">
     <meta name="description" content="">
     <title>register</title>
-    <link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="register.css" media="screen">
-    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+    <link rel="stylesheet" href="/nicepage.css" media="screen">
+<link rel="stylesheet" href="/register.css" media="screen">
+    <script class="u-script" type="text/javascript" src="/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="/nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
     <meta name="referrer" content="origin">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -43,9 +43,9 @@
                 </a>
               </div>
               <div class="u-custom-menu u-nav-container">
-                <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1" href="#" style="padding: 10px 20px;">Вход</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1" href="register.html" style="padding: 10px 20px;">Регистрация</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1" href="home.html" style="padding: 10px 20px;">Изход</a>
+                <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1" href="/users/login" style="padding: 10px 20px;">Вход</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1" href="/users/register" style="padding: 10px 20px;">Регистрация</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1" href="/home" style="padding: 10px 20px;">Изход</a>
 </li></ul>
               </div>
               <div class="u-custom-menu u-nav-container-collapse">
@@ -53,8 +53,8 @@
                   <div class="u-inner-container-layout u-sidenav-overflow">
                     <div class="u-menu-close"></div>
                     <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="#">Вход</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="register.html">Регистрация</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="home.html">Изход</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/users/register">Регистрация</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/home">Изход</a>
 </li></ul>
                   </div>
                 </div>
@@ -80,10 +80,10 @@
                 </a>
               </div>
               <div class="u-custom-menu u-nav-container">
-                <ul class="u-nav u-unstyled u-nav-3"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3" href="products.html" style="padding: 16px 12px;">Пазарувай</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3" href="products.html" target="_blank" style="padding: 16px 12px;">Управление на продукти</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3" href="usermanagement.html" target="_blank" style="padding: 16px 12px;">Управление на служители</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3" href="ordersmanagement.html" target="_blank" style="padding: 16px 4px 16px 12px;">Управление на поръчки</a>
+                <ul class="u-nav u-unstyled u-nav-3"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3" href="/products" style="padding: 16px 12px;">Пазарувай</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3" href="/productmanagement" target="_blank" style="padding: 16px 12px;">Управление на продукти</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3" href="/user-management.html" target="_blank" style="padding: 16px 12px;">Управление на служители</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3" href="/ordersmanagement.html" target="_blank" style="padding: 16px 4px 16px 12px;">Управление на поръчки</a>
 </li></ul>
               </div>
               <div class="u-custom-menu u-nav-container-collapse">
@@ -91,9 +91,9 @@
                   <div class="u-inner-container-layout u-sidenav-overflow">
                     <div class="u-menu-close"></div>
                     <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="products.html">Пазарувай</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="products.html" target="_blank">Управление на продукти</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="usermanagement.html" target="_blank">Управление на служители</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="ordersmanagement.html" target="_blank">Управление на поръчки</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/product-management" target="_blank">Управление на продукти</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/user-management" target="_blank">Управление на служители</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/orders-management" target="_blank">Управление на поръчки</a>
 </li></ul>
                   </div>
                 </div>
@@ -133,43 +133,57 @@
             <div class="u-align-center u-container-style u-layout-cell u-left-cell u-shape-rectangle u-size-60 u-size-xs-60 u-layout-cell-1" src="">
               <div class="u-container-layout u-valign-bottom u-container-layout-1">
                 <div class="u-form u-form-1">
-                  <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-20 u-form-vertical u-inner-form" source="email" name="form" style="padding: 5px;">
+                  <form th:action="@{/users/register}" th:object="${userRegisterBindingModel}" method="POST" action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-20 u-form-vertical u-inner-form" source="email" name="form" style="padding: 5px;">
                     <div class="u-form-group u-form-name">
                       <label for="name-4cb7" class="u-label">Име</label>
-                      <input type="text" id="name-4cb7" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" placeholder="Въведете име">
+                      <input th:field="*{firstName}" type="text" id="name-4cb7" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required placeholder="Въведете име">
+                        <span th:if = "${#fields.hasErrors('firstName')}" th:errors = "*{firstName}" style = "color:red"></span>
                     </div>
                     <div class="u-form-group u-form-group-2">
                       <label for="text-ed65" class="u-label">Фамилия</label>
-                      <input type="text" placeholder="Въведете фамилия" id="text-ed65" name="text" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
+                      <input th:field="*{lastName}" type="text" placeholder="Въведете фамилия" id="text-ed65" name="text" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required>
+                          <span th:if = "${#fields.hasErrors('lastName')}" th:errors = "*{lastName}" style = "color:red"></span>
                     </div>
                     <div class="u-form-group u-form-group-3">
                       <label for="text-543d" class="u-label">Възраст</label>
-                      <input type="text" placeholder="Въведете възраст" id="text-543d" name="text-2" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
+
+                      <input th:field="*{age}" type="number" placeholder="Въведете възраст" id="text-543d" name="text-2" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required>
+                            <span th:if = "${#fields.hasErrors('age')}" th:errors = "*{age}" style = "color:red"></span>
                     </div>
                     <div class="u-form-group u-form-group-4">
                       <label for="text-4dcb" class="u-label">Потребителско име</label>
-                      <input type="text" placeholder="Въведете потребителско име" id="text-4dcb" name="text-3" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
+                      <input th:field="*{username}" type="text" placeholder="Въведете потребителско име" id="text-4dcb" name="text-3" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required>
+                            <span th:if = "${#fields.hasErrors('username')}" th:errors = "*{username}" ></span>
+                        <div th:if="${errorUsername}" id="errorUsername">
+                            <p th:text="${errorUsername}" style="color: red;"></p></div>
                     </div>
                     <div class="u-form-email u-form-group">
                       <label for="email-4cb7" class="u-label">Email</label>
-                      <input type="email" placeholder="Въведете валиден имейл адрес" id="email-4cb7" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+                      <input th:field="*{email}" type="email" placeholder="Въведете валиден имейл адрес" id="email-4cb7" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required>
+                            <span th:if = "${#fields.hasErrors('email')}" th:errors = "*{email}" ></span>
+                        <div th:if="${errorEmail}" id="errorEmail">
+                            <p th:text="${errorEmail}" style="color: red;"></p></div>
                     </div>
                     <div class="u-form-group u-form-group-6">
                       <label for="text-4ce8" class="u-label">Парола</label>
-                      <input type="text" id="text-4ce8" name="Enter password" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" placeholder="Въведете парола">
+                      <input th:field="*{password}" type="password" id="text-4ce8" name="Enter password" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" placeholder="Въведете парола" required>
+                            <span th:if = "${#fields.hasErrors('password')}" th:errors = "*{password}" style = "color:red"></span>
                     </div>
                     <div class="u-form-group u-form-group-7">
                       <label for="text-6869" class="u-form-control-hidden u-label"></label>
-                      <input type="text" id="text-6869" name="text-1" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" placeholder="Повторете паролата">
+                      <input th:field="*{confirmPassword}" type="password" id="text-6869" name="text-1" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" placeholder="Повторете паролата" required>
+                            <span th:if = "${#fields.hasErrors('confirmPassword')}" th:errors = "*{confirmPassword}" style = "color:red"></span>
                     </div>
                     <div class="u-align-center u-form-group u-form-submit">
+                        <p>
                       <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-custom-color-1 u-radius-3 u-white u-btn-1">Регистрирай ме</a>
                       <input type="submit" value="submit" class="u-form-control-hidden">
+                        </p>
                     </div>
-                    <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
-                    <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
-                    <input type="hidden" value="" name="recaptchaResponse">
-                    <input type="hidden" name="formServices" value="d110bc7a4c914dbb3fce5f4b9a65538a">
+<!--                    <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>-->
+<!--                    <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>-->
+<!--                    <input type="hidden" value="" name="recaptchaResponse">-->
+<!--                    <input type="hidden" name="formServices" value="d110bc7a4c914dbb3fce5f4b9a65538a">-->
                   </form>
                 </div>
               </div>
@@ -192,7 +206,7 @@
       </p>
       <a class="u-link" href="" target="_blank">
         <span>Website Builder Software</span>
-      </a>. 
+      </a>
     </section>
   
 </body></html>

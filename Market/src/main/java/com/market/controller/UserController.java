@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/users")
+        @RequestMapping("/users")
 public class UserController {
     @Autowired
     UserRepository userRepository;
@@ -47,6 +47,7 @@ public class UserController {
     @PostMapping("/login")
     public String loginConfirm(@Valid @ModelAttribute UserLoginBindingModel userLoginBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpSession httpSession)
     {
+
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
@@ -64,7 +65,8 @@ public class UserController {
         }
 
         httpSession.setAttribute("user", user);
-        return "redirect:/index";
+
+        return "redirect:/products";
     }
 
     @GetMapping("/register")
@@ -90,9 +92,14 @@ public class UserController {
             userService.registerUser(userServiceModel);
         }
         catch(NotFoundException e){
-            return new ModelAndView("redirect:register").addObject("error", e.getMessage());
+            if(e.getMessage().toString().equals("Потребител с такъв имейл вече е регистриран!")) {
+                return new ModelAndView("redirect:register").addObject("errorEmail", e.getMessage());
+            }
+            else{
+                return new ModelAndView("redirect:register").addObject("errorUsername", e.getMessage());
+            }
         }
-        return new ModelAndView("redirect:login");
+        return new ModelAndView("redirect:/products");
     }
     
     

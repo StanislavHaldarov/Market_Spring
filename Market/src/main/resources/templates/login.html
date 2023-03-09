@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="en"><head>
+<html style="font-size: 16px;" lang="en" xmlns:th="http://www.w3.org/1999/xhtml"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta name="keywords" content="INTUITIVE">
     <meta name="description" content="">
     <title>login</title>
-    <link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="../../../../../../../../../Users/Acer/Documents/Nicepage%20Templates/FINAL/login.css" media="screen">
-    <script class="u-script" type="text/javascript" src="../../../../../../../../../Users/Acer/Documents/Nicepage%20Templates/FINAL/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="../../../../../../../../../Users/Acer/Documents/Nicepage%20Templates/FINAL/nicepage.js" defer=""></script>
+    <link rel="stylesheet" href="/nicepage.css" media="screen">
+<link rel="stylesheet" href="/login.css" media="screen">
+    <script class="u-script" type="text/javascript" src="/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="/nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
     <meta name="referrer" content="origin">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
@@ -44,8 +44,8 @@
               </div>
               <div class="u-custom-menu u-nav-container">
                 <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1" href="#" style="padding: 10px 20px;">Вход</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1" href="register.html" style="padding: 10px 20px;">Регистрация</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1" href="home.html" style="padding: 10px 20px;">Изход</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1" href="/users/register" style="padding: 10px 20px;">Регистрация</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1" href="/products" style="padding: 10px 20px;">Изход</a>
 </li></ul>
               </div>
               <div class="u-custom-menu u-nav-container-collapse">
@@ -135,23 +135,25 @@
                 <div class="u-container-layout u-container-layout-1">
                   <h1 class="u-text u-text-white u-text-1">ВХ​​ОД</h1>
                   <div class="u-form u-form-1">
-                    <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-50 u-form-vertical u-inner-form" source="email" name="form" style="padding: 50px;">
+                    <form source="email" th:action="@{/users/login}" method="POST" th:object="${userLoginBindingModel}"  class="u-clearfix u-form-spacing-50 u-form-vertical u-inner-form"  name="form" style="padding: 50px;">
                       <div class="u-form-email u-form-group u-label-none">
-                        <label for="email-4cb7" class="u-label">Email</label>
-                        <input type="email" placeholder="Въведете валиден имейл адрес" id="email-4cb7" name="email" class="u-input u-input-rectangle u-white u-input-1" required="">
+                        <label for="email-4cb7" class="u-label">Потребителско име</label>
+                        <input type="text" th:field="*{username}" placeholder="Въведете валидно потребителско име" id="email-4cb7" name="email" class="u-input u-input-rectangle u-white u-input-1" required>
+
                       </div>
                       <div class="u-form-group u-label-none u-form-group-2">
                         <label for="text-4ce8" class="u-label">Парола</label>
-                        <input type="text" id="text-4ce8" name="Enter password" class="u-input u-input-rectangle u-white u-input-2" placeholder="Въведете парола">
+                        <input th:field="*{password}" type="password" id="text-4ce8" name="Enter password" class="u-input u-input-rectangle u-white u-input-2" placeholder="Въведете парола" required>
                       </div>
                       <div class="u-align-center u-form-group u-form-submit u-label-none">
-                        <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-custom-color-1 u-radius-3 u-white u-btn-1">ВХОД</a>
-                        <input type="submit" value="submit" class="u-form-control-hidden">
+                          <button type="submit" class="btn btn-default">ВХОД</button>
+<!--                        <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-custom-color-1 u-radius-3 u-white u-btn-1">ВХОД</a>-->
+<!--                        <input type="submit" value="submit" class="u-form-control-hidden">-->
                       </div>
-                      <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
-                      <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
-                      <input type="hidden" value="" name="recaptchaResponse">
-                      <input type="hidden" name="formServices" value="d110bc7a4c914dbb3fce5f4b9a65538a">
+<!--                      <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>-->
+<!--                      <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>-->
+<!--                      <input type="hidden" value="" name="recaptchaResponse">-->
+<!--                      <input type="hidden" name="formServices" value="d110bc7a4c914dbb3fce5f4b9a65538a">-->
                     </form>
                   </div>
                 </div>
@@ -175,7 +177,7 @@
       </p>
       <a class="u-link" href="https://nicepage.com/wysiwyg-html-editor" target="_blank">
         <span>Free HTML editor</span>
-      </a>. 
+      </a>
     </section>
   
 </body></html>

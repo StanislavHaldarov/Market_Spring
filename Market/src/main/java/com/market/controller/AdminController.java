@@ -23,27 +23,27 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/user-manager")
+    @GetMapping("/user-management")
     public String getAllUsers(Model model) {
         Iterable<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         Iterable<Role> roles = roleService.getAllRoles();
         model.addAttribute("roles", roles);
-        return "user-manager";
+        return "user-management";
     }
     @PostMapping("/update")
     public String updateRole(@ModelAttribute User user, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
         {
-            return "redirect:user-manager";
+            return "redirect:user-management";
         }
         userService.updateUserRole(user);
-        return "redirect:user-manager";
+        return "redirect:user-management";
     }
     @PostMapping("/delete/{userId}")
     public ModelAndView deleteResort(@PathVariable(name = "userId") Long userId) {
         userService.deleteUser(userId);
-        return new ModelAndView("redirect:/admin/user-manager");
+        return new ModelAndView("redirect:/admin/user-management");
     }
 
 }
