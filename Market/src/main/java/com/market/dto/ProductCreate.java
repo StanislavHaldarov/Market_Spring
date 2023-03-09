@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -14,7 +15,7 @@ public class ProductCreate {
     @NotNull
     private String type;
     @Length(min = 3)
-    @NotNull
+    @NotBlank
     private String name;
     @NotNull
     @Min(0)
@@ -23,6 +24,7 @@ public class ProductCreate {
     @NotNull
     private Double priceBGN;
     @NotNull
+    @NotBlank
     private String imageUrl;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
