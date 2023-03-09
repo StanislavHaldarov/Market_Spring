@@ -5,7 +5,6 @@ import com.market.dto.mapper.ProductToProductCreateMapper;
 import com.market.entity.productTypes.Product;
 import com.market.entity.productTypes.ProductTypeEnum;
 import com.market.service.ProductService;
-import com.market.service.TypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,7 +73,7 @@ public class ProductController {
         return new ModelAndView("redirect:/products/available");
     }
 
-//    UPDATE PRODUCT
+    //    UPDATE PRODUCT
     @GetMapping("/update/{id}")
     public String updateProduct(@PathVariable Long id, Model model) {
         try {
@@ -89,9 +88,11 @@ public class ProductController {
 
     @PostMapping("/update")
     public ModelAndView updateProduct(@Valid ProductCreate productCreate,
-                                      BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return new ModelAndView("productmanagement");
+                                      BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("productmanagement").
+                    addObject("product", productCreate).
+                    addObject("org.springframework.validation.BindingResult.product", bindingResult);
         }
         productService.updateProduct(productCreate);
         return new ModelAndView("redirect:/products/available");
