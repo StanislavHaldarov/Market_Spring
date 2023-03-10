@@ -45,23 +45,22 @@ public class UserController {
         }
         return "login";}
     @PostMapping("/login")
-    public String loginConfirm(@Valid @ModelAttribute UserLoginBindingModel userLoginBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpSession httpSession)
+    public String loginConfirm(@Valid @ModelAttribute UserLoginBindingModel userLoginBindingModel,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes,
+                               HttpSession httpSession)
     {
 
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
-            return "redirect:login";
+            return "redirect:/users/login";
         }
         User user = userService.findUserByUsername(userLoginBindingModel.getUsername(),userLoginBindingModel.getPassword());
 
-        if(user==null)
-        {
+        if(user==null) {
             redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
-
-
             return "redirect:login";
-
         }
 
         httpSession.setAttribute("user", user);
@@ -78,13 +77,13 @@ public class UserController {
         return "register";
     }
     @PostMapping("/register")
-    public ModelAndView registerConfirm(@Valid @ModelAttribute UserRegisterBindingModel userRegisterBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model ){
+    public ModelAndView registerConfirm(@Valid @ModelAttribute UserRegisterBindingModel userRegisterBindingModel,
+                                        BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
-        if(bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword()))
-        {
+        if(bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
-            return new ModelAndView("redirect:register");
+            return new ModelAndView("redirect:/users/register");
         }
 
         try {
@@ -92,17 +91,17 @@ public class UserController {
             userService.registerUser(userServiceModel);
         }
         catch(NotFoundException e){
-            if(e.getMessage().toString().equals("Потребител с такъв имейл вече е регистриран!")) {
-                return new ModelAndView("redirect:register").addObject("errorEmail", e.getMessage());
+            if(e.getMessage().equals("Потребител с такъв имейл вече е регистриран!")) {
+                return new ModelAndView("redirect:/users/register").addObject("errorEmail", e.getMessage());
             }
             else{
-                return new ModelAndView("redirect:register").addObject("errorUsername", e.getMessage());
+                return new ModelAndView("redirect:/users/register").addObject("errorUsername", e.getMessage());
             }
         }
-        return new ModelAndView("redirect:/products");
+        return new ModelAndView("redirect:/products/all");
     }
-    
-    
+
+
 
 //    @GetMapping("/register")
 //    public String showRegistrationForm(Model model) {

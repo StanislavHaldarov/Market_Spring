@@ -8,9 +8,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 public class UserRegisterBindingModel {
-    @Length(min=2,message = "Username length must be at least 3 characters long!")
+    @Length(min = 2, message = "Username length must be at least 3 characters long!")
     private String username;
-    @Length(min=3,message = "Password length must be at least 3 characters long!")
+    @Length(min = 3, message = "Password length must be at least 3 characters long!")
     private String password;
     private String confirmPassword;
     private String firstName;
@@ -20,8 +20,8 @@ public class UserRegisterBindingModel {
     @Min(0)
     @Max(99)
     private Integer age;
-    public UserRegisterBindingModel()
-    {
+
+    public UserRegisterBindingModel() {
 
     }
 

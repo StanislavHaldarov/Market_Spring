@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .mvcMatchers("/admin/user-management")
                 .hasAnyAuthority("ADMIN")
-                .mvcMatchers("/save", "/productmanagement")
+                .mvcMatchers("/products/add", "/products/all", "/productmanagement")
                 .hasAnyAuthority("EMPLOYEE", "ADMIN")
 
                 .anyRequest().permitAll().and()
