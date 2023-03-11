@@ -1,15 +1,17 @@
 package com.market.controller;
 
+import com.market.entity.Role;
+import com.market.entity.RoleNameEnum;
 import com.market.entity.User;
 import com.market.entity.binding.UserLoginBindingModel;
 import com.market.entity.binding.UserRegisterBindingModel;
-import com.market.repository.UserRepository;
 import com.market.service.UserService;
 import com.market.service.UserServiceModel;
-import com.market.utility.exception.NotFoundException;
+import com.market.utility.exception.EmailAlreadyExistsException;
+import com.market.utility.exception.PasswordVerificationException;
+import com.market.utility.exception.UsernameAlreadyExistsException;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,16 +20,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
-        @RequestMapping("/users")
+@RequestMapping("/users")
 public class UserController {
-    @Autowired
-    UserRepository userRepository;
+
 
     private final UserService userService;
     private final ModelMapper modelMapper;
@@ -39,68 +39,75 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        if(!model.containsAttribute("userLoginBindingModel")){
-            model.addAttribute("userLoginBindingModel", new UserLoginBindingModel());
+        model.addAttribute("userLoginBindingModel", new UserLoginBindingModel());
+        return "login";
+    }
 
-        }
-        return "login";}
     @PostMapping("/login")
-    public String loginConfirm(@Valid @ModelAttribute UserLoginBindingModel userLoginBindingModel,
-                               BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes,
-                               HttpSession httpSession)
-    {
-
-        if(bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
-            return "redirect:/users/login";
+    public ModelAndView loginConfirm(@Valid @ModelAttribute UserLoginBindingModel userLoginBindingModel,
+                                     BindingResult bindingResult,
+                                     HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView("login");
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("userLoginBindingModel", userLoginBindingModel);
+            modelAndView.addObject("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
+            return modelAndView;
         }
-        User user = userService.findUserByUsername(userLoginBindingModel.getUsername(),userLoginBindingModel.getPassword());
+        try {
+            User user = userService.findUserByUsernameAndPassword(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
+            httpSession.setAttribute("user", user);
+        }
+        catch (Exception e) {
 
-        if(user==null) {
-            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
-            return "redirect:login";
+            if (e instanceof UsernameNotFoundException) {
+                modelAndView.addObject("errorUsername", e.getMessage());
+            }
+            if (e instanceof PasswordVerificationException) {
+                modelAndView.addObject("errorPassword", e.getMessage());
+            }
+            modelAndView.addObject("userLoginBindingModel", userLoginBindingModel);
+            return modelAndView;
         }
 
-        httpSession.setAttribute("user", user);
-
-        return "redirect:/products";
+        return new ModelAndView("/products/all");
     }
 
     @GetMapping("/register")
-    public String register(Model model, @ModelAttribute("error") String error){
-        if(!model.containsAttribute("userRegisterBindingModel")){
-            model.addAttribute("userRegisterBindingModel", new UserRegisterBindingModel());
-        }
-        model.addAttribute("error", error);
+    public String register(Model model) {
+        model.addAttribute("userRegisterBindingModel", new UserRegisterBindingModel());
         return "register";
     }
+
     @PostMapping("/register")
     public ModelAndView registerConfirm(@Valid @ModelAttribute UserRegisterBindingModel userRegisterBindingModel,
-                                        BindingResult bindingResult, RedirectAttributes redirectAttributes){
-
-        if(bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
-            redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
-            return new ModelAndView("redirect:/users/register");
+                                        BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView("register");
+        if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
+            if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
+                modelAndView.addObject("errorMsg", "Паролите не съвпадат!");
+            }
+            modelAndView.addObject("userRegisterBindingModel", userRegisterBindingModel);
+            modelAndView.addObject("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
+            return modelAndView;
         }
-
         try {
-            UserServiceModel userServiceModel = modelMapper.map(userRegisterBindingModel,UserServiceModel.class);
+            UserServiceModel userServiceModel = modelMapper.map(userRegisterBindingModel, UserServiceModel.class);
+            userServiceModel.setRole(new Role(RoleNameEnum.CUSTOMER));
             userService.registerUser(userServiceModel);
-        }
-        catch(NotFoundException e){
-            if(e.getMessage().equals("Потребител с такъв имейл вече е регистриран!")) {
-                return new ModelAndView("redirect:/users/register").addObject("errorEmail", e.getMessage());
-            }
-            else{
-                return new ModelAndView("redirect:/users/register").addObject("errorUsername", e.getMessage());
-            }
-        }
-        return new ModelAndView("redirect:/products/all");
-    }
+        } catch (Exception e) {
 
+            if (e instanceof UsernameAlreadyExistsException) {
+                modelAndView.addObject("errorUsername", e.getMessage());
+            }
+            if (e instanceof EmailAlreadyExistsException) {
+                modelAndView.addObject("errorEmail", e.getMessage());
+            }
+            modelAndView.addObject("userRegisterBindingModel", userRegisterBindingModel);
+            return modelAndView;
+
+        }
+        return new ModelAndView("/products/all");
+    }
 
 
 //    @GetMapping("/register")

@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserService {
     void registerUser(UserServiceModel userServiceModel);
 
-    User findUserByUsername(String username, String password);
+    User findUserByUsernameAndPassword(String username, String password);
     List<User> getAllUsers();
 
     void updateUserRole(User user);
