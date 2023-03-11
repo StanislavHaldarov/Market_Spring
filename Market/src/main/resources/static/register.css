@@ -111,3 +111,41 @@
     margin-top: 42px;
   }
 }
+.error-message {
+  background-color: #ffc0cb; /* mild pink color */
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid red;
+  text-align: center;
+  font-size: 75%;
+  font-weight: bold;
+  font-size-adjust: 0.58;
+  color: red; /* text color is red */
+}
+
+.register-button {
+  background-color: #ABB454;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid #ABB454;
+  color: white;
+  transition-duration: 0.4s;
+}
+.register-button:hover {
+  background-color: white; /* Green */
+  color: #ABB454;
+}
+
+.outlined-text1 {
+        text-shadow: 0 0 1px olive, 0 0 2px olive, 0 0 3px olive, 0 0 4px olive, 0 0 5px olive;
+        font-weight: bold;
+        font-size: 750%;
+        font-size-adjust: 0.58;
+
+    }
+
+.outlined-text2 {
+            text-shadow: 0 0 1px olive, 0 0 2px olive, 0 0 3px olive, 0 0 4px olive, 0 0 5px olive;
+            font-size-adjust: 0.58;
+            font-weight: bold;
+        }

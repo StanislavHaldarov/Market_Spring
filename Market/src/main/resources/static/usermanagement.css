@@ -1,3 +1,14 @@
 .u-section-1 .u-sheet-1 {
   min-height: 400px;
 }
+.delete-button {
+  background-color: #ffc0cb; /* mild pink color */
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid red;
+  text-align: center;
+  font-size: 75%;
+  font-weight: bold;
+  font-size-adjust: 0.58;
+  color: red; /* text color is red */
+}

@@ -3,8 +3,11 @@ package com.market.service;
 import com.market.entity.RoleNameEnum;
 import com.market.entity.User;
 import com.market.repository.UserRepository;
-import com.market.utility.exception.NotFoundException;
+import com.market.utility.exception.EmailAlreadyExistsException;
+import com.market.utility.exception.PasswordVerificationException;
+import com.market.utility.exception.UsernameAlreadyExistsException;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,34 +30,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public void registerUser(UserServiceModel userServiceModel) {
         User user = modelMapper.map(userServiceModel, User.class);
-        if (userRepository.getUserByUsername(user.getUsername())== null && userRepository.getUserByEmail(user.getEmail()) == null) {
-            user.setRole(roleService.findRole(RoleNameEnum.CUSTOMER));
-            System.out.println("CUSTOMER");
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(user.getPassword());
-            user.setEnabled(true);
-            user.setPassword(encodedPassword);
-
-            userRepository.save(user);
-        } else {
-            if(userRepository.getUserByUsername(user.getUsername())!=null) {
-                throw new NotFoundException("Използваното потребителско име вече е заето!");
-            }
-            else{
-                throw new NotFoundException("Потребител с такъв имейл вече е регистриран!");
-            }
+        if (userRepository.getUserByUsername(user.getUsername()) != null) {
+            throw new UsernameAlreadyExistsException("Използваното потребителско име вече е заето!");
         }
+        if (userRepository.getUserByEmail(user.getEmail()) != null) {
+            throw new EmailAlreadyExistsException("Потребител с такъв имейл вече е регистриран!");
+        }
+        user.setRole(roleService.findRole(userServiceModel.getRole().getName()));
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+
+        user.setEnabled(true);
+        user.setPassword(encodedPassword);
+
+        userRepository.save(user);
+
     }
 
     @Override
-    public User findUserByUsername(String username, String password) {
-        User user = new User();
+    public User findUserByUsernameAndPassword(String username, String password) {
+        User user;
         user = userRepository.getUserByUsername(username);
+        if(user==null){
+            throw new UsernameNotFoundException("Невалидно потребителско име!");
+        }
         if (verifyPassword(password, user.getPassword())) {
             return user;
         }
-        return null;
-
+        throw new PasswordVerificationException("Неправилна парола!");
     }
 
     @Override

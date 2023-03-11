@@ -16,7 +16,9 @@ public class MyUserDetails implements UserDetails {
         this.user = user;
     }
 
-
+    public String getEmail() {
+        return this.user.getEmail();
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getName().toString());

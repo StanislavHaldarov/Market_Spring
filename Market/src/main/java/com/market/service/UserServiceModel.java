@@ -16,6 +16,7 @@ public class UserServiceModel {
     public UserServiceModel() {
     }
 
+
     public Long getId() {
         return id;
     }

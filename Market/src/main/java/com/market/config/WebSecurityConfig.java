@@ -8,9 +8,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -42,18 +49,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomAuthenticationSuccessHandler();
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .mvcMatchers("/admin/user-management")
                 .hasAnyAuthority("ADMIN")
-                .mvcMatchers("/products/add", "/products/all", "/productmanagement")
+                .mvcMatchers("/products/add", "/products/all","/products/update","/productmanagement")
                 .hasAnyAuthority("EMPLOYEE", "ADMIN")
-
+                .mvcMatchers("/users/register","/users/login").anonymous()
                 .anyRequest().permitAll().and()
                 .formLogin().loginPage("/users/login").permitAll()
+                .successHandler(successHandler()).permitAll()
                 .and()
-                .logout().permitAll();
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/products/available")
+                .permitAll()
+                .logoutSuccessHandler(new LogoutSuccessHandler() {
+
+                    @Override
+                    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
+                                                Authentication authentication)
+                            throws IOException, ServletException {
+
+
+                        response.sendRedirect("/products/available");
+                    }
+                });
     }
 }

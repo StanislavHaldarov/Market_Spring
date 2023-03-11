@@ -8,17 +8,19 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 public class UserRegisterBindingModel {
-    @Length(min = 2, message = "Username length must be at least 3 characters long!")
+    @Length(min = 2, message = "Потребителското име трябва да съдъража поне 2 или повече символа!")
     private String username;
-    @Length(min = 3, message = "Password length must be at least 3 characters long!")
+    @Length(min = 3, message = "Паролата трябва да съдържа поне 3 или повече символа!")
     private String password;
     private String confirmPassword;
+    @Length(max=50, message = "Името може да съдържа максимум 50 символа!")
     private String firstName;
+    @Length(max=50, message = "Фамилията може да съдържа максимум 50 символа!")
     private String lastName;
-    @Email(message = "Please enter valid email!")
+    @Email(message = "Моля въведете валиден имейл, който включва \"@\"!")
     private String email;
-    @Min(0)
-    @Max(99)
+    @Min(value = 0, message = "Допостими са стойности между 0 и 99!")
+    @Max(value = 99, message = "Допостими са стойности между 0 и 99!")
     private Integer age;
 
     public UserRegisterBindingModel() {
