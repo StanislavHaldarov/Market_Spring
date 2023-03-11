@@ -109,26 +109,4 @@ public class UserController {
         return new ModelAndView("/products/all");
     }
 
-
-//    @GetMapping("/register")
-//    public String showRegistrationForm(Model model) {
-//        model.addAttribute("user", new User());
-//        return "/register";
-//    }
-//    @PostMapping("/process_register")
-//    public ModelAndView processRegister(@Valid User user, BindingResult bindingResult) {
-//        if(bindingResult.hasErrors()){
-//            return new ModelAndView("/register");
-//        } else{
-//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//            String encodedPassword = passwordEncoder.encode(user.getPassword());
-//            user.setEnabled(true);
-//            user.setPassword(encodedPassword);
-//            Role role = new Role();
-//            role.setName(RoleNameEnum.CUSTOMER);
-//            user.setRole(role);
-//            userRepository.save(user);
-//            return new ModelAndView("redirect:/login");
-//        }
-//    }
 }
