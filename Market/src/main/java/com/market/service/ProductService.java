@@ -1,7 +1,9 @@
 package com.market.service;
 
 import com.market.dto.ProductCreate;
+import com.market.entity.Filter;
 import com.market.entity.productTypes.Product;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
@@ -20,5 +22,6 @@ public interface ProductService {
     void deleteProductById(Long id);
 
 
+    List<Product> findAllWithSpecification(Filter filter);
 }
 
