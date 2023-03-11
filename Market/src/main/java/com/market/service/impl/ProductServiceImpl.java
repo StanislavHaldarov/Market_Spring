@@ -1,10 +1,12 @@
 package com.market.service.impl;
 
 import com.market.dto.ProductCreate;
+import com.market.entity.Filter;
 import com.market.entity.productTypes.Product;
 import com.market.repository.ProductRepository;
 import com.market.service.*;
 import com.market.utility.exception.NotFoundException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,23 +19,26 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
     private final DrinkService drinkService;
     private final CosmeticService cosmeticService;
     private final SanitaryService sanitaryService;
+    private final SpecificationProductFilter specificationProductFilter;
 
     public ProductServiceImpl(ProductRepository productRepository,
                               FoodService foodService,
                               DrinkService drinkService,
                               CosmeticService cosmeticService,
-                              SanitaryService sanitaryService) {
+                              SanitaryService sanitaryService, SpecificationProductFilter specificationProductFilter) {
         this.productRepository = productRepository;
         this.foodService = foodService;
         this.drinkService = drinkService;
         this.cosmeticService = cosmeticService;
         this.sanitaryService = sanitaryService;
 
+        this.specificationProductFilter = specificationProductFilter;
     }
 
 
     @Override
     public List<Product> findAll() {
+
         return productRepository.findAll();
     }
 
@@ -64,6 +69,11 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
     @Override
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Product> findAllWithSpecification(Filter filter) {
+        return productRepository.findAll(specificationProductFilter.filter(filter));
     }
 
     @Override

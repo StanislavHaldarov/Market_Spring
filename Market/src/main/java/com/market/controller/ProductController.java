@@ -2,9 +2,11 @@ package com.market.controller;
 
 import com.market.dto.ProductCreate;
 import com.market.dto.mapper.ProductToProductCreateMapper;
+import com.market.entity.Filter;
 import com.market.entity.productTypes.Product;
 import com.market.entity.productTypes.ProductTypeEnum;
 import com.market.service.ProductService;
+import com.market.service.SpecificationProductFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,29 +15,42 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final ProductToProductCreateMapper productCreateMapper;
+    private final SpecificationProductFilter specificationProductFilter;
 
 
-    public ProductController(ProductService productService, ProductToProductCreateMapper productCreateMapper) {
+    public ProductController(ProductService productService, ProductToProductCreateMapper productCreateMapper, SpecificationProductFilter specificationProductFilter) {
         this.productService = productService;
         this.productCreateMapper = productCreateMapper;
+        this.specificationProductFilter = specificationProductFilter;
     }
 
     // All Products
     @GetMapping("/all")
     public String getAll(Model model) {
+        model.addAttribute("filter",new Filter());
         model.addAttribute("products", productService.findAll());
         return "products";
     }
 
+//    Products with Specification
+    @GetMapping("/all/specification")
+    public String getAllWithSpecification(Model model, Filter filter) {
+        model.addAttribute("filter",filter);
+        List<Product> all = productService.findAllWithSpecification(filter);
+        model.addAttribute("products", productService.findAllWithSpecification(filter));
+        return "products";
+    }
     // All Available Products
     @GetMapping("/available")
     public String getAllAvailable(Model model) {
+        model.addAttribute("filter",new Filter());
         model.addAttribute("products", productService.findAllWithAvailableQuantityMoreThanZero());
         return "products";
     }
