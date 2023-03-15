@@ -9,6 +9,8 @@ import com.market.service.user.UserServiceModel;
 import com.market.utility.exception.EmailAlreadyExistsException;
 import com.market.utility.exception.UsernameAlreadyExistsException;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +54,17 @@ public class UserServiceImpl implements UserService {
     public User findUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
     }
+
+    @Override
+    public User findAuthenticatedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth.isAuthenticated()){
+            return userRepository.getUserByUsername(auth.getName());
+        } else {
+            return  null;
+        }
+    }
+
 
 
     @Override
