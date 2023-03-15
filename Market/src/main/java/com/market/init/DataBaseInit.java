@@ -16,14 +16,12 @@ public class DataBaseInit implements CommandLineRunner {
 
     public DataBaseInit(RoleRepository roleRepository, UserRepository userRepository) {
         this.roleRepository = roleRepository;
-
         this.userRepository = userRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
         this.initRoles();
-//        this.initTypes();
         this.createAdmin();
     }
 
@@ -37,13 +35,6 @@ public class DataBaseInit implements CommandLineRunner {
     }
 
 
-    //    private void initTypes() {
-//        for (ProductTypeEnum t : ProductTypeEnum.values()) {
-//            if (typeRepository.findTypeByName(t) == null) {
-//                typeRepository.save(new Type(t));
-//            }
-//        }
-//    }
     private void createAdmin() {
         if (userRepository.getUserByUsername("Admin") == null) {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -53,7 +44,7 @@ public class DataBaseInit implements CommandLineRunner {
                     "Admin",
                     "Adminov",
                     "admin@admin.com",
-                    50,
+                    50, null, null,
                     true);
             String encodedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);

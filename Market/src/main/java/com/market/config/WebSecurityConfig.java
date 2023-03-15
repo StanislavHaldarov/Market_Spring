@@ -52,13 +52,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .mvcMatchers("/admin/user-management")
-                .hasAnyAuthority("ADMIN")
-                .mvcMatchers("/products/add", "/products/all","/products/update","/products/update/{id}")
-                .hasAnyAuthority("EMPLOYEE", "ADMIN")
+                .mvcMatchers("/admin/user-management", "/admin/update","/admin/delete/*")
+                .hasAnyAuthority("ADMIN") //Само администраторът има достъп до всеки потребител
+                .mvcMatchers("/job/hire/*", "/job/reject/*", "/job/update-salary/*","/job/fire/*" ,"/job/job-applications-management","/job/employee-management")
+                .hasAnyAuthority("MANAGER","ADMIN")
+                //Само мениджър или админ могат да назначават,отвхърлят кандидатури,
+                //да променят заплати или да уволняват служители
+                .mvcMatchers("/job/apply")
+                .hasAnyAuthority("CUSTOMER") //Само клиентските акаунти могат да попълват кандидатури за работа
+                .mvcMatchers("/products/add", "/products/all","/products/update","/products/update/*","/products/delete/*")
+                .hasAnyAuthority("EMPLOYEE", "MANAGER","ADMIN")
                 .mvcMatchers("/users/register","/users/login").anonymous()
                 .anyRequest().permitAll().and()
-                .formLogin().loginPage("/users/login").permitAll()
+                .formLogin().loginPage("/users/login").failureForwardUrl("/users/login").permitAll()
                 .successHandler(successHandler()).permitAll()
                 .and()
                 .logout()

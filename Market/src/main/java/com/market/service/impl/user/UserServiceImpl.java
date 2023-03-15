@@ -1,17 +1,16 @@
 package com.market.service.impl.user;
 
+import com.market.utility.enums.RoleNameEnum;
 import com.market.entity.User;
 import com.market.repository.UserRepository;
 import com.market.service.user.RoleService;
 import com.market.service.user.UserService;
 import com.market.service.user.UserServiceModel;
 import com.market.utility.exception.EmailAlreadyExistsException;
-import com.market.utility.exception.PasswordVerificationException;
 import com.market.utility.exception.UsernameAlreadyExistsException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -57,16 +56,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByUsernameAndPassword(String username, String password) {
-        User user;
-        user = userRepository.getUserByUsername(username);
-        if(user==null){
-            throw new UsernameNotFoundException("Невалидно потребителско име!");
+    public User findAuthenticatedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth.isAuthenticated()){
+            return userRepository.getUserByUsername(auth.getName());
+        } else {
+            return  null;
         }
-        if (verifyPassword(password, user.getPassword())) {
-            return user;
-        }
-        throw new PasswordVerificationException("Неправилна парола!");
+    }
+
+
+
+    @Override
+    public UserServiceModel findUserByUsernameAndPassword(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password)
+                .map(user -> modelMapper.map(user, UserServiceModel.class))
+                .orElse(null);
     }
 
     @Override
@@ -76,6 +81,16 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         return allUsers;
+    }
+
+    @Override
+    public List<User> getAllEmployees() {
+        List<User> allEmployees = userRepository.findAll();
+        allEmployees.removeIf(user -> user.getRole().getName() != RoleNameEnum.EMPLOYEE);
+        if (allEmployees.isEmpty()) {
+            return null;
+        }
+        return allEmployees;
     }
 
     @Override
@@ -96,17 +111,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findAuthenticatedUser() {
-         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-         if(auth.isAuthenticated()){
-             return userRepository.getUserByUsername(auth.getName());
-         } else {
-             return  null;
-         }
+    public void updateSalaryById(Long id, Double salary) {
+        Optional<User> existingEmployee = userRepository.findById(id);
+        if (existingEmployee.isPresent()) {
+            User employee = existingEmployee.get();
+            employee.setSalary(salary);
+            userRepository.save(employee);
+        }
+
     }
 
-    private boolean verifyPassword(String givenPassword, String hashedPassword) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.matches(givenPassword, hashedPassword);
+    @Override
+    public void fireEmployeeById(Long id) {
+        Optional<User> existingEmployee = userRepository.findById(id);
+        if (existingEmployee.isPresent()) {
+            User employee = existingEmployee.get();
+            employee.setRole(roleService.findRole(RoleNameEnum.CUSTOMER));
+            employee.setSalary(null);
+            userRepository.save(employee);
+        }
+
     }
 }

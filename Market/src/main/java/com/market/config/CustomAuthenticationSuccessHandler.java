@@ -1,4 +1,5 @@
 package com.market.config;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -18,11 +19,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             if (authority.getAuthority().equals("CUSTOMER")) {
                 response.sendRedirect("/products/available");
                 return;
+            } else if (authority.getAuthority().equals("MANAGER")) {
+                response.sendRedirect("/job/employee-management");
+                return;
             } else if (authority.getAuthority().equals("EMPLOYEE")) {
                 response.sendRedirect("/products/all");
                 return;
-            }
-            else if (authority.getAuthority().equals("ADMIN")) {
+            } else if (authority.getAuthority().equals("ADMIN")) {
                 response.sendRedirect("/admin/user-management");
                 return;
             }

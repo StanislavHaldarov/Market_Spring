@@ -37,38 +37,31 @@
                     <div class="u-align-center u-container-style u-layout-cell u-size-60 u-layout-cell-1">
                         <div class="u-container-layout u-container-layout-1">
                             <div class="u-form u-form-1">
-                                <form th:action="@{/users/login}" method="POST" th:object="${userLoginBindingModel}"
-                                      name="form" style="padding-top: 0px;">
-                                    <h1 align="center" class="outlined-text1">ВХОД</h1>
+                                <form th:action="@{/job/apply}" th:object="${jobApplicationBindingModel}"
+                                      method="POST" name="form" style="padding-top: 0px;">
+                                    <h1 align="center" class="outlined-text1">ФОРМУЛЯР</h1>
                                     <div class="u-form-email u-form-group u-label-none">
-                                        <label for="email-4cb7" class="outlined-text2">Потребителско име</label>
-                                        <input type="text" th:field="*{username}"
-                                               placeholder="Въведете валидно потребителско име"
-                                               id="email-4cb7" name="email"
-                                               class="u-input u-input-rectangle u-white u-input-1"
-                                               required>
-                                        <p>
-                              <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
-                                    class="error-message"></span>
-                                        </p>
-                                    </div>
+                                        <label for="email-4cb7" class="outlined-text2">Описание</label>
+                                        <textarea rows="4" cols="50" th:field="*{description}" type="text" id="email-4cb7"
+                                                  name="email"
+                                                  class="u-input u-input-rectangle u-white u-input-1"
+                                                  required
+                                                  placeholder="Направете кратко описание за себе си(CV) в рамките на 100-200 думи!"></textarea><p>
+                                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                                          class="error-message"></span>
+                                        </p></div>
                                     <div class="u-form-group u-label-none u-form-group-2">
-                                        <label for="text-4ce8" class="outlined-text2">Парола</label>
-                                        <input th:field="*{password}" type="password" id="text-4ce8"
-                                               name="Enter password"
+                                        <label for="text-4ce8" class="outlined-text2">Телефон за обратна връзка</label>
+                                        <input th:field="*{phoneNumber}" type="text"
+                                               placeholder="Въведете телефонния си номер"
+                                               id="text-4ce8" name="Enter password"
                                                class="u-input u-input-rectangle u-white u-input-2"
-                                               placeholder="Въведете парола" required>
-                                        <p>
-                              <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                                    class="error-message"></span>
-                                        </p>
-                                    </div>
-                                    <div th:if="${userNotFound}" >
-                                        <p th:text="${userNotFound}" class="error-message"></p>
+                                               required><p><span th:if="${#fields.hasErrors('phoneNumber')}"
+                                                                 th:errors="*{phoneNumber}" class="error-message"></span></p>
                                     </div>
                                     <div>
                                         <p>
-                                            <button type=submit value="submit" class="login-button">ВХОД
+                                            <button type=submit value="submit" class="login-button">Кандидатствай
                                             </button>
                                         </p>
                                     </div>

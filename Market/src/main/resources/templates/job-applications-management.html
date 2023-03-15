@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="Organi">
     <meta name="description" content="">
-    <title>usermanagement</title>
+    <title>job application management</title>
     <link rel="stylesheet" href="/nicepage.css" media="screen">
     <link rel="stylesheet" href="/usermanagement.css" media="screen">
     <script class="u-script" type="text/javascript" src="/jquery.js" defer=""></script>
@@ -36,45 +36,42 @@
 <section class="u-clearfix u-section-1" id="sec-29b2">
     <div class="u-clearfix u-sheet u-sheet-1">
         <div class="fr">
-            <table class="table table-bordered">
+            <table class="table table-bordered" style="table-layout: fixed; width: 100%">
                 <thead>
                 <tr>
                     <th style="text-align: center">id</th>
-                    <th style="text-align: center">Потребителско име</th>
                     <th style="text-align: center">Име</th>
                     <th style="text-align: center">Фамилия</th>
-                    <th style="text-align: center">Роля</th>
                     <th style="text-align: center">Имейл адрес</th>
                     <th style="text-align: center">Възраст</th>
-                    <th style="text-align: center">Избери роля</th>
-                    <th style="text-align: center">Изтрий потребител</th>
+                    <th style="text-align: center">Телефон</th>
+                    <th style="text-align: center">Описание</th>
+                    <th style="text-align: center">Назначи/Отхвърли</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user : ${users}">
-                    <td th:text="${user.id}"></td>
-                    <td th:text="${user.username}"></td>
-                    <td th:text="${user.firstName}"></td>
-                    <td th:text="${user.lastName}"></td>
-                    <td th:text="${user.role.name}"></td>
-                    <td th:text="${user.email}"></td>
-                    <td th:text="${user.age}"></td>
+                <tr th:each="jobApplication : ${jobApplications}">
+                    <td th:text="${jobApplication.id}"></td>
+                    <td th:text="${jobApplication.user.firstName}"></td>
+                    <td th:text="${jobApplication.user.lastName}"></td>
+                    <td th:text="${jobApplication.user.email}"></td>
+                    <td th:text="${jobApplication.user.age}"></td>
+                    <td th:text="${jobApplication.phoneNumber}"></td>
+                    <td style="word-wrap: break-word" th:text="${jobApplication.description}"></td>
                     <td style="text-align: center">
-                        <form sec:authorize="hasAnyAuthority('ADMIN')" th:action="@{/admin/update}" method="post">
-                            <input type="hidden" th:name="id" th:value="${user.id}">
-                            <select th:name="role.id" onchange="this.form.submit()">
-                                <option th:each="role : ${roles}"
-                                        th:value="${role.id}"
-                                        th:selected="${role.id == user.role.id}">
-                                    <span th:text="${role.name}"></span>
-                                </option>
-                            </select>
-                        </form>
-                    </td>
-                    <td style="text-align: center">
-                        <form sec:authorize="hasAnyAuthority('ADMIN')" th:action="@{/admin/delete/{userId}(userId=${user.id})}" method="post">
-                            <button type="submit" class="delete-button">Премахни от системата</button>
-                        </form>
+                        <div sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"
+                             style="width: 100px; float:left; height:30px; margin:10px">
+                            <form sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"
+                                  th:action="@{/job/hire/{id}(id=${jobApplication.id})}" method="POST">
+                                <button type="submit" class="delete-button">Назначи</button>
+                            </form>
+                        </div>
+                        <div sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')">
+                            <form sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"
+                                  th:action="@{/job/reject/{id}(id=${jobApplication.id})}" method="POST">
+                                <button type="submit" class="delete-button">Отвхърли</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 </tbody>

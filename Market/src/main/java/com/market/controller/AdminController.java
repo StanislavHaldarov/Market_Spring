@@ -41,7 +41,7 @@ public class AdminController {
         return "redirect:user-management";
     }
     @PostMapping("/delete/{userId}")
-    public ModelAndView deleteResort(@PathVariable(name = "userId") Long userId) {
+    public ModelAndView deleteUser(@PathVariable(name = "userId") Long userId) {
         userService.deleteUser(userId);
         return new ModelAndView("redirect:/admin/user-management");
     }
