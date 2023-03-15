@@ -8,6 +8,8 @@
     <title>products</title>
     <link rel="stylesheet" href="/nicepage.css" media="screen">
     <link rel="stylesheet" href="/products.css" media="screen">
+    <link rel="stylesheet" href="/filter-menu.css" media="screen">
+
     <link rel="stylesheet" href="/price-slider.css" media="screen">
     <script class="u-script" type="text/javascript" src="/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="/nicepage.js" defer=""></script>
@@ -34,22 +36,29 @@
 
 <section class="u-clearfix u-section-1" id="sec-c8e2">
     <div style="display: flex; flex-direction: row">
-        <div id="filter-sec" style="width: 15%">
+        <div id="filter-sec" style="width: 15%; margin-right: 0px">
             <form th:action="@{/products/all/specification}" th:object="${filter}" action="GET">
                 <!--                SEARCHING BOX-->
-                <input th:field="*{nameKeyword}" class="u-search-input" type="search" name="search" value="" placeholder="Search">
+                <input th:field="*{nameKeyword}" class="u-search-input" type="search" name="search" value=""
+                       placeholder="Въведете име на продукт">
+                <!--                SEARCHING BOX END-->
                 <!--                SEARCHING BOX-->
+                <div sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')">
+                    <label>Въведете количество</label>
+                    <input id="quantitySearch" th:field="*{quantityKeyword}" class="u-search-input" type="number"
+                           name="search" value="">
+                </div>
                 <div>
+                    <!--                SEARCHING BOX END-->
                     <input value="1" th:field="*{isCategoryFoodChecked}" type="checkbox" id="food" name="food">
                     <label>Хранителни продукти</label><br>
-                    <input type="checkbox"  id="drinks" name="drinks"
-                           value="DRINKS">
+                    <input value="1" th:field="*{isCategoryDrinksChecked}" type="checkbox" id="drinks" name="drinks">
                     <label>Напитки</label><br>
-                    <input type="checkbox"  id="sanitary" name="sanitary"
-                           value="SANITARY">
+                    <input value="1" th:field="*{isCategorySanitaryChecked}" type="checkbox" id="sanitary"
+                           name="sanitary">
                     <label>Санитарни продукти</label><br>
-                    <input type="checkbox"  id="cosmetics" name="cosmetics"
-                           value="COSMETICS">
+                    <input value="1" th:field="*{isCategoryCosmeticsChecked}" type="checkbox" id="cosmetics"
+                           name="cosmetics">
                     <label>Козметика</label><br>
                 </div>
                 <div>
@@ -63,57 +72,62 @@
                                 <div class="separator">-</div>
                                 <div class="field">
                                     <span>Max</span>
-                                    <input th:field="*{maxPrice}"  type="number" class="input-max" value="200">
+                                    <input th:field="*{maxPrice}" type="number" class="input-max" value="200">
                                 </div>
                             </div>
                             <div class="slider">
                                 <div class="progress"></div>
                             </div>
                             <div class="range-input">
-                                       <input type="range" class="range-min" min="0" max="200" value="0" step="1">
+                                <input type="range" class="range-min" min="0" max="200" value="0" step="1">
                                 <input type="range" class="range-max" min="0" max="200" value="200"
                                        step="1">
                             </div>
                         </div>
                     </div>
                 </div>
-            <button type="submit">филтрирай</button>
+                <button type="submit">филтрирай</button>
             </form>
         </div>
-        <div class="u-align-center u-container-style u-image u-layout-cell u-right-cell u-size-50 u-size-xs-60 u-image-1"
-             src="" data-image-width="1080" data-image-height="1080">
-            <div class="u-container-layout u-valign-middle u-container-layout-2" src="">
+        <div class="u-align-center u-container-style u-image u-layout-cell">
                 <!--DISPLAY PRODUCTS-->
                 <table class="table" style="margin-top: 100px;">
-                            <tr>
-                                <td th:each="product, i : ${products}">
-                                    <div class="card">
-                                        <img th:src="${product.imageUrl}" alt="" style="width:30%" src="">
-                                        <h4 th:text="${product.name}"></h4>
-                                        <p th:text="${product.priceBGN} + 'лв'" class="price"></p>
-                                        <p th:text="${product.description}"></p>
-                                        <p th:text="${product.availableQuantity}"></p>
-                                        <div style="display: flex; flex-direction: row; justify-content: center">
-                                            <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" th:action="@{/products/delete/{id}(id=${product.id})}" method="POST">
-                                                <button><img style="width: 25px; height: 25px"
-                                                             alt="pp"
-                                                             src="/images/6861362.png"></button>
-                                            </form>
-                                            <button sec:authorize="isAuthenticated()" ><img style="width: 25px; height: 25px" alt="pp"
-                                                         src="/images/9862670.png"></button>
-                                            <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" th:action="@{/products/update/{id}(id=${product.id})}" method="get">
-                                                <button>
-                                                    <img style="width: 25px; height: 25px" alt="pp"
-                                                         src="/images/2546743.png">
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <th:block th:if="${(i.index + 1) % 3 == 0}" th:utext="'</td></tr>'"></th:block>
-                                    <th:block th:unless="${(i.index + 1) % 3 == 0}" th:utext="'</td>'"></th:block>
-                        </table>
+                    <tr>
+                        <td th:each="product, i : ${products}" style="text-align: center; width: 30%">
+                            <div id="product">
+                                <img th:src="${product.imageUrl}" alt="" style="width:30%; height: 25%" src="">
+                                <h5 th:text="${product.name}"></h5>
+                                <p th:text="${product.priceBGN} + 'лв'"></p>
+                                <p style="margin: 0" th:text="${product.description}"></p>
+                                <p style="margin-top: 0" th:text="'количество: ' + ${product.availableQuantity}"></p>
+                                <div style="display: flex; flex-direction: row; justify-content: center">
+                                    <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')"
+                                          th:action="@{/products/delete/{id}(id=${product.id})}" method="POST">
+                                        <button id="delete-button"><img style="width: 25px; height: 25px"
+                                                     alt="delete"
+                                                     src="/images/6861362.png"></button>
+                                    </form>
+                                    <form sec:authorize="isAuthenticated()"
+                                          th:action="@{/item/details/{id}(id=${product.id})}" method="GET">
+                                        <button id="buy-button"><img
+                                                style="width: 25px; height: 25px" alt="pp"
+                                                src="/images/9862670.png"></button>
+                                    </form>
+                                    <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')"
+                                          th:action="@{/products/update/{id}(id=${product.id})}" method="get">
+                                        <button id="update-button">
+                                            <img style="width: 25px; height: 25px" alt="pp"
+                                                 src="/images/2546743.png">
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <th:block th:if="${(i.index + 1) % 3 == 0}" th:utext="'</td></tr>'"></th:block>
+                            <th:block th:unless="${(i.index + 1) % 3 == 0}" th:utext="'</td>'"></th:block>
+                </table>
             </div>
-        </div>
+<!--        </div>-->
     </div>
 </section>
 <!--DISPLAY PRODUCTS END-->

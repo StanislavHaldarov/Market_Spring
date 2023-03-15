@@ -1,12 +1,12 @@
 package com.market.controller;
 
-import com.market.dto.ProductCreate;
 import com.market.dto.mapper.ProductToProductCreateMapper;
-import com.market.entity.Filter;
+import com.market.dto.request.Filter;
+import com.market.dto.request.ProductCreate;
 import com.market.entity.productTypes.Product;
-import com.market.entity.productTypes.ProductTypeEnum;
-import com.market.service.ProductService;
-import com.market.service.SpecificationProductFilter;
+import com.market.utility.enums.ProductTypeEnum;
+import com.market.repository.product.ProductRepository;
+import com.market.service.product.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,58 +15,58 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final ProductToProductCreateMapper productCreateMapper;
-    private final SpecificationProductFilter specificationProductFilter;
 
 
-    public ProductController(ProductService productService, ProductToProductCreateMapper productCreateMapper, SpecificationProductFilter specificationProductFilter) {
+    public ProductController(ProductService productService, ProductToProductCreateMapper productCreateMapper) {
         this.productService = productService;
         this.productCreateMapper = productCreateMapper;
-        this.specificationProductFilter = specificationProductFilter;
+
     }
 
-    // All Products
+    // All Products - OK
     @GetMapping("/all")
     public String getAll(Model model) {
-        model.addAttribute("filter",new Filter());
+        model.addAttribute("filter", new Filter());
+//        TODO: create response dto for product
         model.addAttribute("products", productService.findAll());
         return "products";
     }
 
-//    Products with Specification
+    //Products with Specification - OK
     @GetMapping("/all/specification")
     public String getAllWithSpecification(Model model, Filter filter) {
-        model.addAttribute("filter",filter);
-        List<Product> all = productService.findAllWithSpecification(filter);
+        model.addAttribute("filter", filter);
+        //        TODO: create response dto for product
         model.addAttribute("products", productService.findAllWithSpecification(filter));
         return "products";
     }
-    // All Available Products
+
+    // All Available Products - OK
     @GetMapping("/available")
     public String getAllAvailable(Model model) {
-        model.addAttribute("filter",new Filter());
+        model.addAttribute("filter", new Filter());
+        //        TODO: create response dto for product
         model.addAttribute("products", productService.findAllWithAvailableQuantityMoreThanZero());
         return "products";
     }
 
-
-    // Add Product
+    // Add Product - OK
     @GetMapping("/add")
     public String addProduct(Model model) {
         model.addAttribute("types", ProductTypeEnum.values());
         if (!model.containsAttribute("product")) {
             model.addAttribute("product", new ProductCreate());
         }
-
         return "addproduct";
     }
 
+//    ADD PRODUCT - OK
     @PostMapping("/add")
     public ModelAndView createProduct(@Valid @ModelAttribute ProductCreate productCreate,
                                       BindingResult bindingResult,
@@ -77,23 +77,28 @@ public class ProductController {
             return new ModelAndView("redirect:/products/add");
         }
 
-        productService.saveProduct(productCreate);
+        productService.saveProductCreate(productCreate);
         return new ModelAndView("redirect:/products/available");
     }
 
-    // Delete Product
+    // Delete Product - OK
     @PostMapping("delete/{id}")
     public ModelAndView deleteProduct(@PathVariable Long id) {
-        productService.deleteProductById(id);
+        try {
+            productService.deleteProductById(id);
+        } catch (Exception e) {
+//            TODO: display exception
+        }
         return new ModelAndView("redirect:/products/available");
     }
 
-    //    UPDATE PRODUCT
+    //    UPDATE PRODUCT - OK
     @GetMapping("/update/{id}")
     public String updateProduct(@PathVariable Long id, Model model) {
         try {
             Product product = productService.findProductById(id);
-            model.addAttribute("product", productCreateMapper.apply(product));
+            ProductCreate productCreate = productCreateMapper.apply(product);
+            model.addAttribute("product", productCreate);
             return "productmanagement";
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
@@ -102,8 +107,8 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public ModelAndView updateProduct(@Valid ProductCreate productCreate,
-                                      BindingResult bindingResult) {
+    public ModelAndView updateProduct(@Valid ProductCreate productCreate
+            , BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("productmanagement").
                     addObject("product", productCreate).

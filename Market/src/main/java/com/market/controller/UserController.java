@@ -1,12 +1,12 @@
 package com.market.controller;
 
 import com.market.entity.Role;
-import com.market.entity.RoleNameEnum;
+import com.market.utility.enums.RoleNameEnum;
 import com.market.entity.User;
 import com.market.entity.binding.UserLoginBindingModel;
 import com.market.entity.binding.UserRegisterBindingModel;
-import com.market.service.UserService;
-import com.market.service.UserServiceModel;
+import com.market.service.user.UserService;
+import com.market.service.user.UserServiceModel;
 import com.market.utility.exception.EmailAlreadyExistsException;
 import com.market.utility.exception.PasswordVerificationException;
 import com.market.utility.exception.UsernameAlreadyExistsException;

@@ -1,6 +1,6 @@
 package com.market.config;
 
-import com.market.service.UserDetailsServiceImpl;
+import com.market.service.impl.user.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .mvcMatchers("/admin/user-management")
                 .hasAnyAuthority("ADMIN")
-                .mvcMatchers("/products/add", "/products/all","/products/update","/productmanagement")
+                .mvcMatchers("/products/add", "/products/all","/products/update","/products/update/{id}")
                 .hasAnyAuthority("EMPLOYEE", "ADMIN")
                 .mvcMatchers("/users/register","/users/login").anonymous()
                 .anyRequest().permitAll().and()
