@@ -97,46 +97,46 @@
         </div>
         <button type="submit">Добави</button>
     </form>
-    <script>
-        function renderFields(e) {
-            const opt = document.getElementById('typeOption');
-            const selectedOption = opt.options[opt.selectedIndex].text;
 
-            const weightInput = document.getElementById('weight');
-            const volumeInput = document.getElementById('volume');
-            const countInput = document.getElementById('count');
-            switch (selectedOption) {
-                case "FOOD":
-                    weightInput.style.display = 'block';
-                    volumeInput.style.display = 'none';
-                    countInput.style.display = 'none';
-                    break;
-                case "DRINKS":
-                    weightInput.style.display = 'none';
-                    volumeInput.style.display = 'block';
-                    countInput.style.display = 'none';
-                    break;
-                case "SANITARY":
-                    weightInput.style.display = 'none';
-                    volumeInput.style.display = 'none';
-                    countInput.style.display = 'block';
-                    break;
-                case "COSMETICS":
-                    weightInput.style.display = 'block';
-                    volumeInput.style.display = 'block';
-                    countInput.style.display = 'none';
-                    break;
-            }
-        }
-
-
-    </script>
 </section>
 <!--ADD PRODUCT END-->
 
 <!--FOOTER-->
 <th:block th:include="~{fragments/footer}"></th:block>
+<script>
+    function renderFields(e) {
+        const opt = document.getElementById('typeOption');
+        const selectedOption = opt.options[opt.selectedIndex].text;
 
+        const weightInput = document.getElementById('weight');
+        const volumeInput = document.getElementById('volume');
+        const countInput = document.getElementById('count');
+        switch (selectedOption) {
+            case "FOOD":
+                weightInput.style.display = 'block';
+                volumeInput.style.display = 'none';
+                countInput.style.display = 'none';
+                break;
+            case "DRINKS":
+                weightInput.style.display = 'none';
+                volumeInput.style.display = 'block';
+                countInput.style.display = 'none';
+                break;
+            case "SANITARY":
+                weightInput.style.display = 'none';
+                volumeInput.style.display = 'none';
+                countInput.style.display = 'block';
+                break;
+            case "COSMETICS":
+                weightInput.style.display = 'block';
+                volumeInput.style.display = 'block';
+                countInput.style.display = 'none';
+                break;
+        }
+    }
+
+
+</script>
 
 </body>
 </html>

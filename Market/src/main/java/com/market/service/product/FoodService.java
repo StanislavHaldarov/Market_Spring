@@ -9,7 +9,7 @@ import java.util.List;
 public interface FoodService {
 
     void save(ProductCreate productCreate);
-    void updateFood(ProductCreate productCreate);
+    void update(ProductCreate productCreate);
     List<Food> findAllAvailable();
 
 

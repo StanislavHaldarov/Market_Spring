@@ -14,13 +14,14 @@ public interface ProductService {
 
     Product findProductById(Long id);
 
-    void saveProduct(ProductCreate productCreate);
+    void saveProductCreate(ProductCreate productCreate);
 
     void updateProduct(ProductCreate productCreate);
 
     void deleteProductById(Long id);
 
-
     List<Product> findAllWithSpecification(Filter filter);
+
+    void saveProduct(Product product);
 }
 

@@ -1,8 +1,8 @@
 package com.market.service.impl.product;
 
-import com.market.dto.request.ProductCreate;
-import com.market.dto.mapper.ProductCreateToProductEntityMapper;
 import com.market.dto.mapper.ProductCreateToCosmeticsEntityMapper;
+import com.market.dto.mapper.ProductCreateToProductEntityMapper;
+import com.market.dto.request.ProductCreate;
 import com.market.entity.productTypes.Cosmetic;
 import com.market.repository.product.CosmeticRepository;
 import com.market.service.product.CosmeticService;
@@ -24,7 +24,10 @@ public class CosmeticServiceImpl implements CosmeticService {
     }
 
     public void save(ProductCreate productCreate) {
-        cosmeticRepository.save(productCreateToCosmeticsEntityMapper.apply(productCreate, productCreateToProductEntityMapper.apply(productCreate)));
+        cosmeticRepository.save(productCreateToCosmeticsEntityMapper
+                .apply(productCreate, productCreateToProductEntityMapper
+                        .apply(productCreate))
+        );
     }
 
     @Override

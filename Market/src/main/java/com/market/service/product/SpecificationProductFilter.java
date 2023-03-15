@@ -9,14 +9,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class SpecificationProductFilter {
     public Specification<Product> filter(Filter filter) {
-        return Specification.where(withFoodType(filter.getIsCategoryFoodChecked())
-                .and(withDrinksType(filter.getIsCategoryDrinksChecked())
-                        .and(withCosmeticsType(filter.getIsCategoryCosmeticsChecked()))
-                        .and(withSanitaryType(filter.getIsCategorySanitaryChecked()))
-                        .and(inPriceRange(filter.getMinPrice(), filter.getMaxPrice()))
-                        .and(withName(filter.getNameKeyword()))
-                ));
+        return filterByCategories(filter)
+                .and(inPriceRange(filter.getMinPrice(), filter.getMaxPrice()))
+                .and(withName(filter.getNameKeyword()))
+                .and(withQuantity(filter.getQuantityKeyword()));
 
+    }
+
+    private Specification<Product> filterByCategories(Filter filter) {
+        return Specification.where(withFoodType(filter.getIsCategoryFoodChecked())
+                .or(withDrinksType(filter.getIsCategoryDrinksChecked()))
+                .or(withCosmeticsType(filter.getIsCategoryCosmeticsChecked()))
+                .or(withSanitaryType(filter.getIsCategorySanitaryChecked())));
     }
 
     private Specification<Product> withFoodType(String isFoodChecked) {
@@ -36,7 +40,7 @@ public class SpecificationProductFilter {
             if (isDrinksChecked == null) {
                 return null;
             }
-            return builder.equal(root.get("type"), "DRINKS");
+            return builder.equal(root.get("type"), ProductTypeEnum.DRINKS);
         };
 
     }
@@ -47,7 +51,7 @@ public class SpecificationProductFilter {
             if (isCosmeticsChecked == null) {
                 return null;
             }
-            return builder.equal(root.get("type"), "COSMETICS");
+            return builder.equal(root.get("type"), ProductTypeEnum.COSMETICS);
         };
 
     }
@@ -58,7 +62,7 @@ public class SpecificationProductFilter {
             if (isSanitaryChecked == null) {
                 return null;
             }
-            return builder.equal(root.get("type"), "SANITARY");
+            return builder.equal(root.get("type"), ProductTypeEnum.SANITARY);
         };
 
     }
@@ -75,12 +79,21 @@ public class SpecificationProductFilter {
 
     }
 
-    private Specification<Product> withName(String name){
-        return(root, query, builder) -> {
+    private Specification<Product> withName(String name) {
+        return (root, query, builder) -> {
             if (name == null) {
                 return null;
             }
             return builder.like(root.get("name"), "%" + name + " %");
+        };
+    }
+
+    private Specification<Product> withQuantity(Integer quantity){
+        return (root, query, builder) -> {
+            if(quantity == null){
+                return null;
+            }
+            return builder.equal(root.get("availableQuantity"),quantity);
         };
     }
 }

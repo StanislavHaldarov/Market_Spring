@@ -1,0 +1,60 @@
+#filter-sec {
+    background-color: #f8f8f8;
+    padding: 20px;
+    width: 15%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+#filter-sec form {
+    margin-top: 20px;
+}
+
+#filter-sec form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#filter-sec form input[type="search"],
+#quantitySearch
+{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+#filter-sec form input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+#filter-sec form button[type="submit"] {
+    display: block;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+#filter-sec form button[type="submit"]:hover {
+    background-color: #0062cc;
+}
+
+/**/
+#sort{
+    display: inline-block;
+    margin-right: 10px;
+    width: 20%;
+}
+/*#sort-select{*/
+/*    width: 20%;*/
+/*}*/
+
+

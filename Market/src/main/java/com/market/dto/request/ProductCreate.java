@@ -1,5 +1,6 @@
 package com.market.dto.request;
 
+import com.market.utility.enums.ProductTypeEnum;
 import com.market.utility.validation.ValidateExpiredDate;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ public class ProductCreate {
 
     Long id;
     @NotNull
-    private String type;
+    private ProductTypeEnum type;
     @Length(min = 3)
     @NotBlank
     private String name;
@@ -39,7 +40,9 @@ public class ProductCreate {
     private Integer count;
 
 
-    public ProductCreate(Long id, String type, String name, Integer availableQuantity, Double priceBGN, String imageUrl, LocalDate expiredDate, Double weight, Double volume, Integer count) {
+    public ProductCreate(Long id, ProductTypeEnum type, String name, Integer availableQuantity,
+                         Double priceBGN, String imageUrl, LocalDate expiredDate,
+                         Double weight, Double volume, Integer count) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -95,11 +98,11 @@ public class ProductCreate {
         this.count = count;
     }
 
-    public String getType() {
+    public ProductTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ProductTypeEnum type) {
         this.type = type;
     }
 

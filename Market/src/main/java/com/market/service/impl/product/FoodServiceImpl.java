@@ -16,6 +16,7 @@ public class FoodServiceImpl implements FoodService {
     private final ProductCreateToFoodEntityMapper productCreateToFoodEntityMapper;
     private final ProductCreateToProductEntityMapper productCreateToProductEntityMapper;
 
+
     public FoodServiceImpl(FoodRepository foodRepository, ProductCreateToFoodEntityMapper productCreateToFoodEntityMapper, ProductCreateToProductEntityMapper productCreateToProductEntityMapper) {
         this.foodRepository = foodRepository;
         this.productCreateToFoodEntityMapper = productCreateToFoodEntityMapper;
@@ -24,7 +25,9 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public void save(ProductCreate productCreate){
-        foodRepository.save(productCreateToFoodEntityMapper.apply(productCreate, productCreateToProductEntityMapper.apply(productCreate)));
+        foodRepository.save(productCreateToFoodEntityMapper
+                .apply(productCreate,
+                        productCreateToProductEntityMapper.apply(productCreate)));
     }
 
 
@@ -34,7 +37,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public void updateFood(ProductCreate productCreate) {
+    public void update(ProductCreate productCreate) {
         Food food = foodRepository.findFoodByProductId(productCreate.getId());
         food.setWeight(productCreate.getWeight());
         food.setProduct(productCreateToProductEntityMapper.apply(productCreate));

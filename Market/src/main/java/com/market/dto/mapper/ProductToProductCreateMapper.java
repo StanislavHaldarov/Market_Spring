@@ -31,10 +31,10 @@ public class ProductToProductCreateMapper {
             case "FOOD":
                 productCreate.setWeight(foodRepository.findFoodByProductId(product.getId()).getWeight());
                 break;
-            case "DRINK":
+            case "DRINKS":
                 productCreate.setVolume(drinkRepository.findDrinkByProductId(product.getId()).getVolume());
                 break;
-            case "COSMETIC":
+            case "COSMETICS":
                 productCreate.setVolume(cosmeticRepository.findCosmeticByProductId(product.getId()).getVolume());
                 productCreate.setWeight(cosmeticRepository.findCosmeticByProductId(product.getId()).getWeight());
                 break;
@@ -43,8 +43,9 @@ public class ProductToProductCreateMapper {
                 break;
 
         }
+
         productCreate.setId(product.getId());
-        productCreate.setType(product.getType().name());
+        productCreate.setType(product.getType());
         productCreate.setName(product.getName());
         productCreate.setAvailableQuantity(product.getAvailableQuantity());
         productCreate.setPriceBGN(product.getPriceBGN());

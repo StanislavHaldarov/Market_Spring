@@ -25,7 +25,9 @@ public class SanitaryServiceImpl implements SanitaryService {
     }
 
     public void save(ProductCreate productCreate){
-        sanitaryRepository.save(productCreateToSanitaryEntityMapper.apply(productCreate, productCreateToProductEntityMapper.apply(productCreate)));
+        sanitaryRepository.save(productCreateToSanitaryEntityMapper
+                .apply(productCreate, productCreateToProductEntityMapper
+                        .apply(productCreate)));
     }
 
     @Override
@@ -41,8 +43,4 @@ public class SanitaryServiceImpl implements SanitaryService {
         return sanitaryRepository.findAll();
     }
 
-//    @Override
-//    public List<Sanitary> findAllWithAvailableQuantityMoreThanZero() {
-//        return sanitaryRepository.findAllWithAvailableQuantityMoreThanZero();
-//    }
 }

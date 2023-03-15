@@ -15,7 +15,6 @@ import java.util.List;
 public class DrinkServiceImpl implements DrinkService {
     private final DrinkRepository drinkRepository;
     private final ProductCreateToDrinkEntityMapper productCreateToDrinkEntityMapper;
-
     private final ProductCreateToProductEntityMapper productCreateToProductEntityMapper;
 
 
@@ -27,7 +26,7 @@ public class DrinkServiceImpl implements DrinkService {
 
     public void save(ProductCreate productCreate) {
         Product product = productCreateToProductEntityMapper.apply(productCreate);
-        productCreateToDrinkEntityMapper.apply(productCreate, product);
+        drinkRepository.save( productCreateToDrinkEntityMapper.apply(productCreate, product));
     }
 
     @Override
