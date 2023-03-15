@@ -1,0 +1,14 @@
+.u-section-1 .u-sheet-1 {
+    min-height: 400px;
+}
+
+.dialog button {
+    margin-right: 16px;
+    height: 24px;
+    width: 24px;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

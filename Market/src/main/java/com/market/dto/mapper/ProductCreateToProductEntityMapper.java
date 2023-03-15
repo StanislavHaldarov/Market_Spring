@@ -1,8 +1,8 @@
 package com.market.dto.mapper;
 
-import com.market.dto.ProductCreate;
+import com.market.dto.request.ProductCreate;
 import com.market.entity.productTypes.Product;
-import com.market.entity.productTypes.ProductTypeEnum;
+import com.market.utility.enums.ProductTypeEnum;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +14,7 @@ public class ProductCreateToProductEntityMapper {
         return new Product(
                 productCreate.getId(),
                 productCreate.getName(),
-                ProductTypeEnum.valueOf(productCreate.getType()),
+                productCreate.getType(),
                 description,
                 productCreate.getExpiredDate(),
                 productCreate.getAvailableQuantity(),
@@ -25,20 +25,27 @@ public class ProductCreateToProductEntityMapper {
 
     private String getDescription(ProductCreate productCreate) {
         String description = new String();
-        switch (productCreate.getType()) {
+        switch (productCreate.getType().name()) {
             case "FOOD":
+
                 description = "грамаж: " + productCreate.getWeight() + "кг";
                 break;
-            case "DRINK":
+            case "DRINKS":
+
                 description = "обем: " + productCreate.getVolume() + "л";
                 break;
-            case "COSMETIC":
-                description = "грамаж: " + productCreate.getWeight() + "кг\nобем: " + productCreate.getVolume();
+            case "COSMETICS":
+//                TODO: replace it with StringBuilder
+                if(productCreate.getWeight() != null){
+                    description = "грамаж: " + productCreate.getWeight() + "кг\n";
+                }
+                if(productCreate.getVolume() != null){
+                    description += "обем: " + productCreate.getVolume() + "л";
+                }
                 break;
             case "SANITARY":
-                description = productCreate.getCount() + "брой в пакет";
+                description = "брой в пакет: " +  productCreate.getCount();
                 break;
-
         }
         return description;
     }

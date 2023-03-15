@@ -1,6 +1,8 @@
 package com.market.entity.productTypes;
 
 import com.market.entity.BaseEntity;
+import com.market.entity.order.OrderItem;
+import com.market.utility.enums.ProductTypeEnum;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -39,6 +42,8 @@ public class Product extends BaseEntity {
     @NotNull
     private String imageUrl;
 
+    @OneToMany(mappedBy = "product")
+    private List<OrderItem> items;
 
     public Product(Long id,String name, ProductTypeEnum type, String description, LocalDate expiredDate, Integer availableQuantity, Double priceBGN, String imageUrl) {
         super.setId(id);
@@ -49,6 +54,14 @@ public class Product extends BaseEntity {
         this.availableQuantity = availableQuantity;
         this.priceBGN = priceBGN;
         this.imageUrl = imageUrl;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 
     public String getDescription() {

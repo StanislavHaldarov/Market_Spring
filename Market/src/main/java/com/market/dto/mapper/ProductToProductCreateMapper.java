@@ -1,12 +1,12 @@
 package com.market.dto.mapper;
 
-import com.market.dto.ProductCreate;
+import com.market.dto.request.ProductCreate;
 import com.market.entity.productTypes.Product;
-import com.market.entity.productTypes.ProductTypeEnum;
-import com.market.repository.CosmeticRepository;
-import com.market.repository.DrinkRepository;
-import com.market.repository.FoodRepository;
-import com.market.repository.SanitaryRepository;
+import com.market.utility.enums.ProductTypeEnum;
+import com.market.repository.product.CosmeticRepository;
+import com.market.repository.product.DrinkRepository;
+import com.market.repository.product.FoodRepository;
+import com.market.repository.product.SanitaryRepository;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -31,10 +31,10 @@ public class ProductToProductCreateMapper {
             case "FOOD":
                 productCreate.setWeight(foodRepository.findFoodByProductId(product.getId()).getWeight());
                 break;
-            case "DRINK":
+            case "DRINKS":
                 productCreate.setVolume(drinkRepository.findDrinkByProductId(product.getId()).getVolume());
                 break;
-            case "COSMETIC":
+            case "COSMETICS":
                 productCreate.setVolume(cosmeticRepository.findCosmeticByProductId(product.getId()).getVolume());
                 productCreate.setWeight(cosmeticRepository.findCosmeticByProductId(product.getId()).getWeight());
                 break;
@@ -43,8 +43,9 @@ public class ProductToProductCreateMapper {
                 break;
 
         }
+
         productCreate.setId(product.getId());
-        productCreate.setType(product.getType().name());
+        productCreate.setType(product.getType());
         productCreate.setName(product.getName());
         productCreate.setAvailableQuantity(product.getAvailableQuantity());
         productCreate.setPriceBGN(product.getPriceBGN());

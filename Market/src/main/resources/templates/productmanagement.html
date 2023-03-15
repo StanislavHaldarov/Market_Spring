@@ -30,111 +30,111 @@
 <body onload="renderFields(this)" class="u-body u-xl-mode" data-lang="en">
 <th:block th:include="~{fragments/header}"></th:block>
 <section class="u-clearfix u-section-1" id="sec-7f4d">
-    <div class="u-clearfix u-sheet u-sheet-1"></div>
-    <h2>Редактиране на продукт</h2>
-    <form th:action="@{/products/update}" th:object="${product}" method="POST">
-        <input type="hidden" th:field="*{id}">
-        <select th:field="*{type} " id='typeOption' required>
-            <option selected th:value="*{type}" th:text="*{type}"></option>
-            <!--                    <option th:each="t: ${types}" th:value="${t.name}" th:text="${t.name}"></option>-->
-        </select>
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <h2>Редактиране на продукт</h2>
+        <form th:action="@{/products/update}" th:object="${product}" method="POST">
+            <input type="hidden" th:field="*{id}">
+            <select th:field="*{type} " id='typeOption' required>
+                <option selected th:value="*{type}" th:text="*{type}"></option>
+                <!--                    <option th:each="t: ${types}" th:value="${t.name}" th:text="${t.name}"></option>-->
+            </select>
 
-        <div>
-            <p>име</p>
-            <input th:field="*{name}" type="text">
-            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red"></p>
-        </div>
+            <div>
+                <p>име</p>
+                <input th:field="*{name}" type="text">
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red"></p>
+            </div>
 
-        <div>
-            <p>налично количество</p>
-            <input th:field="*{availableQuantity}" type="number">
-            <p th:if="${#fields.hasErrors('availableQuantity')}" th:errors="*{availableQuantity}"
-               style="color:red"></p>
-        </div>
+            <div>
+                <p>налично количество</p>
+                <input th:field="*{availableQuantity}" type="number">
+                <p th:if="${#fields.hasErrors('availableQuantity')}" th:errors="*{availableQuantity}"
+                   style="color:red"></p>
+            </div>
 
-        <div>
-            <p>цена</p>
-            <input th:field="*{priceBGN}" type="number" step="0.01">
-            <p th:if="${#fields.hasErrors('priceBGN')}" th:errors="*{priceBGN}"
-               style="color:red"></p>
-        </div>
+            <div>
+                <p>цена</p>
+                <input th:field="*{priceBGN}" type="number" step="0.01">
+                <p th:if="${#fields.hasErrors('priceBGN')}" th:errors="*{priceBGN}"
+                   style="color:red"></p>
+            </div>
 
-        <div>
-            <p>срок на годност</p>
-            <input th:field="*{expiredDate}" type="date">
-            <p th:if="${#fields.hasErrors('expiredDate')}" th:errors="*{expiredDate}"
-               style="color:red"></p>
-        </div>
+            <div>
+                <p>срок на годност</p>
+                <input th:field="*{expiredDate}" type="date">
+                <p th:if="${#fields.hasErrors('expiredDate')}" th:errors="*{expiredDate}"
+                   style="color:red"></p>
+            </div>
 
-        <div>
-            <p>изображение(url)</p>
-            <input th:field="*{imageUrl}" type="url">
-            <p th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"
-               style="color:red"></p>
-        </div>
+            <div>
+                <p>изображение(url)</p>
+                <input th:field="*{imageUrl}" type="url">
+                <p th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"
+                   style="color:red"></p>
+            </div>
 
-        <div id='weight' style="display:none">
-            <p>грамаж</p>
-            <input th:field="*{weight}" type="number" step="0.01">
-            <p th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
-               style="color:red"></p>
-        </div>
+            <div id='weight' style="display:none">
+                <p>грамаж</p>
+                <input th:field="*{weight}" type="number" step="0.01">
+                <p th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
+                   style="color:red"></p>
+            </div>
 
-        <div id="volume" style="display: none">
-            <p>обем</p>
-            <input th:field="*{volume}" type="number" step="0.01">
-            <p th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}"
-               style="color:red"></p>
-        </div>
+            <div id="volume" style="display: none">
+                <p>обем</p>
+                <input th:field="*{volume}" type="number" step="0.01">
+                <p th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}"
+                   style="color:red"></p>
+            </div>
 
-        <div id='count' style="display: none">
-            <p>брой в пакет</p>
-            <input th:field="*{count}" type="number">
-            <p th:if="${#fields.hasErrors('count')}" th:errors="*{count}"
-               style="color:red"></p>
-        </div>
-        <button type="submit">Обнови</button>
-    </form>
-    <script>
-                function renderFields(e) {
-                    const opt = document.getElementById('typeOption');
-                    const selectedOption = opt.options[opt.selectedIndex].text;
-
-                    const weightInput = document.getElementById('weight');
-                    const volumeInput = document.getElementById('volume');
-                    const countInput = document.getElementById('count');
-                    switch (selectedOption) {
-                        case "FOOD":
-                            weightInput.style.display = 'block';
-                            volumeInput.style.display = 'none';
-                            countInput.style.display = 'none';
-                            break;
-                        case "DRINKS":
-                            weightInput.style.display = 'none';
-                            volumeInput.style.display = 'block';
-                            countInput.style.display = 'none';
-                            break;
-                        case "SANITARY":
-                            weightInput.style.display = 'none';
-                            volumeInput.style.display = 'none';
-                            countInput.style.display = 'block';
-                            break;
-                        case "COSMETICS":
-                            weightInput.style.display = 'block';
-                            volumeInput.style.display = 'block';
-                            countInput.style.display = 'none';
-                            break;
-                    }
-                }
-
-
-    </script>
+            <div id='count' style="display: none">
+                <p>брой в пакет</p>
+                <input th:field="*{count}" type="number">
+                <p th:if="${#fields.hasErrors('count')}" th:errors="*{count}"
+                   style="color:red"></p>
+            </div>
+            <button type="submit">Обнови</button>
+        </form>
+    </div>
 </section>
 <!--ADD PRODUCT END-->
 
 
 <!--FOOTER-->
 <th:block th:include="~{fragments/footer}"></th:block>
+
+<script>
+    function renderFields(e) {
+        const opt = document.getElementById('typeOption');
+        const selectedOption = opt.options[opt.selectedIndex].text;
+
+        const weightInput = document.getElementById('weight');
+        const volumeInput = document.getElementById('volume');
+        const countInput = document.getElementById('count');
+        switch (selectedOption) {
+            case "FOOD":
+                weightInput.style.display = 'block';
+                volumeInput.style.display = 'none';
+                countInput.style.display = 'none';
+                break;
+            case "DRINKS":
+                weightInput.style.display = 'none';
+                volumeInput.style.display = 'block';
+                countInput.style.display = 'none';
+                break;
+            case "SANITARY":
+                weightInput.style.display = 'none';
+                volumeInput.style.display = 'none';
+                countInput.style.display = 'block';
+                break;
+            case "COSMETICS":
+                weightInput.style.display = 'block';
+                volumeInput.style.display = 'block';
+                countInput.style.display = 'none';
+                break;
+        }
+    }
+</script>
 
 </body>
 </html>

@@ -10,11 +10,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
 
 
 @Entity
 public class Food extends BaseEntity {
     @Column(nullable = true)
+    @Min(0)
     private Double weight;
 
     @ManyToOne()

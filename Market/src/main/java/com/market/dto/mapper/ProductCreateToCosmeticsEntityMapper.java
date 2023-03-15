@@ -1,6 +1,6 @@
 package com.market.dto.mapper;
 
-import com.market.dto.ProductCreate;
+import com.market.dto.request.ProductCreate;
 import com.market.entity.productTypes.Cosmetic;
 import com.market.entity.productTypes.Product;
 import org.springframework.stereotype.Component;
