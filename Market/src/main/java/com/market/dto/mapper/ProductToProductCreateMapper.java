@@ -1,12 +1,12 @@
 package com.market.dto.mapper;
 
-import com.market.dto.ProductCreate;
+import com.market.dto.request.ProductCreate;
 import com.market.entity.productTypes.Product;
-import com.market.entity.productTypes.ProductTypeEnum;
-import com.market.repository.CosmeticRepository;
-import com.market.repository.DrinkRepository;
-import com.market.repository.FoodRepository;
-import com.market.repository.SanitaryRepository;
+import com.market.utility.enums.ProductTypeEnum;
+import com.market.repository.product.CosmeticRepository;
+import com.market.repository.product.DrinkRepository;
+import com.market.repository.product.FoodRepository;
+import com.market.repository.product.SanitaryRepository;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,12 +1,12 @@
 package com.market.controller;
 
-import com.market.dto.ProductCreate;
+import com.market.dto.request.ProductCreate;
 import com.market.dto.mapper.ProductToProductCreateMapper;
-import com.market.entity.Filter;
+import com.market.dto.request.Filter;
 import com.market.entity.productTypes.Product;
-import com.market.entity.productTypes.ProductTypeEnum;
-import com.market.service.ProductService;
-import com.market.service.SpecificationProductFilter;
+import com.market.utility.enums.ProductTypeEnum;
+import com.market.service.product.ProductService;
+import com.market.service.product.SpecificationProductFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

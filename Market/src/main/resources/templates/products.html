@@ -94,14 +94,14 @@
                                         <p th:text="${product.description}"></p>
                                         <p th:text="${product.availableQuantity}"></p>
                                         <div style="display: flex; flex-direction: row; justify-content: center">
-                                            <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" th:action="@{/products/delete/{id}(id=${product.id})}" method="POST">
+                                            <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')" th:action="@{/products/delete/{id}(id=${product.id})}" method="POST">
                                                 <button><img style="width: 25px; height: 25px"
                                                              alt="pp"
                                                              src="/images/6861362.png"></button>
                                             </form>
                                             <button sec:authorize="isAuthenticated()" ><img style="width: 25px; height: 25px" alt="pp"
                                                          src="/images/9862670.png"></button>
-                                            <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" th:action="@{/products/update/{id}(id=${product.id})}" method="get">
+                                            <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')" th:action="@{/products/update/{id}(id=${product.id})}" method="get">
                                                 <button>
                                                     <img style="width: 25px; height: 25px" alt="pp"
                                                          src="/images/2546743.png">

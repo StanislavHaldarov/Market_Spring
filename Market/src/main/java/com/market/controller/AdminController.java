@@ -2,12 +2,8 @@ package com.market.controller;
 
 import com.market.entity.Role;
 import com.market.entity.User;
-import com.market.security.MyUserDetails;
-import com.market.service.RoleService;
-import com.market.service.UserService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import com.market.service.user.RoleService;
+import com.market.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,7 +41,7 @@ public class AdminController {
         return "redirect:user-management";
     }
     @PostMapping("/delete/{userId}")
-    public ModelAndView deleteResort(@PathVariable(name = "userId") Long userId) {
+    public ModelAndView deleteUser(@PathVariable(name = "userId") Long userId) {
         userService.deleteUser(userId);
         return new ModelAndView("redirect:/admin/user-management");
     }

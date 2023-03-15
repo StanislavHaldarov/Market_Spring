@@ -1,4 +1,6 @@
 package com.market.entity;
+import com.market.utility.enums.RoleNameEnum;
+
 import javax.persistence.*;
 
     @Entity

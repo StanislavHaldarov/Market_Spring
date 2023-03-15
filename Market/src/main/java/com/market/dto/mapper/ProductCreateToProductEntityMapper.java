@@ -1,8 +1,8 @@
 package com.market.dto.mapper;
 
-import com.market.dto.ProductCreate;
+import com.market.dto.request.ProductCreate;
 import com.market.entity.productTypes.Product;
-import com.market.entity.productTypes.ProductTypeEnum;
+import com.market.utility.enums.ProductTypeEnum;
 import org.springframework.stereotype.Component;
 
 @Component

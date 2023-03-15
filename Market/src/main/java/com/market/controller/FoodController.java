@@ -1,8 +1,8 @@
 package com.market.controller;
 
 import com.market.entity.productTypes.Product;
-import com.market.service.FoodService;
-import com.market.service.ProductService;
+import com.market.service.product.FoodService;
+import com.market.service.product.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

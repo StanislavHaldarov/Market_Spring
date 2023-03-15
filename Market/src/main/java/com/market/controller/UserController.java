@@ -1,17 +1,14 @@
 package com.market.controller;
 
 import com.market.entity.Role;
-import com.market.entity.RoleNameEnum;
-import com.market.entity.User;
+import com.market.utility.enums.RoleNameEnum;
 import com.market.entity.binding.UserLoginBindingModel;
 import com.market.entity.binding.UserRegisterBindingModel;
-import com.market.service.UserService;
-import com.market.service.UserServiceModel;
+import com.market.service.user.UserService;
+import com.market.service.user.UserServiceModel;
 import com.market.utility.exception.EmailAlreadyExistsException;
-import com.market.utility.exception.PasswordVerificationException;
 import com.market.utility.exception.UsernameAlreadyExistsException;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,22 +50,16 @@ public class UserController {
             modelAndView.addObject("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
             return modelAndView;
         }
-        try {
-            User user = userService.findUserByUsernameAndPassword(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
-            httpSession.setAttribute("user", user);
-        }
-        catch (Exception e) {
 
-            if (e instanceof UsernameNotFoundException) {
-                modelAndView.addObject("errorUsername", e.getMessage());
-            }
-            if (e instanceof PasswordVerificationException) {
-                modelAndView.addObject("errorPassword", e.getMessage());
-            }
+        UserServiceModel user = userService.findUserByUsernameAndPassword
+                (userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
+        if(user==null)
+        {
+            modelAndView.addObject("userNotFound", "Невалидно потребителско име или парола!");
             modelAndView.addObject("userLoginBindingModel", userLoginBindingModel);
             return modelAndView;
         }
-
+        httpSession.setAttribute("user", user);
         return new ModelAndView("/products/all");
     }
 
@@ -106,7 +97,7 @@ public class UserController {
             return modelAndView;
 
         }
-        return new ModelAndView("/products/all");
+        return new ModelAndView("redirect:/users/login");
     }
 
 }

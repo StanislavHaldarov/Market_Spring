@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="INTUITIVE">
+    <meta name="description" content="">
+    <title>login</title>
+    <link rel="stylesheet" href="/nicepage.css" media="screen">
+    <link rel="stylesheet" href="/login.css" media="screen">
+    <script class="u-script" type="text/javascript" src="/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="/nicepage.js" defer=""></script>
+    <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
+    <meta name="referrer" content="origin">
+    <link id="u-theme-google-font" rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster:400">
+
+
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": ""
+    }</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="login">
+    <meta property="og:type" content="website">
+    <meta data-intl-tel-input-cdn-path="intlTelInput/">
+</head>
+<body class="u-body u-xl-mode" data-lang="en">
+<th:block th:include="~{fragments/header}"></th:block>
+<section class="u-clearfix u-image u-shading u-section-1" id="sec-3c18" data-image-width="1280" data-image-height="848">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-clearfix u-gutter-0 u-layout-wrap u-layout-wrap-1">
+            <div class="u-gutter-0 u-layout">
+                <div class="u-layout-row">
+                    <div class="u-align-center u-container-style u-layout-cell u-size-60 u-layout-cell-1">
+                        <div class="u-container-layout u-container-layout-1">
+                            <div class="u-form u-form-1">
+                                <form th:action="@{/job/apply}" th:object="${jobApplicationBindingModel}"
+                                      method="POST" name="form" style="padding-top: 0px;">
+                                    <h1 align="center" class="outlined-text1">ФОРМУЛЯР</h1>
+                                    <div class="u-form-email u-form-group u-label-none">
+                                        <label for="email-4cb7" class="outlined-text2">Описание</label>
+                                        <textarea rows="4" cols="50" th:field="*{description}" type="text" id="email-4cb7"
+                                                  name="email"
+                                                  class="u-input u-input-rectangle u-white u-input-1"
+                                                  required
+                                                  placeholder="Направете кратко описание за себе си(CV) в рамките на 100-200 думи!"></textarea><p>
+                                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                                          class="error-message"></span>
+                                        </p></div>
+                                    <div class="u-form-group u-label-none u-form-group-2">
+                                        <label for="text-4ce8" class="outlined-text2">Телефон за обратна връзка</label>
+                                        <input th:field="*{phoneNumber}" type="text"
+                                               placeholder="Въведете телефонния си номер"
+                                               id="text-4ce8" name="Enter password"
+                                               class="u-input u-input-rectangle u-white u-input-2"
+                                               required><p><span th:if="${#fields.hasErrors('phoneNumber')}"
+                                                                 th:errors="*{phoneNumber}" class="error-message"></span></p>
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <button type=submit value="submit" class="login-button">Кандидатствай
+                                            </button>
+                                        </p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--FOOTER-->
+<th:block th:include="~{fragments/footer}"></th:block>
+
+</body>
+</html>

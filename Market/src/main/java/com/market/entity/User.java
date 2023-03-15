@@ -31,6 +31,12 @@ public class User extends BaseEntity{
     @Min(0)
     @Max(99)
     private Integer age;
+    @Column(nullable = true)
+    @Min(value = 0, message = "Заплатата не може да бъде отрицателно число!")
+    private Double salary;
+    @Column(nullable = true)
+    @Size(min = 7, max = 15)
+    private String phoneNumber;
     private boolean enabled;
 
     public boolean isEnabled() {
@@ -44,7 +50,7 @@ public class User extends BaseEntity{
     public User() {
     }
 
-    public User(String username, String password, Role role, String firstName, String lastName, String email, Integer age, boolean enabled) {
+    public User(String username, String password, Role role, String firstName, String lastName, String email, Integer age, Double salary,String phoneNumber,boolean enabled) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -52,7 +58,25 @@ public class User extends BaseEntity{
         this.lastName = lastName;
         this.email = email;
         this.age = age;
+        this.salary = salary;
+        this.phoneNumber = phoneNumber;
         this.enabled = enabled;
+    }
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
     }
 
     public String getUsername() {

@@ -50,9 +50,6 @@
                                         <p>
                               <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
                                     class="error-message"></span>
-                                        <div th:if="${errorUsername}" id="errorUsername">
-                                            <p th:text="${errorUsername}" class="error-message"></p>
-                                        </div>
                                         </p>
                                     </div>
                                     <div class="u-form-group u-label-none u-form-group-2">
@@ -64,10 +61,10 @@
                                         <p>
                               <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
                                     class="error-message"></span>
-                                        <div th:if="${errorPassword}" id="errorPassword">
-                                            <p th:text="${errorPassword}" class="error-message"></p>
-                                        </div>
                                         </p>
+                                    </div>
+                                    <div th:if="${userNotFound}" >
+                                        <p th:text="${userNotFound}" class="error-message"></p>
                                     </div>
                                     <div>
                                         <p>

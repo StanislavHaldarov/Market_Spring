@@ -1,6 +1,7 @@
 package com.market.entity.productTypes;
 
 import com.market.entity.BaseEntity;
+import com.market.utility.enums.ProductTypeEnum;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
