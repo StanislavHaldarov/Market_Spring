@@ -10,8 +10,6 @@ import java.util.List;
 
 @Repository
 public interface FoodRepository extends JpaRepository<Food, Long> {
-    @Query("SELECT f FROM Food f JOIN f.product p WHERE p.availableQuantity >= 1")
-    List<Food> findAllAvailable();
 
     @Query("SELECT f FROM Food f JOIN f.product p WHERE p.id =:id")
     Food findFoodByProductId(@PathVariable(name="id") Long id);

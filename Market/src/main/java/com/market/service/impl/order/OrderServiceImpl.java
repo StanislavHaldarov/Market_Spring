@@ -5,8 +5,11 @@ import com.market.entity.User;
 import com.market.entity.order.Order;
 import com.market.entity.order.OrderItem;
 import com.market.entity.productTypes.Product;
+import com.market.repository.order.OrderItemRepository;
 import com.market.repository.order.OrderRepository;
 import com.market.repository.product.ProductRepository;
+import com.market.service.MailService;
+import com.market.service.order.InvoiceService;
 import com.market.service.order.OrderItemService;
 import com.market.service.order.OrderService;
 import com.market.service.product.ProductService;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -25,13 +29,19 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemService orderItemService;
     private final ProductRepository productRepository;
 
+    private final InvoiceService invoiceService;
+    private final MailService mailService;
+
     public OrderServiceImpl(ProductService productService, OrderRepository orderRepository,
-                            OrderItemService orderItemService, ProductRepository productRepository) {
+                            OrderItemService orderItemService, ProductRepository productRepository,
+                            InvoiceService invoiceService, MailService mailService) {
 
         this.productService = productService;
         this.orderRepository = orderRepository;
         this.orderItemService = orderItemService;
         this.productRepository = productRepository;
+        this.invoiceService = invoiceService;
+        this.mailService = mailService;
     }
 
     @Override
@@ -66,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
                 if (order.getOrderItemList().stream().filter(o -> o.getProduct() != null)
                         .toList()
                         .stream()
-                        .filter(o -> o.getProduct().getId().equals(productItem.getId())).toList().size() == 0) {
+                        .filter(o -> Objects.equals(o.getProduct().getId(), productItem.getId())).toList().size() == 0) {
                     // if it doesn't exist add the product item to the order list of items
                     order.getOrderItemList().add(orderItem);
                     // update total price
@@ -107,7 +117,7 @@ public class OrderServiceImpl implements OrderService {
             }
             orderItemService.deleteById(id);
         } catch (Exception e) {
-//        TODO: do something
+            e.printStackTrace();
         }
     }
 
@@ -115,33 +125,32 @@ public class OrderServiceImpl implements OrderService {
     public void submitOrder(Long orderId) {
         Order order = orderRepository.findById(orderId).get();
 
-
-        List<OrderItem> updatedItemList = new ArrayList<>();
-
         for (OrderItem orderItem : order.getOrderItemList()) {
-            if (orderItem.getProduct() != null) {
-                if (orderItem.getProduct().getAvailableQuantity() >= orderItem.getQuantity()) {
+//                if (orderItem.getProduct().getAvailableQuantity() >= orderItem.getQuantity()) {
                     // update product available quantity
                     Product product = orderItem.getProduct();
                     product.setAvailableQuantity(product.getAvailableQuantity() - orderItem.getQuantity());
                     productService.saveProduct(product);
-                    // add item to updated item list
-                    updatedItemList.add(orderItem);
-                }
-            } else {
-                orderItemService.deleteById(orderItem.getId());
-            }
-
-            order.setOrderItemList(updatedItemList);
-
-            // change status
-            order.setStatus(OrderStatusEnum.PROCESSING);
-            // update order
-            order.setTotalPrice(order.findTotalPrice());
-            orderRepository.save(order);
-
+//                }
         }
+
+        // change status
+        order.setStatus(OrderStatusEnum.PROCESSING);
+        // update order
+        order.setTotalPrice(order.findTotalPrice());
+        orderRepository.save(order);
+
+        // generate an invoice and send it
+        try {
+            invoiceService.generatePdf(this.findOrderById(orderId));
+            mailService.sendMailWithAttachment(order.getUser().getEmail(), "Invoice", "Invoice");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
+
+
 
     @Override
     public Order findActiveOrderByUserIdAndStatus(Long id, OrderStatusEnum statusEnum) {
@@ -151,6 +160,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order findOrderById(Long orderId) {
         return orderRepository.findById(orderId).orElse(null);
+    }
+
+    @Override
+    public List<Order> findAllOrders() {
+        return orderRepository.findAll();
+    }
+
+    @Override
+    public void saveOrder(Order order) {
+        orderRepository.save(order);
     }
 
 

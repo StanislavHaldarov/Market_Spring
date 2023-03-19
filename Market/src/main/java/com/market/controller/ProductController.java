@@ -4,9 +4,8 @@ import com.market.dto.mapper.ProductToProductCreateMapper;
 import com.market.dto.request.Filter;
 import com.market.dto.request.ProductCreate;
 import com.market.entity.productTypes.Product;
-import com.market.utility.enums.ProductTypeEnum;
-import com.market.repository.product.ProductRepository;
 import com.market.service.product.ProductService;
+import com.market.utility.enums.ProductTypeEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +32,6 @@ public class ProductController {
     @GetMapping("/all")
     public String getAll(Model model) {
         model.addAttribute("filter", new Filter());
-//        TODO: create response dto for product
         model.addAttribute("products", productService.findAll());
         return "products";
     }
@@ -42,17 +40,16 @@ public class ProductController {
     @GetMapping("/all/specification")
     public String getAllWithSpecification(Model model, Filter filter) {
         model.addAttribute("filter", filter);
-        //        TODO: create response dto for product
         model.addAttribute("products", productService.findAllWithSpecification(filter));
         return "products";
     }
+
 
     // All Available Products - OK
     @GetMapping("/available")
     public String getAllAvailable(Model model) {
         model.addAttribute("filter", new Filter());
-        //        TODO: create response dto for product
-        model.addAttribute("products", productService.findAllWithAvailableQuantityMoreThanZero());
+        model.addAttribute("products", productService.findAllAvailable());
         return "products";
     }
 
@@ -66,7 +63,7 @@ public class ProductController {
         return "addproduct";
     }
 
-//    ADD PRODUCT - OK
+    //    ADD PRODUCT - OK
     @PostMapping("/add")
     public ModelAndView createProduct(@Valid @ModelAttribute ProductCreate productCreate,
                                       BindingResult bindingResult,
@@ -87,7 +84,7 @@ public class ProductController {
         try {
             productService.deleteProductById(id);
         } catch (Exception e) {
-//            TODO: display exception
+            e.getStackTrace();
         }
         return new ModelAndView("redirect:/products/available");
     }
@@ -117,5 +114,6 @@ public class ProductController {
         productService.updateProduct(productCreate);
         return new ModelAndView("redirect:/products/available");
     }
+
 
 }

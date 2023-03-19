@@ -44,8 +44,4 @@ public class FoodServiceImpl implements FoodService {
         foodRepository.save(food);
     }
 
-//    @Override
-//    public Food findById(Long id) {
-//        return foodRepository.findById(id).orElseThrow(() -> new NotFoundException("храна с такова ид не съществува"));
-//    }
 }

@@ -41,8 +41,10 @@ public class Order extends BaseEntity {
     }
 
     public boolean checkIfOrderCanBeMade() {
-        return this.orderItemList.stream()
-                .filter(orderItem -> orderItem.getProduct().getAvailableQuantity() < orderItem.getQuantity()).toList().size() == 0;
+
+        return (
+                this.orderItemList.stream().filter(orderItem -> orderItem.getProduct() == null).toList().size() == 0
+                        && this.orderItemList.stream().filter(orderItem -> orderItem.getProduct().getAvailableQuantity() < orderItem.getQuantity()).toList().size() == 0);
     }
 
     public Order() {

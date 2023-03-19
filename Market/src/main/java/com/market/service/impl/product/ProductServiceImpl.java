@@ -8,9 +8,13 @@ import com.market.repository.product.ProductRepository;
 import com.market.service.product.SpecificationProductFilter;
 import com.market.service.order.OrderItemService;
 import com.market.service.product.*;
+import com.market.service.user.UserService;
+import com.market.utility.enums.RoleNameEnum;
 import com.market.utility.exception.NotFoundException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,11 +28,14 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
     private final SpecificationProductFilter specificationProductFilter;
     private final OrderItemService orderItemService;
 
+    private final UserService userService;
+
+
     public ProductServiceImpl(ProductRepository productRepository,
                               FoodService foodService,
                               DrinkService drinkService,
                               CosmeticService cosmeticService,
-                              SanitaryService sanitaryService, SpecificationProductFilter specificationProductFilter, OrderItemService orderItemService) {
+                              SanitaryService sanitaryService, SpecificationProductFilter specificationProductFilter, OrderItemService orderItemService, UserService userService) {
         this.productRepository = productRepository;
         this.foodService = foodService;
         this.drinkService = drinkService;
@@ -36,6 +43,7 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
         this.sanitaryService = sanitaryService;
         this.specificationProductFilter = specificationProductFilter;
         this.orderItemService = orderItemService;
+        this.userService = userService;
     }
 
 
@@ -45,8 +53,12 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
     }
 
     @Override
-    public List<Product> findAllWithAvailableQuantityMoreThanZero() {
-        return productRepository.findAllAvailable();
+    public List<Product> findAllAvailable() {
+
+        return productRepository.findAll(
+                specificationProductFilter.withNotExpiredDate()
+                        .and(specificationProductFilter.withAvailableQuantity())
+        );
     }
 
     //    SAVE PRODUCT CREATE DTO - OK
@@ -93,8 +105,30 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
 
     @Override
     public List<Product> findAllWithSpecification(Filter filter) {
-        return productRepository.findAll(specificationProductFilter.filter(filter));
+        List<Sort.Order> sorts = new ArrayList<>();
+        if (!filter.getOrderBy().equals("null")) {
+            if (filter.getOrderBy().equals("desc")) {
+
+                sorts.add(new Sort.Order(Sort.Direction.DESC, "priceBGN"));
+            } else if (filter.getOrderBy().equals("asc")) {
+
+                sorts.add(new Sort.Order(Sort.Direction.ASC, "priceBGN"));
+
+            } else {
+                sorts.add(new Sort.Order(Sort.Direction.ASC, "expiredDate"));
+            }
+        }
+
+        if (userService.findAuthenticatedUser().getRole().getName() == RoleNameEnum.CUSTOMER) {
+            return productRepository.findAll(specificationProductFilter.filter(filter)
+                    .and(specificationProductFilter.withAvailableQuantity()
+                            .and(specificationProductFilter.withNotExpiredDate())), Sort.by(sorts));
+        } else {
+            return productRepository.findAll(specificationProductFilter.filter(filter), Sort.by(sorts));
+
+        }
     }
+
 
     @Override
     public void saveProduct(Product product) {

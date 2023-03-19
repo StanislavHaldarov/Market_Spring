@@ -11,8 +11,6 @@ import java.util.List;
 
 @Repository
 public interface CosmeticRepository extends JpaRepository<Cosmetic, Long> {
-    @Query("SELECT c FROM Cosmetic c JOIN c.product p WHERE p.availableQuantity >=1")
-    List<Cosmetic> findAllAvailable();
 
     @Query("SELECT c FROM Cosmetic c JOIN c.product p WHERE p.id =:id")
     Cosmetic findCosmeticByProductId(@PathVariable(name="id") Long id);

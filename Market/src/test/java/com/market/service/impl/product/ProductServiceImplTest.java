@@ -1,5 +1,6 @@
 package com.market.service.impl.product;
 
+import com.market.dto.request.Filter;
 import com.market.dto.request.ProductCreate;
 import com.market.entity.order.OrderItem;
 import com.market.entity.productTypes.Product;
@@ -10,6 +11,7 @@ import com.market.service.product.CosmeticService;
 import com.market.service.product.DrinkService;
 import com.market.service.product.FoodService;
 import com.market.service.product.SanitaryService;
+import com.market.service.user.UserService;
 import com.market.utility.enums.ProductTypeEnum;
 import com.market.utility.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.parameters.P;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,22 +48,39 @@ public class ProductServiceImplTest {
     @Mock
     private OrderItemService mockOrderItemService;
 
+    @Mock
+    private UserService mockUserService;
 
     @Test
-    void findAllWithAvailableQuantityMoreThanZeroTest() {
-        Product product1 = new Product();
-        product1.setAvailableQuantity(3);
-        Product product2 = new Product();
-        product2.setAvailableQuantity(5);
+    public void saveProductCreateWhenProductCreateTypeIsFood(){
+        ProductCreate productCreate = new ProductCreate();
+        productCreate.setType(ProductTypeEnum.FOOD);
+        serviceToTest.saveProductCreate(productCreate);
+        verify(mockFoodService, times(1)).save(productCreate);
+    }
 
-        List<Product> productList = new ArrayList<>();
-        productList.add(product1);
-        productList.add(product2);
+    @Test
+    public void saveProductCreateWhenProductCreateTypeIsDrinks(){
+        ProductCreate productCreate = new ProductCreate();
+        productCreate.setType(ProductTypeEnum.DRINKS);
+        serviceToTest.saveProductCreate(productCreate);
+        verify(mockDrinkService, times(1)).save(productCreate);
+    }
 
-        when(this.mockProductRepository.findAllAvailable())
-                .thenReturn(productList);
+    @Test
+    public void saveProductCreateWhenProductCreateTypeIsSanitary(){
+        ProductCreate productCreate = new ProductCreate();
+        productCreate.setType(ProductTypeEnum.SANITARY);
+        serviceToTest.saveProductCreate(productCreate);
+        verify(mockSanitaryService, times(1)).save(productCreate);
+    }
 
-        assertEquals(serviceToTest.findAllWithAvailableQuantityMoreThanZero(), productList);
+    @Test
+    public void saveProductCreateWhenProductCreateTypeIsCosmetics(){
+        ProductCreate productCreate = new ProductCreate();
+        productCreate.setType(ProductTypeEnum.COSMETICS);
+        serviceToTest.saveProductCreate(productCreate);
+        verify(mockCosmeticService, times(1)).save(productCreate);
     }
 
     @Test
@@ -72,6 +92,8 @@ public class ProductServiceImplTest {
         verify(mockOrderItemService, never()).saveItem(any(OrderItem.class));
         verify(mockProductRepository, never()).deleteById(0L);
     }
+
+
 
     @Test
     void deleteProductByIdTestWhenProductFound() {
@@ -155,8 +177,9 @@ public class ProductServiceImplTest {
 
     @Test
     public void findProductByIdTestWhenIdNotFound() {
-        when(mockProductRepository.findById(0L)).thenThrow(new NotFoundException("product with " + 1 + " was not found"));
+        when(mockProductRepository.findById(0L)).thenThrow(NotFoundException.class);
         assertThrows(NotFoundException.class, () -> serviceToTest.findProductById(0L));
     }
+
 
 }
