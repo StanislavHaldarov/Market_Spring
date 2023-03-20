@@ -16,10 +16,15 @@ import com.market.utility.enums.OrderStatusEnum;
 import com.market.utility.exception.NotEnoughQuantityException;
 import org.springframework.stereotype.Service;
 
+
+import java.util.*;
+import java.util.stream.Collectors;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -158,6 +163,51 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getAllOrders() {
+        List<Order> allOrders = orderRepository.findAll();
+        if (allOrders.isEmpty()) {
+            return null;
+        }
+        return allOrders;
+    }
+
+    @Override
+    public Order sendOrder(Long orderId) {
+        Order order = findOrderById(orderId);
+        order.setStatus(OrderStatusEnum.SENT);
+        orderRepository.save(order);
+        return order;
+    }
+    @Override
+    public Order completeOrder(Long orderId) {
+        Order order = findOrderById(orderId);
+        order.setStatus(OrderStatusEnum.COMPLETED);
+        orderRepository.save(order);
+        return order;
+    }
+
+    @Override
+    public List<Order> sortOrdersByDate(List<Order> orders, String sort) {
+        if(sort.equals("desc")) {
+            orders.sort(Comparator.comparing(Order::getDate).reversed());
+        }else if(sort.equals("asc")){
+            orders.sort(Comparator.comparing(Order::getDate));
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Order> filterOrdersByStatus(List<Order> orders, List<String> statusList) {
+        orders = orders.stream()
+                .filter(order -> statusList.contains(order.getStatus().name()))
+                .collect(Collectors.toList());
+        return  orders;
+    }
+
+    @Override
+    public List<Order> getOrdersByStatuses(OrderStatusEnum[] statuses) {
+        return orderRepository.findByStatusIn(Arrays.asList(statuses));
+
     public List<Order> findAllOrders() {
         return orderRepository.findAll();
     }
@@ -165,6 +215,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void saveOrder(Order order) {
         orderRepository.save(order);
+
     }
 
 

@@ -1,5 +1,7 @@
 package com.market.utility.enums;
 
 public enum RoleNameEnum {
-    EMPLOYEE, CUSTOMER, ADMIN, MANAGER;
+
+    EMPLOYEE, CUSTOMER, MANAGER,ADMIN;
+
 }

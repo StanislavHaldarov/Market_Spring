@@ -59,13 +59,13 @@
                     <td th:text="${jobApplication.phoneNumber}"></td>
                     <td style="word-wrap: break-word" th:text="${jobApplication.description}"></td>
                     <td style="text-align: center">
-                        <div sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"
-                             style="width: 100px; float:left; height:30px; margin:10px">
+                        <div sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')">
                             <form sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"
                                   th:action="@{/job/hire/{id}(id=${jobApplication.id})}" method="POST">
-                                <button type="submit" class="delete-button">Назначи</button>
+                                <button type="submit" class="olive-button">Назначи</button>
                             </form>
                         </div>
+                        <p></p>
                         <div sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')">
                             <form sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"
                                   th:action="@{/job/reject/{id}(id=${jobApplication.id})}" method="POST">

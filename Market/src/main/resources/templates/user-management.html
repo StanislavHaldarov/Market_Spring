@@ -56,7 +56,12 @@
                     <td th:text="${user.username}"></td>
                     <td th:text="${user.firstName}"></td>
                     <td th:text="${user.lastName}"></td>
-                    <td th:text="${user.role.name}"></td>
+                    <td>
+                        <div th:if="${user.role.name == T(com.market.utility.enums.RoleNameEnum).CUSTOMER}">Клиент</div>
+                        <div th:if="${user.role.name == T(com.market.utility.enums.RoleNameEnum).EMPLOYEE}">Служител</div>
+                        <div th:if="${user.role.name == T(com.market.utility.enums.RoleNameEnum).MANAGER}">Мениджър</div>
+                        <div th:if="${user.role.name == T(com.market.utility.enums.RoleNameEnum).ADMIN}">Администратор</div>
+                    </td>
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.age}"></td>
                     <td style="text-align: center">
@@ -72,7 +77,8 @@
                         </form>
                     </td>
                     <td style="text-align: center">
-                        <form sec:authorize="hasAnyAuthority('ADMIN')" th:action="@{/admin/delete/{userId}(userId=${user.id})}" method="post">
+                        <form sec:authorize="hasAnyAuthority('ADMIN')"
+                              th:action="@{/admin/delete/{userId}(userId=${user.id})}" method="post">
                             <button type="submit" class="delete-button">Премахни от системата</button>
                         </form>
                     </td>

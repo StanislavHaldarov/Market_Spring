@@ -1,5 +1,6 @@
 package com.market.controller;
 
+import com.market.entity.Role;
 import com.market.entity.User;
 import com.market.entity.order.Order;
 import com.market.service.MailService;
@@ -9,11 +10,11 @@ import com.market.service.user.UserService;
 import com.market.utility.enums.OrderStatusEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/orders")
@@ -74,6 +75,45 @@ public class OrderController {
     public ModelAndView deleteProduct(@PathVariable Long id) {
         orderService.deleteOrderById(id);
         return new ModelAndView("redirect:/orders/");
+    }
+
+
+    @GetMapping("/order-management")
+    public String getAllOrders(@RequestParam(name = "sort",
+            required = false) String sort,
+                               @RequestParam(name = "status", required = false)
+                               OrderStatusEnum[]statuses, Model model) {
+        List<Order> orders;
+        if (statuses != null && statuses.length > 0) {
+            orders = orderService.getOrdersByStatuses(statuses);
+        }
+        else{
+            orders = orderService.getAllOrders();
+        }
+        if (orders != null && sort!=null) {
+            orders = orderService.sortOrdersByDate(orders, sort);
+        }
+        model.addAttribute("orders", orders);
+        return "ordersmanagement";
+    }
+
+    @GetMapping("/order-details/{orderId}")
+    public String orderDetails(@PathVariable("orderId") Long orderId, Model model) {
+        Order order = orderService.findOrderById(orderId);
+        model.addAttribute("order", order);
+        return "order-details";
+    }
+
+    @PostMapping("/send/{orderId}")
+    public ModelAndView sendOrder(@PathVariable("orderId") Long orderId) {
+        orderService.sendOrder(orderId);
+        return new ModelAndView("redirect:/orders/order-details/{orderId}");
+    }
+
+    @PostMapping("/complete/{orderId}")
+    public ModelAndView completeOrder(@PathVariable("orderId") Long orderId) {
+        orderService.completeOrder(orderId);
+        return new ModelAndView("redirect:/orders/order-details/{orderId}");
     }
 
 }

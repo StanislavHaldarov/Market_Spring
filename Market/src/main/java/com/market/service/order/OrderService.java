@@ -24,7 +24,19 @@ public interface OrderService {
 
     Order findOrderById(Long orderId);
 
+    List<Order> getAllOrders();
+    Order sendOrder(Long orderId);
+    Order completeOrder(Long orderId);
+
+    List<Order> sortOrdersByDate(List<Order> orders, String sort);
+
+    List<Order> filterOrdersByStatus(List<Order> orders, List<String> statusList);
+
+    List<Order> getOrdersByStatuses(OrderStatusEnum[] statuses);
+
+
     List<Order> findAllOrders();
 
     void saveOrder(Order order);
+
 }

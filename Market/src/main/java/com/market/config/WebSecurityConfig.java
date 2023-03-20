@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
+
     @Bean
     public AuthenticationSuccessHandler successHandler() {
         return new CustomAuthenticationSuccessHandler();
@@ -52,24 +53,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .mvcMatchers("/admin/user-management", "/admin/update","/admin/delete/*")
-                .hasAnyAuthority("ADMIN") //Само администраторът има достъп до всеки потребител
-                .mvcMatchers("/job/hire/*", "/job/reject/*", "/job/update-salary/*","/job/fire/*" ,"/job/job-applications-management","/job/employee-management")
-                .hasAnyAuthority("MANAGER","ADMIN")
-                //Само мениджър или админ могат да назначават,отвхърлят кандидатури,
-                //да променят заплати или да уволняват служители
+                .mvcMatchers("/admin/*", "/admin/**")
+                .hasAnyAuthority("ADMIN")
+                //Only Admin role users can access the /admin requests
+                .mvcMatchers("/job/**", "/job/*")
+                .hasAnyAuthority("MANAGER", "ADMIN")
+                //Only Admin and Manager role users can hire or fire employees, update their salary
+                //and reject job applications
                 .mvcMatchers("/job/apply")
-                .hasAnyAuthority("CUSTOMER") //Само клиентските акаунти могат да попълват кандидатури за работа
-                .mvcMatchers("/products/add", "/products/all","/products/update","/products/update/*","/products/delete/*")
-                .hasAnyAuthority("EMPLOYEE", "MANAGER","ADMIN")
-                .mvcMatchers("/users/register","/users/login").anonymous()
+                .hasAnyAuthority("CUSTOMER")
+                //Only Customer role users can make job applications
+                .mvcMatchers("/products/*", "/products/**",
+                        "/order/order-management","/order/order-details/*",
+                        "/order/send/*","/order/complete/*")
+                .hasAnyAuthority("EMPLOYEE", "MANAGER", "ADMIN")
+                //Only !Customer role users can do product related requests
+                .mvcMatchers("/users/*").anonymous()
+                //Register and Login requests require an unauthenticated user
+                .mvcMatchers("/products/available", "/orders/", "/orders/***",
+                        "/item/details/*", "/delete/item/*", "/item/save", "/update/*").authenticated()
+                //Requests for authenticated users only
                 .anyRequest().permitAll().and()
                 .formLogin().loginPage("/users/login").failureForwardUrl("/users/login").permitAll()
                 .successHandler(successHandler()).permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/products/available")
+                .logoutSuccessUrl("/users/login")
                 .permitAll()
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
 
@@ -79,7 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             throws IOException, ServletException {
 
 
-                        response.sendRedirect("/products/available");
+                        response.sendRedirect("/users/login");
                     }
                 });
     }

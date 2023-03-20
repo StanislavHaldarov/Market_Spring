@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/job")
@@ -39,9 +40,13 @@ public class JobController {
         return "job-applications-management";
     }
     @GetMapping("/employee-management")
-    public String allEmployees(Model model)
+    public String allEmployees(@RequestParam(name = "sort",
+            required = false) String sort, Model model)
     {
-        Iterable<User> employees = userService.getAllEmployees();
+        List<User> employees = userService.getAllEmployees();
+        if(employees!=null && sort!=null){
+            employees = userService.sortEmployees(employees,sort);
+        }
         model.addAttribute("employees", employees);
         return "employee-management";
     }
@@ -61,9 +66,8 @@ public class JobController {
             modelAndView.addObject("org.springframework.validation.BindingResult.jobApplicationBindingModel", bindingResult);
             return modelAndView;
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = ((UserDetails) auth.getPrincipal()).getUsername();
-        User user = userService.findUserByUsername(username);
+
+        User user = userService.findAuthenticatedUser();
         if (user == null) {
             return modelAndView;
         }

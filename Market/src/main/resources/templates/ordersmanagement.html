@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="en" xmlns:th="">
+<html style="font-size: 16px;" lang="en" xmlns:th="" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta name="keywords" content="Or​ga​ni​">
     <meta name="description" content="">
     <title>ordersmanagement</title>
-    <link rel="stylesheet" href="nicepage.css" media="screen">
-    <link rel="stylesheet" href="ordersmanagement.css" media="screen">
+    <link rel="stylesheet" href="/nicepage.css" media="screen">
+    <link rel="stylesheet" href="/ordersmanagement.css" media="screen">
     <script class="u-script" type="text/javascript" src="/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="/nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.5.0, nicepage.com">
@@ -25,11 +25,79 @@
     <meta property="og:title" content="ordersmanagement">
     <meta property="og:type" content="website">
     <meta data-intl-tel-input-cdn-path="intlTelInput/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body class="u-body u-xl-mode" data-lang="en">
 <th:block th:include="~{fragments/header}"></th:block>
-<section class="u-clearfix u-section-1" id="sec-4a92">
-    <div class="u-clearfix u-sheet u-sheet-1"></div>
+<section class="u-clearfix u-section-1" id="sec-29b2">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div id="parent">
+            <form th:action="@{/orders/order-management}" method="get">
+                <div class="child"><h4>Сортиране по:</h4></div>
+                <div class="child">
+
+                    <select name="sort" onchange="this.form.submit()">
+                        <option value="null"></option>
+                        <option value="desc">
+                            Дата на създаване &darr;
+                        </option>
+                        <option value="asc">
+                            Дата на създаване &uarr;
+                        </option>
+                    </select>
+                </div>
+                <div class="child"><h4>Филтриране по състояние:</h4></div>
+                <div class="child">
+
+                    <label for="status-processing"><input type="checkbox" id="status-processing" name="status"
+                                                          value="PROCESSING"> Обработва се</label>
+                    <label for="status-sent"><input type="checkbox" id="status-sent" name="status" value="SENT">
+                        Изпратена</label>
+                    <label for="status-completed"><input type="checkbox" id="status-completed" name="status"
+                                                         value="COMPLETED"> Завършена</label>
+                    <button class="olive-button" type="submit">Филтрирай</button>
+                </div>
+            </form>
+        </div>
+        <div class="fr">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th style="text-align: center">id</th>
+                    <th style="text-align: center">Дата на създаване</th>
+                    <th style="text-align: center">Състояние</th>
+                    <th style="text-align: center">id на поръчвателя</th>
+                    <th style="text-align: center">Настройки</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}"></td>
+                    <td th:text="${order.date}"></td>
+                    <td>
+                        <div th:if="${order.status == T(com.market.utility.enums.OrderStatusEnum).PROCESSING}">Обработва
+                            се
+                        </div>
+                        <div th:if="${order.status == T(com.market.utility.enums.OrderStatusEnum).SENT}">Изпратена</div>
+                        <div th:if="${order.status == T(com.market.utility.enums.OrderStatusEnum).COMPLETED}">
+                            Завършена
+                        </div>
+                    </td>
+                    <td th:text="${order.user.id}"></td>
+                    <td style="text-align: center">
+                        <a th:href="@{/orders/order-details/{orderId}(orderId=${order.id})}"
+                           sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')">
+                            <button type="submit" class="olive-button">Още</button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 
 <!--FOOTER-->

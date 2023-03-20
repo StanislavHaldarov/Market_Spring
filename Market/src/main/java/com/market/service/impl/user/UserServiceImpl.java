@@ -1,5 +1,6 @@
 package com.market.service.impl.user;
 
+import com.market.entity.order.Order;
 import com.market.utility.enums.RoleNameEnum;
 import com.market.entity.User;
 import com.market.repository.UserRepository;
@@ -14,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,13 +60,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findAuthenticatedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth.isAuthenticated()){
+        if (auth.isAuthenticated()) {
             return userRepository.getUserByUsername(auth.getName());
         } else {
-            return  null;
+            return null;
         }
     }
-
 
 
     @Override
@@ -131,5 +132,16 @@ public class UserServiceImpl implements UserService {
             userRepository.save(employee);
         }
 
+    }
+
+    @Override
+    public List<User> sortEmployees(List<User> employees, String sort) {
+        switch (sort) {
+            case "nameDesc" -> employees.sort(Comparator.comparing(User::getFirstName).reversed());
+            case "nameAsc" -> employees.sort(Comparator.comparing(User::getFirstName));
+            case "salaryDesc" -> employees.sort(Comparator.comparing(User::getSalary).reversed());
+            case "salaryAsc" -> employees.sort(Comparator.comparing(User::getSalary));
+        }
+        return employees;
     }
 }

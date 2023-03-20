@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o JOIN o.user u WHERE u.id =:id AND o.status =:status")
@@ -17,4 +19,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Order findOrderByItemId(@PathVariable(name="id") Long id);
 
 
+    List<Order> findByStatusIn(List<OrderStatusEnum> asList);
 }

@@ -35,6 +35,28 @@
 <th:block th:include="~{fragments/header}"></th:block>
 <section class="u-clearfix u-section-1" id="sec-29b2">
     <div class="u-clearfix u-sheet u-sheet-1">
+        <div id="parent">
+            <form th:action="@{/job/employee-management}" method="get">
+                <div class="child"><h4>Сортиране по:</h4></div>
+                <div class="child">
+                    <select name="sort" onchange="this.form.submit()">
+                        <option value="null"></option>
+                        <option value="nameDesc">
+                            Име на служител &darr;
+                        </option>
+                        <option value="nameAsc">
+                            Име на служтел &uarr;
+                        </option>
+                        <option value="salaryDesc">
+                            Заплата на служител &darr;
+                        </option>
+                        <option value="salaryAsc">
+                            Заплата на служител &uarr;
+                        </option>
+                    </select>
+                </div>
+            </form>
+        </div>
         <div class="fr">
             <table class="table table-bordered">
                 <thead>
@@ -62,7 +84,7 @@
                         <div>
                             <form sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"
                                   th:action="@{/job/update-salary/{id}(id=${employee.id})}" method="POST">
-                                <input type="number" name="salary" th:value="${employee.salary}" step="0.01">
+                                <input type="number" name="salary" th:value="${employee.salary} + 'лв.'" step="0.01">
                                 <div th:if="${errorSalary}">
                                     <p th:text="${errorSalary}" class="error-message"></p>
                                 </div>
