@@ -22,4 +22,5 @@ public interface UserService {
     void updateSalaryById(Long id, Double salary);
     void fireEmployeeById(Long id);
 
+    List<User> sortEmployees(List<User> employees, String sort);
 }

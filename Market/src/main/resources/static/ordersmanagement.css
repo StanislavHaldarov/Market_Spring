@@ -4,3 +4,46 @@
 .u-sheet-1{
   text-align: center;
 }
+.delete-button {
+  background-color: red;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid red;
+  color: white;
+  transition-duration: 0.4s;
+}
+.delete-button:hover {
+  background-color: white;
+  color: red;
+}
+.olive-button {
+  background-color: #ABB454;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid #ABB454;
+  color: white;
+  transition-duration: 0.4s;
+}
+.olive-button:hover {
+  background-color: white; /* Green */
+  color: #ABB454;
+}
+.error-message {
+  background-color: #ffc0cb; /* mild pink color */
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid red;
+  text-align: center;
+  font-size: 75%;
+  font-weight: bold;
+  font-size-adjust: 0.58;
+  color: red; /* text color is red */
+}
+#parent { white-space: nowrap; }
+.child { display: inline-block; }
+
+.gray-text {
+text-align: center;
+text-color: gray;
+
+}

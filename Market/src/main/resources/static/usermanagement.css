@@ -36,3 +36,5 @@
   font-size-adjust: 0.58;
   color: red; /* text color is red */
 }
+#parent { white-space: nowrap; }
+.child { display: inline-block; }

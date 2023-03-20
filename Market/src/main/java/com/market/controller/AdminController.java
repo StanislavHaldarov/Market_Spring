@@ -4,11 +4,14 @@ import com.market.entity.Role;
 import com.market.entity.User;
 import com.market.service.user.RoleService;
 import com.market.service.user.UserService;
+import com.market.utility.enums.RoleNameEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,9 +28,12 @@ public class AdminController {
 
     @GetMapping("/user-management")
     public String getAllUsers(Model model) {
-        Iterable<User> users = userService.getAllUsers();
+        List<User> users = userService.getAllUsers();
+        User removeCurrentUser = userService.findAuthenticatedUser();
+        users.remove(removeCurrentUser);
         model.addAttribute("users", users);
-        Iterable<Role> roles = roleService.getAllRoles();
+        List<Role> roles = roleService.getAllRoles();
+        roles.removeIf(role -> role.getName() == RoleNameEnum.ADMIN);
         model.addAttribute("roles", roles);
         return "user-management";
     }
