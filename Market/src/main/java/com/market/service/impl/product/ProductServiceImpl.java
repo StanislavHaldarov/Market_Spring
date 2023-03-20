@@ -119,7 +119,7 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
             }
         }
 
-        if (userService.findAuthenticatedUser().getRole().getName() == RoleNameEnum.CUSTOMER) {
+        if (userService.findAuthenticatedUser() == null || userService.findAuthenticatedUser().getRole().getName() == RoleNameEnum.CUSTOMER ) {
             return productRepository.findAll(specificationProductFilter.filter(filter)
                     .and(specificationProductFilter.withAvailableQuantity()
                             .and(specificationProductFilter.withNotExpiredDate())), Sort.by(sorts));

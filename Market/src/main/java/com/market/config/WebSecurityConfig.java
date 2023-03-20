@@ -56,21 +56,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/admin/*", "/admin/**")
                 .hasAnyAuthority("ADMIN")
                 //Only Admin role users can access the /admin requests
+                .mvcMatchers("/job/apply")
+                .hasAnyAuthority("CUSTOMER")
                 .mvcMatchers("/job/**", "/job/*")
                 .hasAnyAuthority("MANAGER", "ADMIN")
                 //Only Admin and Manager role users can hire or fire employees, update their salary
                 //and reject job applications
-                .mvcMatchers("/job/apply")
-                .hasAnyAuthority("CUSTOMER")
+                .mvcMatchers("/products/available","/products/all/specification")
+                .permitAll()
                 //Only Customer role users can make job applications
                 .mvcMatchers("/products/*", "/products/**",
-                        "/order/order-management","/order/order-details/*",
-                        "/order/send/*","/order/complete/*")
+                        "/orders/order-management","/orders/order-details/*",
+                        "/orders/send/*","/order/complete/*","/orders/delete/completed-order/*")
                 .hasAnyAuthority("EMPLOYEE", "MANAGER", "ADMIN")
                 //Only !Customer role users can do product related requests
                 .mvcMatchers("/users/*").anonymous()
                 //Register and Login requests require an unauthenticated user
-                .mvcMatchers("/products/available", "/orders/", "/orders/***",
+                .mvcMatchers("/orders/", "/orders/***",
                         "/item/details/*", "/delete/item/*", "/item/save", "/update/*").authenticated()
                 //Requests for authenticated users only
                 .anyRequest().permitAll().and()

@@ -22,23 +22,11 @@ public class OrderController {
     private final UserService userService;
     private final OrderService orderService;
 
-    private final InvoiceService invoiceService;
-    private final MailService mailService;
 
-    public OrderController(UserService userService, OrderService orderService, InvoiceService invoiceService, MailService mailService) {
+    public OrderController(UserService userService, OrderService orderService) {
         this.userService = userService;
         this.orderService = orderService;
-        this.invoiceService = invoiceService;
-        this.mailService = mailService;
     }
-
-//    @GetMapping("/all")
-//    public String allOrders(Model model) {
-//        List<Order> orders = orderService.findAllOrders();
-//        model.addAttribute("orders", orderService.findAllOrders());
-//        model.addAttribute("statuses", OrderStatusEnum.values());
-//        return "orders-management";
-//    }
 
 
     // Retrieve User order
@@ -70,11 +58,16 @@ public class OrderController {
     }
 
 
-    //Delete Item
+    //Delete Order
     @PostMapping("delete/order/{id}")
-    public ModelAndView deleteProduct(@PathVariable Long id) {
+    public ModelAndView deleteOrder(@PathVariable Long id) {
         orderService.deleteOrderById(id);
         return new ModelAndView("redirect:/orders/");
+    }
+    @PostMapping("delete/completed-order/{orderId}")
+    public ModelAndView deleteCompletedOrder(@PathVariable("orderId") Long id) {
+        orderService.deleteOrderById(id);
+        return new ModelAndView("redirect:/orders/order-management");
     }
 
 
@@ -82,15 +75,14 @@ public class OrderController {
     public String getAllOrders(@RequestParam(name = "sort",
             required = false) String sort,
                                @RequestParam(name = "status", required = false)
-                               OrderStatusEnum[]statuses, Model model) {
+                               OrderStatusEnum[] statuses, Model model) {
         List<Order> orders;
         if (statuses != null && statuses.length > 0) {
             orders = orderService.getOrdersByStatuses(statuses);
-        }
-        else{
+        } else {
             orders = orderService.getAllOrders();
         }
-        if (orders != null && sort!=null) {
+        if (orders != null && sort != null) {
             orders = orderService.sortOrdersByDate(orders, sort);
         }
         model.addAttribute("orders", orders);

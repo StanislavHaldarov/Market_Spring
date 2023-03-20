@@ -55,12 +55,7 @@
                     <tr th:each="item, i :${order.orderItemList}">
                         <div th:if="${item.product == null}">
                             <td class="alert alert-warning" role="alert" style="display: flex; flex-direction: row">
-                                <form th:action="@{/delete/item/{id}(id=${item.id})}" method="post">
-                                    <button class="center" type='submit'>&#10006;</button>
-                                </form>
-                                <p>Нещо се обърка, продуктът, който се опитвате да
-                                    закупите,
-                                    вече не е наличен</p>
+                                <p>Продуктът вече не е наличен!</p>
                             </td>
                             <td>-</td>
                             <td>-</td>
@@ -115,8 +110,11 @@
                                     <button class="olive-button" type="submit">ОТБЕЛЕЖИ КАТО ЗАВЪРШЕНА</button>
                                     </form>
                                 </span>
-                                <span class="gray-text"
+                                <span class="gray-text" sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN', 'MANAGER')"
                                       th:if="${order.status == T(com.market.utility.enums.OrderStatusEnum).COMPLETED}">ПОРЪЧКАТА Е ЗАВЪРШЕНА
+                                    <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN', 'MANAGER')" method="POST"
+                                          th:action="@{/orders/delete/completed-order/{orderId}(orderId=${order.id})}">
+                                        <button type=submit class="delete-button">ИЗТРИЙ</button></form>
                                 </span>
                             </td>
                         </tr>

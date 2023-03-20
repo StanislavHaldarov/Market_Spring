@@ -1,4 +1,4 @@
-package com.market;
+package com.market.service.impl.job;
 
 import com.market.entity.job.JobApplication;
 import com.market.entity.Role;

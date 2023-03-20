@@ -208,7 +208,8 @@
 
 <header class=" u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-clearfix u-header u-section-row-container"
         id="sec-3c39" data-animation-name="" data-animation-duration="0" data-animation-delay="0"
-        data-animation-direction="" style="" xmlns:sec="http://www.w3.org/1999/xhtml">
+        data-animation-direction="" style="" xmlns:sec="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="u-section-rows">
         <div class="u-border-2 u-border-palette-5-light-2 u-clearfix u-custom-color-5 u-section-row"
              data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction=""
@@ -322,7 +323,8 @@
                         to {
                             right: 0;
                         }
-                    }            </style>
+                    }
+                    </style>
                 </nav><!--shopping_cart-->
                 <a sec:authorize="isAuthenticated()" class="u-shopping-cart u-shopping-cart-1" href="/orders/"><span
                         class="u-icon u-shopping-cart-icon u-icon-1">
@@ -368,14 +370,14 @@
                                         href="/products/all" style="padding: 16px 12px;">Управление на
                                     продукти</a>
                             </li>
-                            <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" class="u-nav-item">
+                            <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')" class="u-nav-item">
                                 <a
                                         class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
                                         href="/products/add" style="padding: 16px 12px;">Добавяне на продукт</a>
                             </li>
-                            <li class="u-nav-item"><a
-                                    class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                    href="ordersmanagement.html" target="_blank" style="padding: 16px 12px;">Управление
+                            <li class="u-nav-item"><a sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')"
+                                                      class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                                      href="/orders/order-management" style="padding: 16px 12px;">Управление
                                 на поръчки</a>
                             </li>
                         </ul>
@@ -391,16 +393,19 @@
                                     </li>
                                     <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')"
                                         class="u-nav-item"><a
-                                            class="u-button-style u-nav-link" href="/products/all">Управление на продукти</a>
+                                            class="u-button-style u-nav-link" href="/products/all">Управление на
+                                        продукти</a>
                                     </li>
-                                    <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" class="u-nav-item">
+                                    <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')"
+                                        class="u-nav-item">
                                         <a
                                                 class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
                                                 href="/products/add" style="padding: 16px 12px;">Добавяне на продукт</a>
                                     </li>
                                     <li class="u-nav-item"><a
+                                            sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')"
                                             class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                            href="ordersmanagement.html" target="_blank" style="padding: 16px 12px;">Управление
+                                            href="/orders/order-management" style="padding: 16px 12px;">Управление
                                         на поръчки</a>
                                     </li>
                                 </ul>
@@ -454,7 +459,8 @@
                         to {
                             right: 0;
                         }
-                    }            </style>
+                    }
+                    </style>
                 </nav>
             </div>
 
@@ -575,7 +581,8 @@
                         to {
                             right: 0;
                         }
-                    }            </style>
+                    }
+                    </style>
                 </nav>
             </div>
 

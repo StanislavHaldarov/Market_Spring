@@ -42,11 +42,13 @@
                                     <h1 align="center" class="outlined-text1">ФОРМУЛЯР</h1>
                                     <div class="u-form-email u-form-group u-label-none">
                                         <label for="email-4cb7" class="outlined-text2">Описание</label>
-                                        <textarea rows="4" cols="50" th:field="*{description}" type="text" id="email-4cb7"
+                                        <textarea rows="4" cols="50" th:field="*{description}" type="text"
+                                                  id="email-4cb7"
                                                   name="email"
                                                   class="u-input u-input-rectangle u-white u-input-1"
                                                   required
-                                                  placeholder="Направете кратко описание за себе си(CV) в рамките на 100-200 думи!"></textarea><p>
+                                                  placeholder="Направете кратко описание за себе си(CV) в рамките на 100-200 думи!"></textarea>
+                                        <p>
                                     <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
                                           class="error-message"></span>
                                         </p></div>
@@ -56,8 +58,9 @@
                                                placeholder="Въведете телефонния си номер"
                                                id="text-4ce8" name="Enter password"
                                                class="u-input u-input-rectangle u-white u-input-2"
-                                               required><p><span th:if="${#fields.hasErrors('phoneNumber')}"
-                                                                 th:errors="*{phoneNumber}" class="error-message"></span></p>
+                                               required>
+                                        <p><span th:if="${#fields.hasErrors('phoneNumber')}"
+                                                 th:errors="*{phoneNumber}" class="error-message"></span></p>
                                     </div>
                                     <div>
                                         <p>
