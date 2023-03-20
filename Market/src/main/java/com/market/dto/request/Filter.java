@@ -7,14 +7,26 @@ public class Filter {
     private String isCategoryCosmeticsChecked;
     private String isCategorySanitaryChecked;
 
+    private String orderBy;
+
     private Integer minPrice;
     private Integer maxPrice;
     private String nameKeyword;
     private Integer quantityKeyword;
 
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
+
     public String getIsCategoryFoodChecked() {
         return isCategoryFoodChecked;
     }
+
 
     public void setIsCategoryFoodChecked(String isCategoryFoodChecked) {
         this.isCategoryFoodChecked = isCategoryFoodChecked;

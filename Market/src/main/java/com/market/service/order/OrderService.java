@@ -23,6 +23,7 @@ public interface OrderService {
     Order findActiveOrderByUserIdAndStatus(Long id, OrderStatusEnum statusEnum);
 
     Order findOrderById(Long orderId);
+
     List<Order> getAllOrders();
     Order sendOrder(Long orderId);
     Order completeOrder(Long orderId);
@@ -32,4 +33,10 @@ public interface OrderService {
     List<Order> filterOrdersByStatus(List<Order> orders, List<String> statusList);
 
     List<Order> getOrdersByStatuses(OrderStatusEnum[] statuses);
+
+
+    List<Order> findAllOrders();
+
+    void saveOrder(Order order);
+
 }

@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProductService {
     List<Product> findAll();
 
-    List<Product> findAllWithAvailableQuantityMoreThanZero();
+    List<Product> findAllAvailable();
 
     Product findProductById(Long id);
 

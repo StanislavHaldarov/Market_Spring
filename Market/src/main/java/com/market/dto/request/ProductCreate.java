@@ -40,6 +40,7 @@ public class ProductCreate {
     private Integer count;
 
 
+
     public ProductCreate(Long id, ProductTypeEnum type, String name, Integer availableQuantity,
                          Double priceBGN, String imageUrl, LocalDate expiredDate,
                          Double weight, Double volume, Integer count) {

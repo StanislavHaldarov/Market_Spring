@@ -1,206 +1,585 @@
-<th:block xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
-    <header class=" u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-clearfix u-header u-section-row-container"
-            id="sec-3c39" data-animation-name="" data-animation-duration="0" data-animation-delay="0"
-            data-animation-direction="" style="">
-        <div class="u-section-rows">
-            <div class="u-border-2 u-border-palette-5-light-2 u-clearfix u-custom-color-5 u-section-row"
-                 data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction=""
-                 id="sec-ed71">
+<!--<th:block xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">-->
+<!--    <header class=" u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-clearfix u-header u-section-row-container"-->
+<!--            id="sec-3c39" data-animation-name="" data-animation-duration="0" data-animation-delay="0"-->
+<!--            data-animation-direction="" style="">-->
+<!--        <div class="u-section-rows">-->
+<!--            <div class="u-border-2 u-border-palette-5-light-2 u-clearfix u-custom-color-5 u-section-row"-->
+<!--                 data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction=""-->
+<!--                 id="sec-ed71">-->
 
 
-                <div class="u-clearfix u-sheet u-sheet-1">
-                    <h1 class="u-align-center u-custom-font u-font-lobster u-text u-text-default u-text-1">
-                        При​Стаско&<span
-                            style="font-weight: 700;"></span>Цвети
-                    </h1>
-                    <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
-                        <div class="menu-collapse" style="font-size: 1.25rem; letter-spacing: 0px;">
-                            <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-hover-color u-custom-text-shadow u-custom-text-shadow-blur u-custom-text-shadow-color u-custom-text-shadow-transparency u-custom-text-shadow-x u-custom-text-shadow-y u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-                               href="#">
-                                <svg class="u-svg-link" viewBox="0 0 24 24">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
-                                </svg>
-                                <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px"
-                                     y="0px" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <g>
-                                        <rect y="1" width="16" height="2"></rect>
-                                        <rect y="7" width="16" height="2"></rect>
-                                        <rect y="13" width="16" height="2"></rect>
-                                    </g>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="u-custom-menu u-nav-container">
-                            <ul class="u-nav u-unstyled u-nav-1">
-                                <li sec:authorize="!isAuthenticated()" class="u-nav-item">
-                                    <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1"
-                                       href="/users/login">Вход</a>
-                                </li>
-                                <li sec:authorize="!isAuthenticated()" class="u-nav-item">
-                                    <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1"
-                                       href="/users/register">Регистрация</a>
-                                </li>
-                                <li sec:authorize="isAuthenticated()" class="u-nav-item">
-                                    <p>Добре дошли, <span sec:authentication="name">Username</span>!</p>
-                                </li>
-                                <li sec:authorize="isAuthenticated()" class="u-nav-item">
-                                    <a th:href="@{/logout}">Изход</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="u-custom-menu u-nav-container-collapse">
-                            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-                                <div class="u-inner-container-layout u-sidenav-overflow">
-                                    <div class="u-menu-close"></div>
-                                    <ul class="u-nav u-unstyled u-nav-1">
-                                        <li sec:authorize="!isAuthenticated()" class="u-nav-item">
-                                            <a class="u-button-style u-nav-link" href="/users/login">Вход</a>
-                                        </li>
-                                        <li sec:authorize="!isAuthenticated()" class="u-nav-item">
-                                            <a class="u-button-style u-nav-link" href="/users/register">Регистрация</a>
-                                        </li>
-                                        <li sec:authorize="isAuthenticated()" class="u-nav-item">
-                                            <p>Добре дошли, <span sec:authentication="name">Username</span>!</p>
-                                        </li>
-                                        <li sec:authorize="isAuthenticated()" class="u-nav-item">
-                                            <a th:href="@{/logout}">Изход</a>
-                                        </li>
-                                    </ul>
-                                </div>
+<!--                <div class="u-clearfix u-sheet u-sheet-1">-->
+<!--                    <h1 class="u-align-center u-custom-font u-font-lobster u-text u-text-default u-text-1">-->
+<!--                        При​Стаско&<span-->
+<!--                            style="font-weight: 700;"></span>Цвети-->
+<!--                    </h1>-->
+<!--                    <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">-->
+<!--                        <div class="menu-collapse" style="font-size: 1.25rem; letter-spacing: 0px;">-->
+<!--                            <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-hover-color u-custom-text-shadow u-custom-text-shadow-blur u-custom-text-shadow-color u-custom-text-shadow-transparency u-custom-text-shadow-x u-custom-text-shadow-y u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"-->
+<!--                               href="#">-->
+<!--                                <svg class="u-svg-link" viewBox="0 0 24 24">-->
+<!--                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>-->
+<!--                                </svg>-->
+<!--                                <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px"-->
+<!--                                     y="0px" xmlns:xlink="http://www.w3.org/1999/xlink"-->
+<!--                                     xmlns="http://www.w3.org/2000/svg">-->
+<!--                                    <g>-->
+<!--                                        <rect y="1" width="16" height="2"></rect>-->
+<!--                                        <rect y="7" width="16" height="2"></rect>-->
+<!--                                        <rect y="13" width="16" height="2"></rect>-->
+<!--                                    </g>-->
+<!--                                </svg>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div class="u-custom-menu u-nav-container">-->
+<!--                            <ul class="u-nav u-unstyled u-nav-1">-->
+<!--                                <li sec:authorize="!isAuthenticated()" class="u-nav-item">-->
+<!--                                    <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1"-->
+<!--                                       href="/users/login">Вход</a>-->
+<!--                                </li>-->
+<!--                                <li sec:authorize="!isAuthenticated()" class="u-nav-item">-->
+<!--                                    <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1"-->
+<!--                                       href="/users/register">Регистрация</a>-->
+<!--                                </li>-->
+<!--                                <li sec:authorize="isAuthenticated()" class="u-nav-item">-->
+<!--                                    <p>Добре дошли, <span sec:authentication="name">Username</span>!</p>-->
+<!--                                </li>-->
+<!--                                <li sec:authorize="isAuthenticated()" class="u-nav-item">-->
+<!--                                    <a th:href="@{/logout}">Изход</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                        <div class="u-custom-menu u-nav-container-collapse">-->
+<!--                            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">-->
+<!--                                <div class="u-inner-container-layout u-sidenav-overflow">-->
+<!--                                    <div class="u-menu-close"></div>-->
+<!--                                    <ul class="u-nav u-unstyled u-nav-1">-->
+<!--                                        <li sec:authorize="!isAuthenticated()" class="u-nav-item">-->
+<!--                                            <a class="u-button-style u-nav-link" href="/users/login">Вход</a>-->
+<!--                                        </li>-->
+<!--                                        <li sec:authorize="!isAuthenticated()" class="u-nav-item">-->
+<!--                                            <a class="u-button-style u-nav-link" href="/users/register">Регистрация</a>-->
+<!--                                        </li>-->
+<!--                                        <li sec:authorize="isAuthenticated()" class="u-nav-item">-->
+<!--                                            <p>Добре дошли, <span sec:authentication="name">Username</span>!</p>-->
+<!--                                        </li>-->
+<!--                                        <li sec:authorize="isAuthenticated()" class="u-nav-item">-->
+<!--                                            <a th:href="@{/logout}">Изход</a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>-->
+<!--                        </div>-->
+<!--                    </nav>&lt;!&ndash;shopping_cart&ndash;&gt;-->
+<!--                    <a sec:authorize="isAuthenticated()" class="u-shopping-cart u-shopping-cart-1" href="/orders/"><span-->
+<!--                            class="u-icon u-shopping-cart-icon u-icon-1">-->
+<!--                        <svg class="u-svg-link"-->
+<!--                             preserveAspectRatio="xMidYMin slice"-->
+<!--                             viewBox="0 0 16 16" style=""><use-->
+<!--                                xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-aeb7"></use></svg><svg-->
+<!--                            class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-aeb7"><path d="M14.5,3l-2.1,5H6.1L5.9,7.6L4,3H14.5 M0,0v1h2.1L5,8l-2,4h11v-1H4.6l1-2H13l3-7H3.6L2.8,0H0z M12.5,13-->
+<!--&lt;!&ndash;	c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5s1.5-0.7,1.5-1.5S13.3,13,12.5,13L12.5,13z M4.5,13C3.7,13,3,13.7,3,14.5S3.7,16,4.5,16&ndash;&gt;-->
+<!--&lt;!&ndash;	S6,15.3,6,14.5S5.3,13,4.5,13L4.5,13z"></path></svg>&ndash;&gt;-->
+<!--                    </span>-->
+<!--                    </a>&lt;!&ndash;/shopping_cart&ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="u-box-shadow u-custom-color-6 u-section-row u-section-row-2" id="sec-7e73">-->
+<!--                <div class="u-clearfix u-sheet u-valign-middle u-sheet-2">-->
+<!--                    <nav class="u-menu u-menu-one-level u-offcanvas u-menu-2">-->
+<!--                        <div class="menu-collapse" style="font-size: 1.125rem;">-->
+<!--                            <a class="u-button-style u-custom-left-right-menu-spacing u-custom-text-color u-custom-text-hover-color u-custom-text-shadow u-custom-text-shadow-blur u-custom-text-shadow-color u-custom-text-shadow-transparency u-custom-text-shadow-x u-custom-text-shadow-y u-nav-link"-->
+<!--                               href="#">-->
+<!--                                <svg class="u-svg-link" viewBox="0 0 24 24">-->
+<!--                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-9094"></use>-->
+<!--                                </svg>-->
+<!--                                <svg class="u-svg-content" version="1.1" id="svg-9094" viewBox="0 0 16 16" x="0px"-->
+<!--                                     y="0px"-->
+<!--                                     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                    <g>-->
+<!--                                        <rect y="1" width="16" height="2"></rect>-->
+<!--                                        <rect y="7" width="16" height="2"></rect>-->
+<!--                                        <rect y="13" width="16" height="2"></rect>-->
+<!--                                    </g>-->
+<!--                                </svg>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div class="u-custom-menu u-nav-container">-->
+<!--                            <ul class="u-nav u-unstyled u-nav-3">-->
+<!--                                <li sec:authorize="isAuthenticated()" class="u-nav-item"><a-->
+<!--                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"-->
+<!--                                        href="/products/available" style="padding: 16px 12px;">Пазарувай</a>-->
+<!--                                </li>-->
+<!--                                <li sec:authorize="hasAnyAuthority('CUSTOMER')" class="u-nav-item"><a-->
+<!--                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"-->
+<!--                                        href="/job/apply" style="padding: 16px 12px;">Кандидатствай за работа</a>-->
+<!--                                </li>-->
+<!--                                <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a-->
+<!--                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"-->
+<!--                                        href="/job/job-applications-management" style="padding: 16px 4px 16px 12px;">Кандидатури-->
+<!--                                    за работа</a>-->
+<!--                                </li>-->
+<!--                                <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')" class="u-nav-item">-->
+<!--                                    <a-->
+<!--                                            class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"-->
+<!--                                            href="/products/all" style="padding: 16px 12px;">Управление на-->
+<!--                                        продукти</a>-->
+<!--                                </li>-->
+<!--                                <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" class="u-nav-item"><a-->
+<!--                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"-->
+<!--                                        href="/products/add" style="padding: 16px 12px;">Добавяне на продукт</a>-->
+<!--                                </li>-->
+<!--                                <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a-->
+<!--                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"-->
+<!--                                        href="/job/employee-management" style="padding: 16px 4px 16px 12px;">Управление-->
+<!--                                    на служители</a>-->
+<!--                                </li>-->
+<!--                                <li sec:authorize="hasAnyAuthority('ADMIN')" class="u-nav-item"><a-->
+<!--                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"-->
+<!--                                        href="/admin/user-management" style="padding: 16px 12px;">Управление на-->
+<!--                                    потребители</a>-->
+<!--                                </li>-->
+<!--                                <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')" class="u-nav-item">-->
+<!--                                    <a-->
+<!--                                            class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"-->
+<!--                                            href="/orders/management" style="padding: 16px 4px 16px 12px;">Управление-->
+<!--                                        на поръчки</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                        <div class="u-custom-menu u-nav-container-collapse">-->
+<!--                            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">-->
+<!--                                <div class="u-inner-container-layout u-sidenav-overflow">-->
+<!--                                    <div class="u-menu-close"></div>-->
+<!--                                    <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4">-->
+<!--                                        <li sec:authorize="isAuthenticated()" class="u-nav-item"><a-->
+<!--                                                class="u-button-style u-nav-link"-->
+<!--                                                href="/products/available">Пазарувай</a>-->
+<!--                                        </li>-->
+<!--                                        <li sec:authorize="hasAnyAuthority('CUSTOMER')" class="u-nav-item"><a-->
+<!--                                                class="u-button-style u-nav-link" href="/job/apply"-->
+<!--                                        >Кандидатствай за работа</a>-->
+<!--                                        </li>-->
+<!--                                        <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a-->
+<!--                                                class="u-button-style u-nav-link"-->
+<!--                                                href="/job/job-applications-management"-->
+<!--                                        >Кандидатури за работа</a>-->
+<!--                                        </li>-->
+<!--                                        <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')"-->
+<!--                                            class="u-nav-item"><a-->
+<!--                                                class="u-button-style u-nav-link" href="/products/all"-->
+<!--                                        >Управление на продукти</a>-->
+<!--                                        </li>-->
+<!--                                        <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" class="u-nav-item"><a-->
+<!--                                                class="u-button-style u-nav-link"-->
+<!--                                                href="/products/add" style="padding: 16px 12px;">Добавяне на продукт</a>-->
+<!--                                        </li>-->
+<!--                                        <li sec:authorize="hasAnyAuthority('ADMIN')" class="u-nav-item"><a-->
+<!--                                                class="u-button-style u-nav-link"-->
+<!--                                                href="/admin/user-management">Управление на-->
+<!--                                            служители</a>-->
+<!--                                        <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a-->
+<!--                                                class="u-button-style u-nav-link" href="/job/employee-management"-->
+<!--                                        >Управление на служители</a>-->
+<!--                                        </li>-->
+<!--                                        <li sec:authorize="hasAnyAuthority('ADMIN')" class="u-nav-item"><a-->
+<!--                                                class="u-button-style u-nav-link"-->
+<!--                                                href="/admin/user-management">Управление на-->
+<!--                                            потребители</a>-->
+<!--                                        </li>-->
+<!--                                        <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" class="u-nav-item"><a-->
+<!--                                                class="u-button-style u-nav-link"-->
+<!--                                                href="/orders/management">Управление на-->
+<!--                                            поръчки</a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>-->
+<!--                        </div>-->
+<!--                    </nav>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </header>-->
+<!--</th:block>-->
+
+
+<header class=" u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-clearfix u-header u-section-row-container"
+        id="sec-3c39" data-animation-name="" data-animation-duration="0" data-animation-delay="0"
+        data-animation-direction="" style="" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="u-section-rows">
+        <div class="u-border-2 u-border-palette-5-light-2 u-clearfix u-custom-color-5 u-section-row"
+             data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction=""
+             id="sec-ed71">
+
+
+            <div class="u-clearfix u-sheet u-sheet-1">
+                <h1 class="u-align-center u-custom-font u-font-lobster u-text u-text-default u-text-1">
+                    ПриСтаско&Цвети<span style="font-weight: 700;"></span></h1>
+                <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1 u-enable-responsive">
+                    <div class="menu-collapse" style="font-size: 1.25rem; letter-spacing: 0px;">
+                        <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-hover-color u-custom-text-shadow u-custom-text-shadow-blur u-custom-text-shadow-color u-custom-text-shadow-transparency u-custom-text-shadow-x u-custom-text-shadow-y u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+                           href="#">
+                            <svg class="u-svg-link" viewBox="0 0 24 24">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
+                            </svg>
+                            <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px"
+                                 y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                                <g>
+                                    <rect y="1" width="16" height="2"></rect>
+                                    <rect y="7" width="16" height="2"></rect>
+                                    <rect y="13" width="16" height="2"></rect>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="u-custom-menu u-nav-container">
+                        <ul class="u-nav u-unstyled u-nav-1">
+                            <li sec:authorize="!isAuthenticated()" class="u-nav-item">
+                                <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1"
+                                   href="/users/login">Вход</a>
+                            </li>
+                            <li sec:authorize="!isAuthenticated()" class="u-nav-item">
+                                <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-custom-color-1"
+                                   href="/users/register">Регистрация</a>
+                            </li>
+                            <li sec:authorize="isAuthenticated()" class="u-nav-item">
+                                <p>Добре дошли, <span sec:authentication="name">Username</span>!</p>
+                            </li>
+                            <li sec:authorize="isAuthenticated()" class="u-nav-item">
+                                <a th:href="@{/logout}">Изход</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="u-custom-menu u-nav-container-collapse">
+                        <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+                            <div class="u-inner-container-layout u-sidenav-overflow">
+                                <div class="u-menu-close"></div>
+                                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                                    <li sec:authorize="!isAuthenticated()" class="u-nav-item">
+                                        <a class="u-button-style u-nav-link" href="/users/login">Вход</a>
+                                    </li>
+                                    <li sec:authorize="!isAuthenticated()" class="u-nav-item">
+                                        <a class="u-button-style u-nav-link" href="/users/register">Регистрация</a>
+                                    </li>
+                                    <li sec:authorize="isAuthenticated()" class="u-nav-item">
+                                        <p>Добре дошли, <span sec:authentication="name">Username</span>!</p>
+                                    </li>
+                                    <li sec:authorize="isAuthenticated()" class="u-nav-item">
+                                        <a th:href="@{/logout}">Изход</a>
+                                    </li>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
                         </div>
-                    </nav><!--shopping_cart-->
-                    <a sec:authorize="isAuthenticated()" class="u-shopping-cart u-shopping-cart-1" href="/orders/"><span
-                            class="u-icon u-shopping-cart-icon u-icon-1">
+                        <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+                    </div>
+                    <style class="offcanvas-style">            .u-offcanvas .u-sidenav {
+                        flex-basis: 250px !important;
+                    }
+
+                    .u-offcanvas:not(.u-menu-open-right) .u-sidenav {
+                        margin-left: -250px;
+                    }
+
+                    .u-offcanvas.u-menu-open-right .u-sidenav {
+                        margin-right: -250px;
+                    }
+
+                    @keyframes menu-shift-left {
+                        from {
+                            left: 0;
+                        }
+                        to {
+                            left: 250px;
+                        }
+                    }
+
+                    @keyframes menu-unshift-left {
+                        from {
+                            left: 250px;
+                        }
+                        to {
+                            left: 0;
+                        }
+                    }
+
+                    @keyframes menu-shift-right {
+                        from {
+                            right: 0;
+                        }
+                        to {
+                            right: 250px;
+                        }
+                    }
+
+                    @keyframes menu-unshift-right {
+                        from {
+                            right: 250px;
+                        }
+                        to {
+                            right: 0;
+                        }
+                    }            </style>
+                </nav><!--shopping_cart-->
+                <a sec:authorize="isAuthenticated()" class="u-shopping-cart u-shopping-cart-1" href="/orders/"><span
+                        class="u-icon u-shopping-cart-icon u-icon-1">
                         <svg class="u-svg-link"
                              preserveAspectRatio="xMidYMin slice"
                              viewBox="0 0 16 16" style=""><use
                                 xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-aeb7"></use></svg><svg
-                            class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-aeb7"><path d="M14.5,3l-2.1,5H6.1L5.9,7.6L4,3H14.5 M0,0v1h2.1L5,8l-2,4h11v-1H4.6l1-2H13l3-7H3.6L2.8,0H0z M12.5,13
-	c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5s1.5-0.7,1.5-1.5S13.3,13,12.5,13L12.5,13z M4.5,13C3.7,13,3,13.7,3,14.5S3.7,16,4.5,16
-	S6,15.3,6,14.5S5.3,13,4.5,13L4.5,13z"></path></svg>
+                        class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-aeb7"><path d="M14.5,3l-2.1,5H6.1L5.9,7.6L4,3H14.5 M0,0v1h2.1L5,8l-2,4h11v-1H4.6l1-2H13l3-7H3.6L2.8,0H0z M12.5,13
+    c-0.8,0-1.5,0.7-1.5,1.5s0.7,1.5,1.5,1.5s1.5-0.7,1.5-1.5S13.3,13,12.5,13L12.5,13z M4.5,13C3.7,13,3,13.7,3,14.5S3.7,16,4.5,16
+    S6,15.3,6,14.5S5.3,13,4.5,13L4.5,13z"></path></svg>
                     </span>
-                    </a><!--/shopping_cart-->
-                </div>
-            </div>
-            <div class="u-box-shadow u-custom-color-6 u-section-row u-section-row-2" id="sec-7e73">
-                <div class="u-clearfix u-sheet u-valign-middle u-sheet-2">
-                    <nav class="u-menu u-menu-one-level u-offcanvas u-menu-2">
-                        <div class="menu-collapse" style="font-size: 1.125rem;">
-                            <a class="u-button-style u-custom-left-right-menu-spacing u-custom-text-color u-custom-text-hover-color u-custom-text-shadow u-custom-text-shadow-blur u-custom-text-shadow-color u-custom-text-shadow-transparency u-custom-text-shadow-x u-custom-text-shadow-y u-nav-link"
-                               href="#">
-                                <svg class="u-svg-link" viewBox="0 0 24 24">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-9094"></use>
-                                </svg>
-                                <svg class="u-svg-content" version="1.1" id="svg-9094" viewBox="0 0 16 16" x="0px"
-                                     y="0px"
-                                     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-                                    <g>
-                                        <rect y="1" width="16" height="2"></rect>
-                                        <rect y="7" width="16" height="2"></rect>
-                                        <rect y="13" width="16" height="2"></rect>
-                                    </g>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="u-custom-menu u-nav-container">
-                            <ul class="u-nav u-unstyled u-nav-3">
-                                <li sec:authorize="isAuthenticated()" class="u-nav-item"><a
-                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                        href="/products/available" style="padding: 16px 12px;">Пазарувай</a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('CUSTOMER')" class="u-nav-item"><a
-                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                        href="/job/apply" style="padding: 16px 12px;">Кандидатствай за работа</a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a
-                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                        href="/job/job-applications-management" style="padding: 16px 4px 16px 12px;">Кандидатури
-                                    за работа</a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')" class="u-nav-item">
-                                    <a
-                                            class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                            href="/products/all" style="padding: 16px 12px;">Управление на
-                                        продукти</a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" class="u-nav-item"><a
-                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                        href="/products/add" style="padding: 16px 12px;">Добавяне на продукт</a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a
-                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                        href="/job/employee-management" style="padding: 16px 4px 16px 12px;">Управление
-                                    на служители</a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('ADMIN')" class="u-nav-item"><a
-                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                        href="/admin/user-management" style="padding: 16px 12px;">Управление на
-                                    потребители</a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')" class="u-nav-item">
-                                    <a
-                                            class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
-                                            href="/orders/management" style="padding: 16px 4px 16px 12px;">Управление
-                                        на поръчки</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="u-custom-menu u-nav-container-collapse">
-                            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-                                <div class="u-inner-container-layout u-sidenav-overflow">
-                                    <div class="u-menu-close"></div>
-                                    <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4">
-                                        <li sec:authorize="isAuthenticated()" class="u-nav-item"><a
-                                                class="u-button-style u-nav-link"
-                                                href="/products/available">Пазарувай</a>
-                                        </li>
-                                        <li sec:authorize="hasAnyAuthority('CUSTOMER')" class="u-nav-item"><a
-                                                class="u-button-style u-nav-link" href="/job/apply"
-                                        >Кандидатствай за работа</a>
-                                        </li>
-                                        <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a
-                                                class="u-button-style u-nav-link"
-                                                href="/job/job-applications-management"
-                                        >Кандидатури за работа</a>
-                                        </li>
-                                        <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')"
-                                            class="u-nav-item"><a
-                                                class="u-button-style u-nav-link" href="/products/all"
-                                        >Управление на продукти</a>
-                                        </li>
-                                        <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" class="u-nav-item"><a
-                                                class="u-button-style u-nav-link"
-                                                href="/products/add" style="padding: 16px 12px;">Добавяне на продукт</a>
-                                        </li>
-                                        <li sec:authorize="hasAnyAuthority('ADMIN')" class="u-nav-item"><a
-                                                class="u-button-style u-nav-link"
-                                                href="/admin/user-management">Управление на
-                                            служители</a>
-                                        <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a
-                                                class="u-button-style u-nav-link" href="/job/employee-management"
-                                        >Управление на служители</a>
-                                        </li>
-                                        <li sec:authorize="hasAnyAuthority('ADMIN')" class="u-nav-item"><a
-                                                class="u-button-style u-nav-link"
-                                                href="/admin/user-management">Управление на
-                                            потребители</a>
-                                        </li>
-                                        <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" class="u-nav-item"><a
-                                                class="u-button-style u-nav-link"
-                                                href="/orders/management">Управление на
-                                            поръчки</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
-                        </div>
-                    </nav>
-                </div>
+                </a><!--/shopping_cart-->
             </div>
         </div>
-    </header>
-</th:block>
+        <div class="u-custom-color-6 u-section-row u-section-row-2" id="sec-7e73">
+            <div class="u-clearfix u-sheet u-valign-middle u-sheet-2">
+                <nav class="u-menu u-menu-one-level u-offcanvas u-menu-2 u-enable-responsive">
+                    <div class="menu-collapse" style="font-size: 1.125rem;">
+                        <a class="u-button-style u-custom-left-right-menu-spacing u-custom-text-color u-custom-text-hover-color u-custom-text-shadow u-custom-text-shadow-blur u-custom-text-shadow-color u-custom-text-shadow-transparency u-custom-text-shadow-x u-custom-text-shadow-y u-nav-link"
+                           href="#">
+                            <svg class="u-svg-link" viewBox="0 0 24 24">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-9094"></use>
+                            </svg>
+                            <svg class="u-svg-content" version="1.1" id="svg-9094" viewBox="0 0 16 16" x="0px" y="0px"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                                <g>
+                                    <rect y="1" width="16" height="2"></rect>
+                                    <rect y="7" width="16" height="2"></rect>
+                                    <rect y="13" width="16" height="2"></rect>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="u-custom-menu u-nav-container">
+                        <ul class="u-nav u-unstyled u-nav-3">
+                            <li sec:authorize="isAuthenticated()" class="u-nav-item"><a
+                                    class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                    href="/products/available" style="padding: 16px 12px;">Пазарувай</a>
+                            </li>
+                            <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')" class="u-nav-item">
+                                <a
+                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                        href="/products/all" style="padding: 16px 12px;">Управление на
+                                    продукти</a>
+                            </li>
+                            <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" class="u-nav-item">
+                                <a
+                                        class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                        href="/products/add" style="padding: 16px 12px;">Добавяне на продукт</a>
+                            </li>
+                            <li class="u-nav-item"><a
+                                    class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                    href="ordersmanagement.html" target="_blank" style="padding: 16px 12px;">Управление
+                                на поръчки</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="u-custom-menu u-nav-container-collapse">
+                        <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+                            <div class="u-inner-container-layout u-sidenav-overflow">
+                                <div class="u-menu-close"></div>
+                                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-4">
+                                    <li sec:authorize="isAuthenticated()" class="u-nav-item"><a
+                                            class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                            href="/products/available" style="padding: 16px 12px;">Пазарувай</a>
+                                    </li>
+                                    <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'MANAGER', 'ADMIN')"
+                                        class="u-nav-item"><a
+                                            class="u-button-style u-nav-link" href="/products/all">Управление на продукти</a>
+                                    </li>
+                                    <li sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')" class="u-nav-item">
+                                        <a
+                                                class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                                href="/products/add" style="padding: 16px 12px;">Добавяне на продукт</a>
+                                    </li>
+                                    <li class="u-nav-item"><a
+                                            class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                            href="ordersmanagement.html" target="_blank" style="padding: 16px 12px;">Управление
+                                        на поръчки</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+                    </div>
+                    <style class="offcanvas-style">            .u-offcanvas .u-sidenav {
+                        flex-basis: 250px !important;
+                    }
+
+                    .u-offcanvas:not(.u-menu-open-right) .u-sidenav {
+                        margin-left: -250px;
+                    }
+
+                    .u-offcanvas.u-menu-open-right .u-sidenav {
+                        margin-right: -250px;
+                    }
+
+                    @keyframes menu-shift-left {
+                        from {
+                            left: 0;
+                        }
+                        to {
+                            left: 250px;
+                        }
+                    }
+
+                    @keyframes menu-unshift-left {
+                        from {
+                            left: 250px;
+                        }
+                        to {
+                            left: 0;
+                        }
+                    }
+
+                    @keyframes menu-shift-right {
+                        from {
+                            right: 0;
+                        }
+                        to {
+                            right: 250px;
+                        }
+                    }
+
+                    @keyframes menu-unshift-right {
+                        from {
+                            right: 250px;
+                        }
+                        to {
+                            right: 0;
+                        }
+                    }            </style>
+                </nav>
+            </div>
+
+
+        </div>
+        <div class="u-border-2 u-border-custom-color-4 u-custom-color-5 u-section-row u-section-row-3" id="sec-83be">
+            <div class="u-clearfix u-sheet u-sheet-3">
+                <nav class="u-menu u-menu-one-level u-offcanvas u-menu-3 u-enable-responsive">
+                    <div class="menu-collapse">
+                        <a class="u-button-style u-custom-text-hover-color u-custom-text-shadow u-custom-text-shadow-blur u-custom-text-shadow-color u-custom-text-shadow-transparency u-custom-text-shadow-x u-custom-text-shadow-y u-nav-link"
+                           href="#">
+                            <svg class="u-svg-link" viewBox="0 0 24 24">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-3c7b"></use>
+                            </svg>
+                            <svg class="u-svg-content" version="1.1" id="svg-3c7b" viewBox="0 0 16 16" x="0px" y="0px"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                                <g>
+                                    <rect y="1" width="16" height="2"></rect>
+                                    <rect y="7" width="16" height="2"></rect>
+                                    <rect y="13" width="16" height="2"></rect>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="u-custom-menu u-nav-container">
+                        <ul class="u-nav u-unstyled">
+                            <li sec:authorize="hasAnyAuthority('CUSTOMER')" class="u-nav-item"><a
+                                    class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                    href="/job/apply" style="padding: 16px 12px;">Кандидатствай за работа</a>
+                            </li>
+                            <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a
+                                    class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                    href="/job/employee-management" style="padding: 16px 4px 16px 12px;">Управление
+                                на служители</a>
+                            </li>
+                            <li sec:authorize="hasAnyAuthority('ADMIN')" class="u-nav-item"><a
+                                    class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                    href="/admin/user-management" style="padding: 16px 12px;">Управление на
+                                потребители</a>
+                            </li>
+                            <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a
+                                    class="u-button-style u-nav-link u-text-hover-custom-color-1 u-text-palette-5-dark-3"
+                                    href="/job/job-applications-management" style="padding: 16px 4px 16px 12px;">Кандидатури
+                                за работа</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="u-custom-menu u-nav-container-collapse">
+                        <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+                            <div class="u-inner-container-layout u-sidenav-overflow">
+                                <div class="u-menu-close"></div>
+                                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-6">
+                                    <li sec:authorize="hasAnyAuthority('CUSTOMER')" class="u-nav-item"><a
+                                            class="u-button-style u-nav-link" href="/job/apply"
+                                    >Кандидатствай за работа</a>
+                                    <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a
+                                            class="u-button-style u-nav-link" href="/job/employee-management"
+                                    >Управление на служители</a>
+                                    </li>
+                                    <li sec:authorize="hasAnyAuthority('ADMIN')" class="u-nav-item"><a
+                                            class="u-button-style u-nav-link"
+                                            href="/admin/user-management">Управление на
+                                        потребители</a>
+                                    </li>
+                                    <li sec:authorize="hasAnyAuthority('MANAGER', 'ADMIN')" class="u-nav-item"><a
+                                            class="u-button-style u-nav-link"
+                                            href="/job/job-applications-management"
+                                    >Кандидатури за работа</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+                    </div>
+                    <style class="offcanvas-style">            .u-offcanvas .u-sidenav {
+                        flex-basis: 250px !important;
+                    }
+
+                    .u-offcanvas:not(.u-menu-open-right) .u-sidenav {
+                        margin-left: -250px;
+                    }
+
+                    .u-offcanvas.u-menu-open-right .u-sidenav {
+                        margin-right: -250px;
+                    }
+
+                    @keyframes menu-shift-left {
+                        from {
+                            left: 0;
+                        }
+                        to {
+                            left: 250px;
+                        }
+                    }
+
+                    @keyframes menu-unshift-left {
+                        from {
+                            left: 250px;
+                        }
+                        to {
+                            left: 0;
+                        }
+                    }
+
+                    @keyframes menu-shift-right {
+                        from {
+                            right: 0;
+                        }
+                        to {
+                            right: 250px;
+                        }
+                    }
+
+                    @keyframes menu-unshift-right {
+                        from {
+                            right: 250px;
+                        }
+                        to {
+                            right: 0;
+                        }
+                    }            </style>
+                </nav>
+            </div>
+
+
+        </div>
+    </div>
+</header>

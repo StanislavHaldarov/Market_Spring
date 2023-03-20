@@ -28,19 +28,19 @@ public class ProductCreateToProductEntityMapper {
         switch (productCreate.getType().name()) {
             case "FOOD":
 
-                description = "грамаж: " + productCreate.getWeight() + "кг";
+                description = "грамаж: " + String.format("%.3f", productCreate.getWeight()) + "кг";
                 break;
             case "DRINKS":
 
-                description = "обем: " + productCreate.getVolume() + "л";
+                description = "обем: " + String.format("%.3f", productCreate.getVolume()) + "л";
                 break;
             case "COSMETICS":
 //                TODO: replace it with StringBuilder
                 if(productCreate.getWeight() != null){
-                    description = "грамаж: " + productCreate.getWeight() + "кг\n";
+                    description = "грамаж: " + String.format("%.3f", productCreate.getWeight()) + "кг\n";
                 }
                 if(productCreate.getVolume() != null){
-                    description += "обем: " + productCreate.getVolume() + "л";
+                    description += "обем: " + String.format("%.3f", productCreate.getVolume()) + "л";
                 }
                 break;
             case "SANITARY":

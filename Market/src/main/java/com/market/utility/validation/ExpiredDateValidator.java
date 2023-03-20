@@ -11,6 +11,6 @@ public class ExpiredDateValidator implements ConstraintValidator<ValidateExpired
             return true;
         }
         LocalDate now = LocalDate.now();
-        return localDate.isAfter(now);
+        return localDate.isAfter(now) || localDate.isEqual(now);
     }
 }

@@ -1,0 +1,87 @@
+<!--<!DOCTYPE html>-->
+<!--<html style="font-size: 16px;" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="keywords" content="Organi">-->
+<!--    <meta name="description" content="">-->
+<!--    <title>job application management</title>-->
+<!--    <link rel="stylesheet" href="/nicepage.css" media="screen">-->
+<!--    <link rel="stylesheet" href="/product-details.css" media="screen">-->
+<!--    <script class="u-script" type="text/javascript" src="/jquery.js" defer=""></script>-->
+<!--    <script class="u-script" type="text/javascript" src="/nicepage.js" defer=""></script>-->
+<!--    <meta name="generator" content="Nicepage 5.5.0, nicepage.com">-->
+<!--    <link id="u-theme-google-font" rel="stylesheet"-->
+<!--          href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">-->
+<!--    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster:400">-->
+
+
+<!--    <script type="application/ld+json">{-->
+<!--        "@context": "http://schema.org",-->
+<!--        "@type": "Organization",-->
+<!--        "name": ""-->
+<!--    }</script>-->
+<!--    <meta name="theme-color" content="#478ac9">-->
+<!--    <meta property="og:title" content="usermanagement">-->
+<!--    <meta property="og:type" content="website">-->
+<!--    <meta data-intl-tel-input-cdn-path="intlTelInput/">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+<!--</head>-->
+<!--<body class="u-body u-xl-mode" data-style="shopping-cart-template-1" data-posts="">-->
+
+<!--&lt;!&ndash;HEADER&ndash;&gt;-->
+<!--<th:block th:include="~{fragments/header}"></th:block>-->
+<!--&lt;!&ndash;    HEADER END&ndash;&gt;-->
+
+<!--<section class="u-clearfix u-section-1">-->
+<!--    <div class="u-clearfix u-sheet u-sheet-1">-->
+
+<!--        <table class="table table-bordered">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th style="text-align: center">id</th>-->
+<!--                <th style="text-align: center">дата на създаване</th>-->
+<!--                <th style="text-align: center">потребител</th>-->
+<!--                <th style="text-align: center">крайна цена</th>-->
+<!--                <th style="text-align: center">статус</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="order : ${orders}">-->
+<!--                <td th:text="${order.id}"></td>-->
+<!--                <td th:text="${order.date}"></td>-->
+<!--                <td th:text="${order.user.username}"></td>-->
+<!--                <td th:text="${order.totalPrice}"></td>-->
+<!--                <td style="text-align: center">-->
+<!--&lt;!&ndash;                    <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <form th:action="@{/orders/change/status}" method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="hidden" th:name="id" th:value="${order.id}">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <select th:name="status" onchange="this.form.submit()">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <option th:each="status : ${statuses}"&ndash;&gt;-->
+<!--&lt;!&ndash;                                        th:value="${status}"&ndash;&gt;-->
+<!--&lt;!&ndash;                                        th:selected="${status == order.status}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <span th:text="${status}"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </option>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </select>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </form>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    <p></p>-->
+<!--                    <div>-->
+<!--                        <form sec:authorize="hasAnyAuthority('ADMIN', 'MANAGER')"-->
+<!--                              th:action="@{/job/fire/{id}(id=${employee.id})}" method="POST">-->
+<!--                            <button type="submit" class="delete-button">Уволни служител</button>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</section>-->
+<!--&lt;!&ndash;FOOTER&ndash;&gt;-->
+<!--<th:block th:include="~{fragments/footer}"></th:block>-->
+<!--</body>-->
+<!--</html>-->

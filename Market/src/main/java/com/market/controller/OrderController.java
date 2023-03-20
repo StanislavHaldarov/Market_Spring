@@ -3,9 +3,10 @@ package com.market.controller;
 import com.market.entity.Role;
 import com.market.entity.User;
 import com.market.entity.order.Order;
-import com.market.service.user.UserService;
-import com.market.service.order.OrderItemService;
+import com.market.service.MailService;
+import com.market.service.order.InvoiceService;
 import com.market.service.order.OrderService;
+import com.market.service.user.UserService;
 import com.market.utility.enums.OrderStatusEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +22,26 @@ public class OrderController {
     private final UserService userService;
     private final OrderService orderService;
 
+    private final InvoiceService invoiceService;
+    private final MailService mailService;
 
-    public OrderController(UserService userService, OrderService orderService, OrderItemService orderItemService) {
+    public OrderController(UserService userService, OrderService orderService, InvoiceService invoiceService, MailService mailService) {
         this.userService = userService;
         this.orderService = orderService;
-
+        this.invoiceService = invoiceService;
+        this.mailService = mailService;
     }
 
-    // Retrieve User order - ok
+//    @GetMapping("/all")
+//    public String allOrders(Model model) {
+//        List<Order> orders = orderService.findAllOrders();
+//        model.addAttribute("orders", orderService.findAllOrders());
+//        model.addAttribute("statuses", OrderStatusEnum.values());
+//        return "orders-management";
+//    }
+
+
+    // Retrieve User order
     @GetMapping("/")
     public String getOrder(Model model) {
         // find currently signed-in user
@@ -37,7 +50,6 @@ public class OrderController {
         Order order = orderService.findActiveOrderByUserIdAndStatus(user.getId(), OrderStatusEnum.NEW);
         if (order != null) {
             order.setTotalPrice(order.findTotalPrice());
-
         }
         model.addAttribute("order", order);
         return "order";
@@ -46,8 +58,9 @@ public class OrderController {
 
     // Make Order
     @PostMapping("/make/order/{orderId}")
-    public ModelAndView makeOrder(@PathVariable Long orderId) {
+    public ModelAndView makeOrder(@PathVariable Long orderId) throws Exception {
         Order order = orderService.findOrderById(orderId);
+
         if (order.checkIfOrderCanBeMade()) {
             orderService.submitOrder(orderId);
             return new ModelAndView("redirect:/orders/");
@@ -63,6 +76,7 @@ public class OrderController {
         orderService.deleteOrderById(id);
         return new ModelAndView("redirect:/orders/");
     }
+
 
     @GetMapping("/order-management")
     public String getAllOrders(@RequestParam(name = "sort",

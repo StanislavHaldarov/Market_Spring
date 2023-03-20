@@ -41,27 +41,27 @@
                 <!--                SEARCHING BOX-->
                 <input th:field="*{nameKeyword}" class="u-search-input" type="search" name="search" value=""
                        placeholder="Въведете име на продукт">
-                <!--                SEARCHING BOX END-->
-                <!--                SEARCHING BOX-->
+
                 <div sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')">
                     <label>Въведете количество</label>
                     <input id="quantitySearch" th:field="*{quantityKeyword}" class="u-search-input" type="number"
                            name="search" value="">
                 </div>
-                <div>
-                    <!--                SEARCHING BOX END-->
+                <div style="background:  #fffcf8">
+                    <p>Категория</p>
                     <input value="1" th:field="*{isCategoryFoodChecked}" type="checkbox" id="food" name="food">
-                    <label>Хранителни продукти</label><br>
+                    <label style="display:inline-block;">Хранителни продукти</label><br>
                     <input value="1" th:field="*{isCategoryDrinksChecked}" type="checkbox" id="drinks" name="drinks">
-                    <label>Напитки</label><br>
+                    <label style="display:inline-block;">Напитки</label><br>
                     <input value="1" th:field="*{isCategorySanitaryChecked}" type="checkbox" id="sanitary"
                            name="sanitary">
-                    <label>Санитарни продукти</label><br>
+                    <label style="display:inline-block;">Санитарни продукти</label><br>
                     <input value="1" th:field="*{isCategoryCosmeticsChecked}" type="checkbox" id="cosmetics"
                            name="cosmetics">
-                    <label>Козметика</label><br>
+                    <label style="display:inline-block;">Козметика</label><br>
                 </div>
-                <div>
+
+                <div style="margin-top: 40px">
                     <div class="d-flex">
                         <div class="wrapper">
                             <div class="price-input">
@@ -86,48 +86,62 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit">филтрирай</button>
+                <div style="margin-top:40px; background: #fffcf8">
+                    <p>Сортирани по:</p>
+                    <div style="display: flex; flex-direction: row">
+                        <select th:field="*{orderBy}">
+                            <option value="null"></option>
+                            <option value="date">срок на годност</option>
+                            <option value="asc">цена - възходящо</option>
+                            <option value="desc">цена - низходящо</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit">търси</button>
+                </div>
             </form>
         </div>
         <div class="u-align-center u-container-style u-image u-layout-cell">
-                <!--DISPLAY PRODUCTS-->
-                <table class="table" style="margin-top: 100px;">
-                    <tr>
-                        <td th:each="product, i : ${products}" style="text-align: center; width: 30%">
-                            <div id="product">
-                                <img th:src="${product.imageUrl}" alt="" style="width:30%; height: 25%" src="">
-                                <h5 th:text="${product.name}"></h5>
-                                <p th:text="${product.priceBGN} + 'лв'"></p>
-                                <p style="margin: 0" th:text="${product.description}"></p>
-                                <p style="margin-top: 0" th:text="'количество: ' + ${product.availableQuantity}"></p>
-                                <div style="display: flex; flex-direction: row; justify-content: center">
-                                    <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')"
-                                          th:action="@{/products/delete/{id}(id=${product.id})}" method="POST">
-                                        <button id="delete-button"><img style="width: 25px; height: 25px"
-                                                     alt="delete"
-                                                     src="/images/6861362.png"></button>
-                                    </form>
-                                    <form sec:authorize="isAuthenticated()"
-                                          th:action="@{/item/details/{id}(id=${product.id})}" method="GET">
-                                        <button id="buy-button"><img
-                                                style="width: 25px; height: 25px" alt="pp"
-                                                src="/images/9862670.png"></button>
-                                    </form>
-                                    <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')"
-                                          th:action="@{/products/update/{id}(id=${product.id})}" method="get">
-                                        <button id="update-button">
-                                            <img style="width: 25px; height: 25px" alt="pp"
-                                                 src="/images/2546743.png">
-                                        </button>
-                                    </form>
-                                </div>
+            <!--DISPLAY PRODUCTS-->
+            <table class="table" style="margin-top: 100px;">
+                <tr>
+                    <td th:each="product, i : ${products}" style="text-align: center; width: 30%">
+                        <div id="product">
+                            <img th:src="${product.imageUrl}" alt="" style="width:30%; height: 25%" src="">
+                            <h5 th:text="${product.name}"></h5>
+                            <p th:text="${product.priceBGN} + 'лв'"></p>
+                            <p style="margin: 0" th:text="${product.description}"></p>
+                            <p style="margin-top: 0" th:text="'количество: ' + ${product.availableQuantity}"></p>
+                            <p style="margin-top: 0" th:text="'срок на годност: ' + ${product.expiredDate}"></p>
+                            <div style="display: flex; flex-direction: row; justify-content: center">
+                                <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')"
+                                      th:action="@{/products/delete/{id}(id=${product.id})}" method="POST">
+                                    <button id="delete-button"><img style="width: 25px; height: 25px"
+                                                                    alt="delete"
+                                                                    src="/images/6861362.png"></button>
+                                </form>
+                                <form sec:authorize="isAuthenticated()"
+                                      th:action="@{/item/details/{id}(id=${product.id})}" method="GET">
+                                    <button id="buy-button"><img
+                                            style="width: 25px; height: 25px" alt="pp"
+                                            src="/images/9862670.png"></button>
+                                </form>
+                                <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')"
+                                      th:action="@{/products/update/{id}(id=${product.id})}" method="get">
+                                    <button id="update-button">
+                                        <img style="width: 25px; height: 25px" alt="pp"
+                                             src="/images/2546743.png">
+                                    </button>
+                                </form>
                             </div>
+                        </div>
 
-                            <th:block th:if="${(i.index + 1) % 3 == 0}" th:utext="'</td></tr>'"></th:block>
-                            <th:block th:unless="${(i.index + 1) % 3 == 0}" th:utext="'</td>'"></th:block>
-                </table>
-            </div>
-<!--        </div>-->
+                        <th:block th:if="${(i.index + 1) % 3 == 0}" th:utext="'</td></tr>'"></th:block>
+                        <th:block th:unless="${(i.index + 1) % 3 == 0}" th:utext="'</td>'"></th:block>
+            </table>
+        </div>
+        <!--        </div>-->
     </div>
 </section>
 <!--DISPLAY PRODUCTS END-->
