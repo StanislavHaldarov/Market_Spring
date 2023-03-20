@@ -60,18 +60,8 @@
                            name="cosmetics">
                     <label style="display:inline-block;">Козметика</label><br>
                 </div>
-                <div style="background: #fffcf8">
-                    <p>Сортирани по:</p>
-                    <div style="display: flex; flex-direction: row">
-                        <select th:field="*{orderBy}">
-                            <option value="null"></option>
-                            <option value="date">срок на годност</option>
-                            <option value="asc" >цена - възходящо</option>
-                            <option value="desc">цена - низходящо</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
+
+                <div style="margin-top: 40px">
                     <div class="d-flex">
                         <div class="wrapper">
                             <div class="price-input">
@@ -96,7 +86,20 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit">филтрирай</button>
+                <div style="margin-top:40px; background: #fffcf8">
+                    <p>Сортирани по:</p>
+                    <div style="display: flex; flex-direction: row">
+                        <select th:field="*{orderBy}">
+                            <option value="null"></option>
+                            <option value="date">срок на годност</option>
+                            <option value="asc">цена - възходящо</option>
+                            <option value="desc">цена - низходящо</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit">търси</button>
+                </div>
             </form>
         </div>
         <div class="u-align-center u-container-style u-image u-layout-cell">

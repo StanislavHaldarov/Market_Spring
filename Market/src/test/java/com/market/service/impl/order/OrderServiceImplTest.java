@@ -9,23 +9,27 @@ import com.market.entity.productTypes.Product;
 import com.market.repository.order.OrderRepository;
 import com.market.repository.product.ProductRepository;
 import com.market.service.MailService;
+import com.market.service.impl.order.OrderServiceImpl;
 import com.market.service.order.InvoiceService;
 import com.market.service.order.OrderItemService;
 import com.market.service.product.ProductService;
 import com.market.utility.enums.OrderStatusEnum;
 import com.market.utility.enums.ProductTypeEnum;
 import com.market.utility.enums.RoleNameEnum;
-import org.junit.Test;
+import com.market.utility.exception.NotEnoughQuantityException;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,7 +48,7 @@ public class OrderServiceImplTest {
     @Mock
     private InvoiceService mockInvoiceService;
     @Mock
-    private MailService mailService;
+    private MailService mockMailService;
 
 
     @Test
@@ -63,6 +67,71 @@ public class OrderServiceImplTest {
         assertEquals(order.getTotalPrice(), 9.0);
         verify(mockProductService, times(1)).saveProduct(product);
         verify(mockOrderRepository, times(1)).save(order);
+        verify(mockMailService, times(1)).sendMailWithAttachment(user.getEmail(), "Invoice", "Invoice");
+    }
+
+    @Test
+    public void deleteOrderItemById() {
+        User user = initUser();
+        Product product = initProduct();
+        OrderItem orderItem = initOrderItem(product);
+        Order order = initOrder(user, orderItem);
+
+        when(mockOrderRepository.findOrderByItemId(1L)).thenReturn(order);
+        when(mockOrderItemService.findById(1L)).thenReturn(orderItem);
+
+        serviceToTest.deleteOrderItemById(1L);
+        verify(mockOrderRepository, times(1)).save(order);
+        verify(mockOrderItemService, times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void saveOrderItemTest1() {
+        Product product = initProduct();
+        ProductItem productItem = initProductItem(product, 10);
+        User user = initUser();
+        OrderItem orderItem = initOrderItem(product);
+        Order order = initOrder(user, orderItem);
+
+
+        when(mockProductService.findProductById(1L)).thenReturn(product);
+        when(mockOrderRepository.findOrderByUserIdAndStatus(1L, OrderStatusEnum.NEW)).thenReturn(order);
+
+        serviceToTest.saveOrderItem(user, productItem);
+        verify(mockOrderItemService, times(1)).saveItem(orderItem);
+        assertEquals(order.getOrderItemList().get(0).getQuantity(), 10);
+    }
+
+    @Test
+    public void saveOrderItemTest2() {
+        Product product = initProduct();
+        Product product1 = new Product(2L, "Кока кола", ProductTypeEnum.DRINKS, "",
+                LocalDate.now(), 15, 1.5, "");
+        ProductItem productItem = initProductItem(product1, 10);
+        User user = initUser();
+        OrderItem orderItem = initOrderItem(product);
+        Order order = initOrder(user, orderItem);
+
+
+        when(mockProductService.findProductById(2L)).thenReturn(product);
+        when(mockOrderRepository.findOrderByUserIdAndStatus(1L, OrderStatusEnum.NEW)).thenReturn(order);
+
+        serviceToTest.saveOrderItem(user, productItem);
+        verify(mockOrderRepository, times(1)).save(order);
+        assertEquals(order.getTotalPrice(), 27.0);
+    }
+
+
+    @Test
+    public void saveOrderItemTest3() {
+        Product product = initProduct();
+        ProductItem productItem = initProductItem(product, 60);
+        User user = initUser();
+        OrderItem orderItem = initOrderItem(product);
+        Order order = initOrder(user, orderItem);
+        when(mockProductService.findProductById(1L)).thenReturn(product);
+
+        assertThrows(NotEnoughQuantityException.class, () -> serviceToTest.saveOrderItem(user, productItem));
 
     }
 

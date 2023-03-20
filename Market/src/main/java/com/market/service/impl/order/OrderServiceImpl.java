@@ -5,7 +5,6 @@ import com.market.entity.User;
 import com.market.entity.order.Order;
 import com.market.entity.order.OrderItem;
 import com.market.entity.productTypes.Product;
-import com.market.repository.order.OrderItemRepository;
 import com.market.repository.order.OrderRepository;
 import com.market.repository.product.ProductRepository;
 import com.market.service.MailService;
@@ -17,7 +16,7 @@ import com.market.utility.enums.OrderStatusEnum;
 import com.market.utility.exception.NotEnoughQuantityException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -47,20 +46,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void saveOrderItem(User user, ProductItem productItem) {
 
-        // create orderItem
-        // find product
+//         find product
         Product product = productService.findProductById(productItem.getId());
         // check if there is enough available quantity of the product
         if (product.getAvailableQuantity() >= productItem.getQuantity()) {
-            OrderItem orderItem = new OrderItem(product, productItem.getQuantity());
-            // save orderItem to Product
-            product.getItems().add(orderItem);
-            productRepository.save(product);
-
             // find current active order for given user
             Order order = orderRepository.findOrderByUserIdAndStatus(user.getId(), OrderStatusEnum.NEW);
+            // create new order item
+            OrderItem orderItem = new OrderItem(product, productItem.getQuantity());
 
-            // create new Order if such doesn't exist
             if (order == null) {
                 // create new order and set its status to new
                 Order newOrder = new Order();
@@ -69,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
                 newOrder.getOrderItemList().add(orderItem);
                 newOrder.setTotalPrice(product.getPriceBGN() * orderItem.getQuantity());
 
-                // save order
+                // save new order
                 orderRepository.save(newOrder);
             } else {
                 // check if a product already exists in shopping cart
@@ -77,10 +71,11 @@ public class OrderServiceImpl implements OrderService {
                         .toList()
                         .stream()
                         .filter(o -> Objects.equals(o.getProduct().getId(), productItem.getId())).toList().size() == 0) {
-                    // if it doesn't exist add the product item to the order list of items
+//                    // if it doesn't exist add the product item to the order list of items
                     order.getOrderItemList().add(orderItem);
-                    // update total price
+//                    // update total price
                     order.setTotalPrice(order.getTotalPrice() + product.getPriceBGN() * orderItem.getQuantity());
+                    // save order
                     orderRepository.save(order);
                 } else {
                     Optional<OrderItem> foundItem = order.getOrderItemList().stream().filter(o -> o.getProduct().equals(product)).findFirst();
@@ -127,10 +122,10 @@ public class OrderServiceImpl implements OrderService {
 
         for (OrderItem orderItem : order.getOrderItemList()) {
 //                if (orderItem.getProduct().getAvailableQuantity() >= orderItem.getQuantity()) {
-                    // update product available quantity
-                    Product product = orderItem.getProduct();
-                    product.setAvailableQuantity(product.getAvailableQuantity() - orderItem.getQuantity());
-                    productService.saveProduct(product);
+            // update product available quantity
+            Product product = orderItem.getProduct();
+            product.setAvailableQuantity(product.getAvailableQuantity() - orderItem.getQuantity());
+            productService.saveProduct(product);
 //                }
         }
 
@@ -138,6 +133,7 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(OrderStatusEnum.PROCESSING);
         // update order
         order.setTotalPrice(order.findTotalPrice());
+        order.setDate(LocalDate.now());
         orderRepository.save(order);
 
         // generate an invoice and send it
@@ -149,7 +145,6 @@ public class OrderServiceImpl implements OrderService {
         }
 
     }
-
 
 
     @Override
