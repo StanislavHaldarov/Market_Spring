@@ -39,9 +39,9 @@ public class CosmeticServiceImpl implements CosmeticService {
         cosmeticRepository.save(cosmetic);
     }
 
-    @Override
-    public List<Cosmetic> findAllAvailable() {
-        return cosmeticRepository.findAll();
-    }
+//    @Override
+//    public List<Cosmetic> findAllAvailable() {
+//        return cosmeticRepository.findAll();
+//    }
 
 }

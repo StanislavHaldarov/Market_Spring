@@ -9,6 +9,5 @@ import java.util.List;
 public interface CosmeticService {
     void save(ProductCreate productCreate);
     void update(ProductCreate productCreate);
-    List<Cosmetic> findAllAvailable();
 
 }

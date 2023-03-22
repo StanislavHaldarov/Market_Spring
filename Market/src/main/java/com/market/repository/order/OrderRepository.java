@@ -1,7 +1,7 @@
 package com.market.repository.order;
 
 import com.market.entity.order.Order;
-import com.market.utility.enums.OrderStatusEnum;
+import com.market.util.enums.OrderStatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

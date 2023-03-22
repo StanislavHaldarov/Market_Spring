@@ -8,7 +8,7 @@ import java.util.List;
 public interface DrinkService {
     void save(ProductCreate productCreate);
     void update(ProductCreate productCreate);
-    public List<Drink> findAllAvailable();
+
 
 
 }

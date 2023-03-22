@@ -1,14 +1,13 @@
 package com.market.service.impl.user;
 
-import com.market.entity.order.Order;
-import com.market.utility.enums.RoleNameEnum;
+import com.market.util.enums.RoleNameEnum;
 import com.market.entity.User;
 import com.market.repository.UserRepository;
 import com.market.service.user.RoleService;
 import com.market.service.user.UserService;
 import com.market.service.user.UserServiceModel;
-import com.market.utility.exception.EmailAlreadyExistsException;
-import com.market.utility.exception.UsernameAlreadyExistsException;
+import com.market.util.exception.EmailAlreadyExistsException;
+import com.market.util.exception.UsernameAlreadyExistsException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

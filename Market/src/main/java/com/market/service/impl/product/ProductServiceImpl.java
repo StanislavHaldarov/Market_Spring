@@ -1,5 +1,6 @@
 package com.market.service.impl.product;
 
+import com.market.dto.mapper.ProductCreateToProductEntityMapper;
 import com.market.dto.request.Filter;
 import com.market.dto.request.ProductCreate;
 import com.market.entity.order.OrderItem;
@@ -9,8 +10,8 @@ import com.market.service.product.SpecificationProductFilter;
 import com.market.service.order.OrderItemService;
 import com.market.service.product.*;
 import com.market.service.user.UserService;
-import com.market.utility.enums.RoleNameEnum;
-import com.market.utility.exception.NotFoundException;
+import com.market.util.enums.RoleNameEnum;
+import com.market.util.exception.NotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +31,14 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
 
     private final UserService userService;
 
+    private final ProductCreateToProductEntityMapper productCreateToProductEntityMapper;
+
 
     public ProductServiceImpl(ProductRepository productRepository,
                               FoodService foodService,
                               DrinkService drinkService,
                               CosmeticService cosmeticService,
-                              SanitaryService sanitaryService, SpecificationProductFilter specificationProductFilter, OrderItemService orderItemService, UserService userService) {
+                              SanitaryService sanitaryService, SpecificationProductFilter specificationProductFilter, OrderItemService orderItemService, UserService userService, ProductCreateToProductEntityMapper productCreateToProductEntityMapper) {
         this.productRepository = productRepository;
         this.foodService = foodService;
         this.drinkService = drinkService;
@@ -44,6 +47,7 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
         this.specificationProductFilter = specificationProductFilter;
         this.orderItemService = orderItemService;
         this.userService = userService;
+        this.productCreateToProductEntityMapper = productCreateToProductEntityMapper;
     }
 
 
@@ -82,6 +86,10 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
 
                 cosmeticService.save(productCreate);
                 break;
+            case "OTHERS":
+               productRepository.save(productCreateToProductEntityMapper.apply(productCreate));
+               break;
+
         }
 
     }
@@ -115,7 +123,7 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
                 sorts.add(new Sort.Order(Sort.Direction.ASC, "priceBGN"));
 
             } else {
-                sorts.add(new Sort.Order(Sort.Direction.ASC, "expiredDate"));
+                sorts.add(new Sort.Order(Sort.Direction.ASC, "expiredDate").nullsLast());
             }
         }
 
@@ -149,6 +157,9 @@ public class ProductServiceImpl<P extends Product> implements ProductService {
                 break;
             case "COSMETICS":
                 cosmeticService.update(productCreate);
+                break;
+            case "OTHERS":
+                productRepository.save(productCreateToProductEntityMapper.apply(productCreate));
                 break;
         }
     }

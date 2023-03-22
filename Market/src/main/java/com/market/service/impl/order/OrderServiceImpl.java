@@ -6,19 +6,17 @@ import com.market.entity.order.Order;
 import com.market.entity.order.OrderItem;
 import com.market.entity.productTypes.Product;
 import com.market.repository.order.OrderRepository;
-import com.market.repository.product.ProductRepository;
 import com.market.service.MailService;
 import com.market.service.order.InvoiceService;
 import com.market.service.order.OrderItemService;
 import com.market.service.order.OrderService;
 import com.market.service.product.ProductService;
-import com.market.utility.enums.OrderStatusEnum;
-import com.market.utility.exception.NotEnoughQuantityException;
+import com.market.util.enums.OrderStatusEnum;
+import com.market.util.exception.NotEnoughQuantityException;
 import org.springframework.stereotype.Service;
 
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,19 +29,18 @@ public class OrderServiceImpl implements OrderService {
     private final ProductService productService;
     private final OrderRepository orderRepository;
     private final OrderItemService orderItemService;
-    private final ProductRepository productRepository;
 
     private final InvoiceService invoiceService;
     private final MailService mailService;
 
     public OrderServiceImpl(ProductService productService, OrderRepository orderRepository,
-                            OrderItemService orderItemService, ProductRepository productRepository,
+                            OrderItemService orderItemService,
                             InvoiceService invoiceService, MailService mailService) {
 
         this.productService = productService;
         this.orderRepository = orderRepository;
         this.orderItemService = orderItemService;
-        this.productRepository = productRepository;
+
         this.invoiceService = invoiceService;
         this.mailService = mailService;
     }
@@ -96,10 +93,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    @Override
-    public Order findOrderByItemId(Long id) {
-        return orderRepository.findOrderByItemId(id);
-    }
+
 
     @Override
     public void deleteOrderById(Long id) {
@@ -178,6 +172,7 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
         return order;
     }
+
     @Override
     public Order completeOrder(Long orderId) {
         Order order = findOrderById(orderId);
@@ -188,35 +183,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> sortOrdersByDate(List<Order> orders, String sort) {
-        if(sort.equals("desc")) {
+        if (sort.equals("desc")) {
             orders.sort(Comparator.comparing(Order::getDate).reversed());
-        }else if(sort.equals("asc")){
+        } else if (sort.equals("asc")) {
             orders.sort(Comparator.comparing(Order::getDate));
         }
         return orders;
     }
 
     @Override
-    public List<Order> filterOrdersByStatus(List<Order> orders, List<String> statusList) {
-        orders = orders.stream()
-                .filter(order -> statusList.contains(order.getStatus().name()))
-                .collect(Collectors.toList());
-        return  orders;
-    }
-
-    @Override
     public List<Order> getOrdersByStatuses(OrderStatusEnum[] statuses) {
         return orderRepository.findByStatusIn(Arrays.asList(statuses));
-    }
-    @Override
-    public List<Order> findAllOrders() {
-        return orderRepository.findAll();
-    }
-
-    @Override
-    public void saveOrder(Order order) {
-        orderRepository.save(order);
-
     }
 
 

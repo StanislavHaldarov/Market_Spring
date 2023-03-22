@@ -1,7 +1,7 @@
 package com.market.entity.order;
 
 import com.market.entity.productTypes.Product;
-import com.market.utility.enums.ProductTypeEnum;
+import com.market.util.enums.ProductTypeEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -57,10 +57,10 @@
                     <td th:text="${user.firstName}"></td>
                     <td th:text="${user.lastName}"></td>
                     <td>
-                        <div th:if="${user.role.name == T(com.market.utility.enums.RoleNameEnum).CUSTOMER}">Клиент</div>
-                        <div th:if="${user.role.name == T(com.market.utility.enums.RoleNameEnum).EMPLOYEE}">Служител</div>
-                        <div th:if="${user.role.name == T(com.market.utility.enums.RoleNameEnum).MANAGER}">Мениджър</div>
-                        <div th:if="${user.role.name == T(com.market.utility.enums.RoleNameEnum).ADMIN}">Администратор</div>
+                        <div th:if="${user.role.name == T(com.market.util.enums.RoleNameEnum).CUSTOMER}">Клиент</div>
+                        <div th:if="${user.role.name == T(com.market.util.enums.RoleNameEnum).EMPLOYEE}">Служител</div>
+                        <div th:if="${user.role.name == T(com.market.util.enums.RoleNameEnum).MANAGER}">Мениджър</div>
+                        <div th:if="${user.role.name == T(com.market.util.enums.RoleNameEnum).ADMIN}">Администратор</div>
                     </td>
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.age}"></td>

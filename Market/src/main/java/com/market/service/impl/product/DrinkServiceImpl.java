@@ -37,9 +37,6 @@ public class DrinkServiceImpl implements DrinkService {
         drinkRepository.save(drink);
     }
 
-    @Override
-    public List<Drink> findAllAvailable() {
-        return drinkRepository.findAll();
-    }
+
 
 }

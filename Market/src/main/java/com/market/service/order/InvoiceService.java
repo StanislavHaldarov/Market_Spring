@@ -71,26 +71,24 @@
 package com.market.service.order;
 
 import com.market.entity.order.Order;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.List;
 
 @Service
 public class InvoiceService {
 
-    @Autowired
-    private SpringTemplateEngine templateEngine;
+    private final SpringTemplateEngine templateEngine;
+
+    public InvoiceService(SpringTemplateEngine templateEngine) {
+        this.templateEngine = templateEngine;
+    }
 
     public File generatePdf(Order order) throws Exception{
         String outputFolder = "C:/JAVA/03_DataBase_SpringBoot/SpringBoot/PDF";

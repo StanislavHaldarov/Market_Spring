@@ -1,7 +1,7 @@
 package com.market.dto.request;
 
-import com.market.utility.enums.ProductTypeEnum;
-import com.market.utility.validation.ValidateExpiredDate;
+import com.market.util.enums.ProductTypeEnum;
+import com.market.util.validation.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,8 +10,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-public class ProductCreate {
 
+@ValidateFood
+@ValidateDrinks
+@ValidateCosmetics
+@ValidateSanitary
+public class ProductCreate {
     Long id;
     @NotNull
     private ProductTypeEnum type;
@@ -29,8 +33,7 @@ public class ProductCreate {
     private String imageUrl;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @ValidateExpiredDate
-    @NotNull
+    @ValidateExpiredDateValue
     private LocalDate expiredDate;
     @Min(0)
     private Double weight;
@@ -39,11 +42,11 @@ public class ProductCreate {
     @Min(1)
     private Integer count;
 
-
+    private String description;
 
     public ProductCreate(Long id, ProductTypeEnum type, String name, Integer availableQuantity,
                          Double priceBGN, String imageUrl, LocalDate expiredDate,
-                         Double weight, Double volume, Integer count) {
+                         Double weight, Double volume, Integer count, String description) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -54,10 +57,19 @@ public class ProductCreate {
         this.weight = weight;
         this.volume = volume;
         this.count = count;
+        this.description = description;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setId(Long id) {

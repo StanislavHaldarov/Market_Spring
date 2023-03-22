@@ -2,7 +2,7 @@ package com.market.service.product;
 
 import com.market.dto.request.Filter;
 import com.market.entity.productTypes.Product;
-import com.market.utility.enums.ProductTypeEnum;
+import com.market.util.enums.ProductTypeEnum;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,8 @@ public class SpecificationProductFilter {
         return Specification.where(withFoodType(filter.getIsCategoryFoodChecked())
                 .or(withDrinksType(filter.getIsCategoryDrinksChecked()))
                 .or(withCosmeticsType(filter.getIsCategoryCosmeticsChecked()))
-                .or(withSanitaryType(filter.getIsCategorySanitaryChecked())));
+                .or(withSanitaryType(filter.getIsCategorySanitaryChecked())))
+                .or(withOthersType(filter.getIsCategoryOtherChecked()));
     }
 
     public Specification<Product> withFoodType(String isFoodChecked) {
@@ -32,6 +33,17 @@ public class SpecificationProductFilter {
                 return null;
             }
             return builder.equal(root.get("type"), ProductTypeEnum.FOOD);
+        };
+
+    }
+
+    public Specification<Product> withOthersType(String isOtherChecked) {
+
+        return (root, query, builder) -> {
+            if (isOtherChecked == null) {
+                return null;
+            }
+            return builder.equal(root.get("type"), ProductTypeEnum.OTHERS);
         };
 
     }
@@ -104,7 +116,10 @@ public class SpecificationProductFilter {
     }
 
     public Specification<Product> withNotExpiredDate() {
-        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get("expiredDate"), LocalDate.now());
+        return (root, query, builder) -> builder.or(
+                builder.greaterThanOrEqualTo(root.get("expiredDate"), LocalDate.now()),
+                builder.isNull(root.get("expiredDate")));
     }
+
 
 }

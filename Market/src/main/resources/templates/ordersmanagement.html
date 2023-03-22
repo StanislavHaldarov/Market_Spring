@@ -78,11 +78,11 @@
                     <td th:text="${order.id}"></td>
                     <td th:text="${order.date}"></td>
                     <td>
-                        <div th:if="${order.status == T(com.market.utility.enums.OrderStatusEnum).PROCESSING}">Обработва
+                        <div th:if="${order.status == T(com.market.util.enums.OrderStatusEnum).PROCESSING}">Обработва
                             се
                         </div>
-                        <div th:if="${order.status == T(com.market.utility.enums.OrderStatusEnum).SENT}">Изпратена</div>
-                        <div th:if="${order.status == T(com.market.utility.enums.OrderStatusEnum).COMPLETED}">
+                        <div th:if="${order.status == T(com.market.util.enums.OrderStatusEnum).SENT}">Изпратена</div>
+                        <div th:if="${order.status == T(com.market.util.enums.OrderStatusEnum).COMPLETED}">
                             Завършена
                         </div>
                     </td>

@@ -1,0 +1,34 @@
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: ''
+        url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/market_project?autoreconnect=true&createDatabaseIfNotExist=true&characterEncoding=utf8
+        username: root
+    jpa:
+      hibernate:
+            ddl-auto: update
+      properties:
+        hibernate.order_by.default_null_ordering: last
+    mail:
+        host: smtp.gmail.com
+        password: czxzsbtbbellrgli
+        port: 587
+        properties:
+            mail:
+                debug: true
+                smtp:
+                    auth: true
+                    connectiontimeout: 5000
+                    ssl:
+                        trust: '*'
+                    starttls:
+                        enable: true
+                    timeout: 5000
+                    writetimeout: 5000
+                transport:
+                    protocol: smtp
+        username: cvetelinaivanova7@gmail.com
+    security:
+        user:
+            name: root
+            password: 12345

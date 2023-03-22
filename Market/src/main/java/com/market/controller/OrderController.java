@@ -1,19 +1,15 @@
 package com.market.controller;
 
-import com.market.entity.Role;
 import com.market.entity.User;
 import com.market.entity.order.Order;
-import com.market.service.MailService;
-import com.market.service.order.InvoiceService;
 import com.market.service.order.OrderService;
 import com.market.service.user.UserService;
-import com.market.utility.enums.OrderStatusEnum;
+import com.market.util.enums.OrderStatusEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

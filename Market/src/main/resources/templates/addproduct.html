@@ -66,6 +66,7 @@
             <input th:field="*{expiredDate}" type="date">
             <p th:if="${#fields.hasErrors('expiredDate')}" th:errors="*{expiredDate}"
                style="color:red"></p>
+            <p th:if="${#fields.hasErrors('${product}')}" th:errors="${product}" style="color:red"></p>
         </div>
 
         <div>
@@ -80,6 +81,7 @@
             <input th:field="*{weight}" type="number" step="0.01">
             <p th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
                style="color:red"></p>
+            <p th:if="${#fields.hasErrors('${product}')}" th:errors="${product}" style="color:red"></p>
         </div>
 
         <div id="volume" style="display: none">
@@ -87,6 +89,8 @@
             <input th:field="*{volume}" type="number" step="0.01">
             <p th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}"
                style="color:red"></p>
+            <p th:if="${#fields.hasErrors('${product}')}" th:errors="${product}" style="color:red"></p>
+
         </div>
 
         <div id='count' style="display: none">
@@ -94,6 +98,15 @@
             <input th:field="*{count}" type="number">
             <p th:if="${#fields.hasErrors('count')}" th:errors="*{count}"
                style="color:red"></p>
+            <p th:if="${#fields.hasErrors('${product}')}" th:errors="${product}" style="color:red"></p>
+
+        </div>
+        <div id='description' style="display: none">
+            <p>описание</p>
+            <input th:field="*{description}" type="text">
+            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+               style="color:red"></p>
+            <p th:if="${#fields.hasErrors('${product}')}" th:errors="${product}" style="color:red"></p>
         </div>
         <button type="submit">Добави</button>
     </form>
@@ -111,27 +124,40 @@
         const weightInput = document.getElementById('weight');
         const volumeInput = document.getElementById('volume');
         const countInput = document.getElementById('count');
+        const descriptionInput = document.getElementById('description');
         switch (selectedOption) {
             case "FOOD":
                 weightInput.style.display = 'block';
                 volumeInput.style.display = 'none';
-                countInput.style.display = 'none';
+                countInput.style.display = 'block';
+                descriptionInput.style.display = 'none';
                 break;
             case "DRINKS":
                 weightInput.style.display = 'none';
                 volumeInput.style.display = 'block';
                 countInput.style.display = 'none';
+                descriptionInput.style.display = 'none';
+
                 break;
             case "SANITARY":
-                weightInput.style.display = 'none';
-                volumeInput.style.display = 'none';
+                weightInput.style.display = 'block';
+                volumeInput.style.display = 'block';
                 countInput.style.display = 'block';
+                descriptionInput.style.display = 'none';
                 break;
             case "COSMETICS":
                 weightInput.style.display = 'block';
                 volumeInput.style.display = 'block';
                 countInput.style.display = 'none';
+                descriptionInput.style.display = 'none';
                 break;
+
+            case "OTHERS":
+                weightInput.style.display = 'none';
+                volumeInput.style.display = 'none';
+                countInput.style.display = 'none';
+                descriptionInput.style.display = 'block';
+
         }
     }
 

@@ -4,7 +4,7 @@ import com.market.entity.Role;
 import com.market.entity.User;
 import com.market.repository.RoleRepository;
 import com.market.repository.UserRepository;
-import com.market.utility.enums.RoleNameEnum;
+import com.market.util.enums.RoleNameEnum;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;

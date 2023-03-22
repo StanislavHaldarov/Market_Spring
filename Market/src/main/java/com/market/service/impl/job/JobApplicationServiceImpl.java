@@ -1,7 +1,7 @@
 package com.market.service.impl.job;
 
 import com.market.entity.job.JobApplication;
-import com.market.utility.enums.RoleNameEnum;
+import com.market.util.enums.RoleNameEnum;
 import com.market.entity.User;
 import com.market.repository.JobApplicationRepository;
 import com.market.repository.UserRepository;

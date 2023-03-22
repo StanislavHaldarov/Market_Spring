@@ -6,6 +6,7 @@ public class Filter {
     private String isCategoryDrinksChecked;
     private String isCategoryCosmeticsChecked;
     private String isCategorySanitaryChecked;
+    private String isCategoryOtherChecked;
 
     private String orderBy;
 
@@ -21,6 +22,14 @@ public class Filter {
 
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public String getIsCategoryOtherChecked() {
+        return isCategoryOtherChecked;
+    }
+
+    public void setIsCategoryOtherChecked(String isCategoryOtherChecked) {
+        this.isCategoryOtherChecked = isCategoryOtherChecked;
     }
 
     public String getIsCategoryFoodChecked() {
@@ -55,6 +64,7 @@ public class Filter {
     public void setIsCategorySanitaryChecked(String isCategorySanitaryChecked) {
         this.isCategorySanitaryChecked = isCategorySanitaryChecked;
     }
+
 
     public Integer getMinPrice() {
         return minPrice;

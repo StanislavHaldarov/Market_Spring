@@ -10,7 +10,7 @@ public class ProductCreateToFoodEntityMapper {
 
     public Food apply(ProductCreate productCreate, Product product) {
 
-        return new Food(productCreate.getWeight(), product);
+        return new Food(productCreate.getWeight(), productCreate.getCount(),product);
 
     }
 

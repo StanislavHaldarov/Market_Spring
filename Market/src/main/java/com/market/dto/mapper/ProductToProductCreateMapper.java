@@ -1,8 +1,11 @@
 package com.market.dto.mapper;
 
 import com.market.dto.request.ProductCreate;
+import com.market.entity.productTypes.Cosmetic;
+import com.market.entity.productTypes.Food;
 import com.market.entity.productTypes.Product;
-import com.market.utility.enums.ProductTypeEnum;
+import com.market.entity.productTypes.Sanitary;
+import com.market.util.enums.ProductTypeEnum;
 import com.market.repository.product.CosmeticRepository;
 import com.market.repository.product.DrinkRepository;
 import com.market.repository.product.FoodRepository;
@@ -29,17 +32,26 @@ public class ProductToProductCreateMapper {
 
         switch (type.name()) {
             case "FOOD":
-                productCreate.setWeight(foodRepository.findFoodByProductId(product.getId()).getWeight());
+                Food foodProduct = foodRepository.findFoodByProductId(product.getId());
+                productCreate.setWeight(foodProduct.getWeight());
+                productCreate.setCount(foodProduct.getCount());
                 break;
             case "DRINKS":
                 productCreate.setVolume(drinkRepository.findDrinkByProductId(product.getId()).getVolume());
                 break;
             case "COSMETICS":
-                productCreate.setVolume(cosmeticRepository.findCosmeticByProductId(product.getId()).getVolume());
-                productCreate.setWeight(cosmeticRepository.findCosmeticByProductId(product.getId()).getWeight());
+                Cosmetic cosmeticProduct = cosmeticRepository.findCosmeticByProductId(product.getId());
+                productCreate.setVolume(cosmeticProduct.getVolume());
+                productCreate.setWeight(cosmeticProduct.getWeight());
                 break;
             case "SANITARY":
-                productCreate.setCount(sanitaryRepository.findSanitaryByProductId(product.getId()).getCount());
+                Sanitary sanitaryProduct = sanitaryRepository.findSanitaryByProductId(product.getId());
+                productCreate.setCount(sanitaryProduct.getCount());
+                productCreate.setVolume(sanitaryProduct.getVolume());
+                productCreate.setWeight(sanitaryProduct.getWeight());
+                break;
+            case "OTHERS":
+                productCreate.setDescription(product.getDescription());
                 break;
 
         }
@@ -47,10 +59,10 @@ public class ProductToProductCreateMapper {
         productCreate.setId(product.getId());
         productCreate.setType(product.getType());
         productCreate.setName(product.getName());
+        productCreate.setExpiredDate(product.getExpiredDate());
         productCreate.setAvailableQuantity(product.getAvailableQuantity());
         productCreate.setPriceBGN(product.getPriceBGN());
         productCreate.setImageUrl(product.getImageUrl());
-        productCreate.setExpiredDate(product.getExpiredDate());
 
         return productCreate;
 

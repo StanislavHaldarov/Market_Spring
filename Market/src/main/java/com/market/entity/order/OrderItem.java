@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="order_item")
+@Table(name="items")
 public class OrderItem extends BaseEntity {
     @ManyToOne
     private Product product;

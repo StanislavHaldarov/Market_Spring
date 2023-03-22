@@ -1,11 +1,11 @@
-package com.market.utility.exception;
+package com.market.util.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class UsernameAlreadyExistsException extends RuntimeException{
-    public UsernameAlreadyExistsException(String message){
+public class NotEnoughQuantityException extends RuntimeException{
+    public NotEnoughQuantityException(String message){
         super(message);
     }
 }

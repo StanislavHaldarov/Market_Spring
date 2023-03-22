@@ -1,4 +1,4 @@
-package com.market.utility.exception;
+package com.market.util.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

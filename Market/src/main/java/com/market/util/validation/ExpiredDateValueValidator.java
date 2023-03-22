@@ -1,10 +1,10 @@
-package com.market.utility.validation;
+package com.market.util.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDate;
 
-public class ExpiredDateValidator implements ConstraintValidator<ValidateExpiredDate, LocalDate> {
+public class ExpiredDateValueValidator implements ConstraintValidator<ValidateExpiredDateValue, LocalDate> {
     @Override
     public boolean isValid(LocalDate localDate, ConstraintValidatorContext constraintValidatorContext) {
         if(localDate == null){

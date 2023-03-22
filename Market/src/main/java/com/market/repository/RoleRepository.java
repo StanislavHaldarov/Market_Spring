@@ -1,7 +1,7 @@
 package com.market.repository;
 
 import com.market.entity.Role;
-import com.market.utility.enums.RoleNameEnum;
+import com.market.util.enums.RoleNameEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,15 +1,14 @@
 package com.market.service.impl.user;
 
 import com.market.entity.Role;
-import com.market.utility.enums.RoleNameEnum;
+import com.market.util.enums.RoleNameEnum;
 import com.market.entity.User;
 import com.market.repository.RoleRepository;
 import com.market.repository.UserRepository;
 import com.market.service.user.RoleService;
 import com.market.service.user.UserServiceModel;
-import com.market.service.impl.user.UserServiceImpl;
-import com.market.utility.exception.EmailAlreadyExistsException;
-import com.market.utility.exception.UsernameAlreadyExistsException;
+import com.market.util.exception.EmailAlreadyExistsException;
+import com.market.util.exception.UsernameAlreadyExistsException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

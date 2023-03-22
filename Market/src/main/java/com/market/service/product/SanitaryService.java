@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface SanitaryService {
     void save(ProductCreate productCreate);
+
     void update(ProductCreate productCreate);
-    List<Sanitary> findAllAvailable();
+
 
 }

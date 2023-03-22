@@ -51,7 +51,7 @@
                 <p th:field="*{description}" th:text="${product.description}"></p>
                 <input type="hidden" th:field="*{description}">
 
-                <p th:field="*{priceBGN}" th:text="${product.priceBGN} + 'лв'"></p>
+                <p th:field="*{priceBGN}" th:text="${#numbers.formatDecimal(product.priceBGN,1,2)} + 'лв'"></p>
                 <input type="hidden" th:field="*{priceBGN}">
 
                 <label for="quantity">Количество:</label>

@@ -1,26 +1,20 @@
 package com.market.service.impl.product;
 
-import com.market.dto.request.Filter;
+import com.market.dto.mapper.ProductCreateToProductEntityMapper;
 import com.market.dto.request.ProductCreate;
 import com.market.entity.order.OrderItem;
 import com.market.entity.productTypes.Product;
 import com.market.repository.product.ProductRepository;
-import com.market.service.impl.product.ProductServiceImpl;
-import com.market.service.product.SpecificationProductFilter;
 import com.market.service.order.OrderItemService;
-import com.market.service.product.CosmeticService;
-import com.market.service.product.DrinkService;
-import com.market.service.product.FoodService;
-import com.market.service.product.SanitaryService;
+import com.market.service.product.*;
 import com.market.service.user.UserService;
-import com.market.utility.enums.ProductTypeEnum;
-import com.market.utility.exception.NotFoundException;
+import com.market.util.enums.ProductTypeEnum;
+import com.market.util.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.parameters.P;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +46,11 @@ public class ProductServiceImplTest {
     @Mock
     private UserService mockUserService;
 
+    @Mock
+    private ProductCreateToProductEntityMapper mockProductCreateToProductEntityMapper;
+
     @Test
-    public void saveProductCreateWhenProductCreateTypeIsFood(){
+    public void saveProductCreateWhenProductCreateTypeIsFood() {
         ProductCreate productCreate = new ProductCreate();
         productCreate.setType(ProductTypeEnum.FOOD);
         serviceToTest.saveProductCreate(productCreate);
@@ -61,7 +58,7 @@ public class ProductServiceImplTest {
     }
 
     @Test
-    public void saveProductCreateWhenProductCreateTypeIsDrinks(){
+    public void saveProductCreateWhenProductCreateTypeIsDrinks() {
         ProductCreate productCreate = new ProductCreate();
         productCreate.setType(ProductTypeEnum.DRINKS);
         serviceToTest.saveProductCreate(productCreate);
@@ -69,7 +66,7 @@ public class ProductServiceImplTest {
     }
 
     @Test
-    public void saveProductCreateWhenProductCreateTypeIsSanitary(){
+    public void saveProductCreateWhenProductCreateTypeIsSanitary() {
         ProductCreate productCreate = new ProductCreate();
         productCreate.setType(ProductTypeEnum.SANITARY);
         serviceToTest.saveProductCreate(productCreate);
@@ -77,11 +74,19 @@ public class ProductServiceImplTest {
     }
 
     @Test
-    public void saveProductCreateWhenProductCreateTypeIsCosmetics(){
+    public void saveProductCreateWhenProductCreateTypeIsCosmetics() {
         ProductCreate productCreate = new ProductCreate();
         productCreate.setType(ProductTypeEnum.COSMETICS);
         serviceToTest.saveProductCreate(productCreate);
         verify(mockCosmeticService, times(1)).save(productCreate);
+    }
+
+    @Test
+    public void saveProductCreateWhenProductCreateTypeIsOthers() {
+        ProductCreate productCreate = new ProductCreate();
+        productCreate.setType(ProductTypeEnum.OTHERS);
+        serviceToTest.saveProductCreate(productCreate);
+        verify(mockProductRepository, times(1)).save(mockProductCreateToProductEntityMapper.apply(productCreate));
     }
 
     @Test
@@ -93,7 +98,6 @@ public class ProductServiceImplTest {
         verify(mockOrderItemService, never()).saveItem(any(OrderItem.class));
         verify(mockProductRepository, never()).deleteById(0L);
     }
-
 
 
     @Test
@@ -177,9 +181,30 @@ public class ProductServiceImplTest {
     }
 
     @Test
+    public void updateProductTestWhenTypeIsOthers() {
+        ProductCreate productCreate = new ProductCreate();
+        productCreate.setType(ProductTypeEnum.OTHERS);
+        serviceToTest.updateProduct(productCreate);
+        verify(mockFoodService, never()).update(productCreate);
+        verify(mockDrinkService, never()).update(productCreate);
+        verify(mockSanitaryService, never()).update(productCreate);
+        verify(mockCosmeticService, never()).update(productCreate);
+        verify(mockProductRepository, times(1)).save(mockProductCreateToProductEntityMapper.apply(productCreate));
+
+    }
+
+    @Test
     public void findProductByIdTestWhenIdNotFound() {
         when(mockProductRepository.findById(0L)).thenThrow(NotFoundException.class);
         assertThrows(NotFoundException.class, () -> serviceToTest.findProductById(0L));
+    }
+
+    @Test
+    public void findProductByIdTestWhenIdFound() {
+        Product product = new Product();
+        product.setId(1L);
+        when(mockProductRepository.findById(1L)).thenReturn(Optional.of(product));
+        assertEquals(serviceToTest.findProductById(1L), product);
     }
 
 

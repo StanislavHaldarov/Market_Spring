@@ -1,13 +1,13 @@
 package com.market.controller;
 
 import com.market.entity.Role;
-import com.market.utility.enums.RoleNameEnum;
+import com.market.util.enums.RoleNameEnum;
 import com.market.entity.binding.UserLoginBindingModel;
 import com.market.entity.binding.UserRegisterBindingModel;
 import com.market.service.user.UserService;
 import com.market.service.user.UserServiceModel;
-import com.market.utility.exception.EmailAlreadyExistsException;
-import com.market.utility.exception.UsernameAlreadyExistsException;
+import com.market.util.exception.EmailAlreadyExistsException;
+import com.market.util.exception.UsernameAlreadyExistsException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

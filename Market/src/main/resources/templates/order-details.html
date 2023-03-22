@@ -64,30 +64,15 @@
 
                         <div th:unless="${item.product == null}">
                             <td style="display: flex; flex-direction: row">
-                                <!--                            <div class="dialog">-->
-                                <!--                                <form th:action="@{/delete/item/{id}(id=${item.id})}" method="post">-->
-                                <!--                                    <button class="center" type='submit'>&#10006;</button>-->
-                                <!--                                </form>-->
-                                <!--                                <form th:action="@{/item/details/{id}(id=${item.product.id})}" method="get">-->
-                                <!--                                    <button class="center">&laquo;</button>-->
-                                <!--                                </form>-->
-                                <!--                            </div>-->
                                 <img style="width:100px" th:src="${item.product.imageUrl}">
                                 <p th:text="${item.product.name}"></p>
                             </td>
 
-                            <td th:text="${item.product.priceBGN} + 'лв'"></td>
+                            <td th:text="${#numbers.formatDecimal(item.product.priceBGN,1,2)} + 'лв'"></td>
 
-                            <!--                        <th:block th:if="${item.quantity <= item.product.availableQuantity}">-->
                             <td th:text="${item.quantity}"></td>
-                            <!--                        </th:block>-->
-                            <!--                        <th:block th:unless="${item.quantity <= item.product.availableQuantity}">-->
-                            <!--                            <td class="alert alert-warning">Недостатъчно количество!<br>-->
-                            <!--                                Моля върнете се и променете желаното количество или изтрийте продукта от количката преди-->
-                            <!--                                финализиране на поръчката-->
-                            <!--                            </td>-->
-                            <!--                        </th:block>-->
-                            <td th:text="${item.quantity * item.product.priceBGN} + 'лв'"></td>
+
+                            <td th:text="${#numbers.formatDecimal(item.quantity * item.product.priceBGN,1,2)} + 'лв'"></td>
                         </div>
                     </tr>
                     </tbody>
@@ -96,22 +81,22 @@
                     <table class="table table-striped table-bordered text-center" style="width: 50%;">
                         <tr>
                             <td>Крайна цена</td>
-                            <td th:text="${order.totalPrice} + 'лв'"></td>
+                            <td th:text="${#numbers.formatDecimal(order.totalPrice,1,2)} + 'лв'"></td>
                             <td>
-                                <span th:if="${order.status == T(com.market.utility.enums.OrderStatusEnum).PROCESSING}">
+                                <span th:if="${order.status == T(com.market.util.enums.OrderStatusEnum).PROCESSING}">
                                     <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN', 'MANAGER')"
                                           th:action="@{/orders/send/{orderId}(orderId=${order.id})}" method="POST">
                                     <button class="olive-button" type="submit">ИЗПРАТИ</button>
                                     </form>
                                 </span>
-                                <span th:if="${order.status == T(com.market.utility.enums.OrderStatusEnum).SENT}">
+                                <span th:if="${order.status == T(com.market.util.enums.OrderStatusEnum).SENT}">
                                     <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN', 'MANAGER')"
                                           th:action="@{/orders/complete/{orderId}(orderId=${order.id})}" method="POST">
                                     <button class="olive-button" type="submit">ОТБЕЛЕЖИ КАТО ЗАВЪРШЕНА</button>
                                     </form>
                                 </span>
                                 <span class="gray-text" sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN', 'MANAGER')"
-                                      th:if="${order.status == T(com.market.utility.enums.OrderStatusEnum).COMPLETED}">ПОРЪЧКАТА Е ЗАВЪРШЕНА
+                                      th:if="${order.status == T(com.market.util.enums.OrderStatusEnum).COMPLETED}">ПОРЪЧКАТА Е ЗАВЪРШЕНА
                                     <form sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN', 'MANAGER')" method="POST"
                                           th:action="@{/orders/delete/completed-order/{orderId}(orderId=${order.id})}">
                                         <button type=submit class="delete-button">ИЗТРИЙ</button></form>

@@ -2,7 +2,7 @@ package com.market.entity.productTypes;
 
 import com.market.entity.BaseEntity;
 import com.market.entity.order.OrderItem;
-import com.market.utility.enums.ProductTypeEnum;
+import com.market.util.enums.ProductTypeEnum;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,12 +10,11 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class Product extends BaseEntity {
     @NotNull
     @Length(min = 3)
@@ -37,6 +36,7 @@ public class Product extends BaseEntity {
     private Integer availableQuantity;
     @NotNull
     @Min(0)
+    @Column(precision = 100, scale = 2)
     private Double priceBGN;
 
     @NotNull
@@ -55,6 +55,8 @@ public class Product extends BaseEntity {
         this.priceBGN = priceBGN;
         this.imageUrl = imageUrl;
     }
+
+
 
     public List<OrderItem> getItems() {
         return items;

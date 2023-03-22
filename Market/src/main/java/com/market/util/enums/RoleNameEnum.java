@@ -1,4 +1,4 @@
-package com.market.utility.enums;
+package com.market.util.enums;
 
 public enum RoleNameEnum {
 

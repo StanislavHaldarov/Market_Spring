@@ -10,7 +10,5 @@ public interface FoodService {
 
     void save(ProductCreate productCreate);
     void update(ProductCreate productCreate);
-    List<Food> findAllAvailable();
-
 
 }

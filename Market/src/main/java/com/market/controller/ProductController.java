@@ -5,7 +5,7 @@ import com.market.dto.request.Filter;
 import com.market.dto.request.ProductCreate;
 import com.market.entity.productTypes.Product;
 import com.market.service.product.ProductService;
-import com.market.utility.enums.ProductTypeEnum;
+import com.market.util.enums.ProductTypeEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

@@ -19,18 +19,33 @@ public class Food extends BaseEntity {
     @Min(0)
     private Double weight;
 
+    @Column(nullable = true)
+    @Min(0)
+    private Integer count;
+
+
+
     @ManyToOne()
     @JoinColumn(name = "product_id")
     @Cascade(CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
-    public Food(Double weight, Product product) {
+    public Food(Double weight, Integer count, Product product) {
         this.weight = weight;
+        this.count = count;
         this.product = product;
     }
 
     public Food() {
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     public Product getProduct() {

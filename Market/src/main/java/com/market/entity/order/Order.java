@@ -2,7 +2,7 @@ package com.market.entity.order;
 
 import com.market.entity.BaseEntity;
 import com.market.entity.User;
-import com.market.utility.enums.OrderStatusEnum;
+import com.market.util.enums.OrderStatusEnum;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 

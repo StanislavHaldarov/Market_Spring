@@ -2,13 +2,12 @@ package com.market.service.impl.job;
 
 import com.market.entity.job.JobApplication;
 import com.market.entity.Role;
-import com.market.utility.enums.RoleNameEnum;
+import com.market.util.enums.RoleNameEnum;
 import com.market.entity.User;
 import com.market.repository.JobApplicationRepository;
 import com.market.repository.UserRepository;
 import com.market.service.job.JobApplicationServiceModel;
 import com.market.service.user.RoleService;
-import com.market.service.impl.job.JobApplicationServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

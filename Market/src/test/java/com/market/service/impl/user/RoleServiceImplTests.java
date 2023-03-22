@@ -1,9 +1,8 @@
 package com.market.service.impl.user;
 
 import com.market.entity.Role;
-import com.market.utility.enums.RoleNameEnum;
+import com.market.util.enums.RoleNameEnum;
 import com.market.repository.RoleRepository;
-import com.market.service.impl.user.RoleServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

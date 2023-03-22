@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ProductCreateToSanitaryEntityMapper {
     public Sanitary apply(ProductCreate productCreate, Product product) {
 
-        return new Sanitary(productCreate.getCount(), product);
+        return new Sanitary(productCreate.getCount(), productCreate.getWeight(), productCreate.getVolume(), product);
     }
 
 

@@ -32,14 +32,10 @@ public class FoodServiceImpl implements FoodService {
 
 
     @Override
-    public List<Food> findAllAvailable() {
-        return foodRepository.findAll();
-    }
-
-    @Override
     public void update(ProductCreate productCreate) {
         Food food = foodRepository.findFoodByProductId(productCreate.getId());
         food.setWeight(productCreate.getWeight());
+        food.setCount(productCreate.getCount());
         food.setProduct(productCreateToProductEntityMapper.apply(productCreate));
         foodRepository.save(food);
     }

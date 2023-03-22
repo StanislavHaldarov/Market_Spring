@@ -3,7 +3,7 @@ package com.market.service.impl.order;
 import com.market.entity.order.OrderItem;
 import com.market.repository.order.OrderItemRepository;
 import com.market.service.order.OrderItemService;
-import com.market.utility.exception.NotFoundException;
+import com.market.util.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

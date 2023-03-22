@@ -38,9 +38,5 @@ public class SanitaryServiceImpl implements SanitaryService {
         sanitaryRepository.save(sanitary);
     }
 
-    @Override
-    public List<Sanitary> findAllAvailable() {
-        return sanitaryRepository.findAll();
-    }
 
 }

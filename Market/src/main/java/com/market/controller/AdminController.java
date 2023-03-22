@@ -4,7 +4,7 @@ import com.market.entity.Role;
 import com.market.entity.User;
 import com.market.service.user.RoleService;
 import com.market.service.user.UserService;
-import com.market.utility.enums.RoleNameEnum;
+import com.market.util.enums.RoleNameEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

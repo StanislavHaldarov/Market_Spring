@@ -1,6 +1,6 @@
 package com.market.entity;
 
-import com.market.utility.enums.RoleNameEnum;
+import com.market.util.enums.RoleNameEnum;
 
 import javax.persistence.*;
 
@@ -13,6 +13,7 @@ public class Role extends BaseEntity {
 
     public Role() {
     }
+
 
     public Role(RoleNameEnum name) {
         this.name = name;
