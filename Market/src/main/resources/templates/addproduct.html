@@ -78,7 +78,7 @@
 
         <div id='weight' style="display:none">
             <p>грамаж</p>
-            <input th:field="*{weight}" type="number" step="0.01">
+            <input th:field="*{weight}" type="number" step="0.001">
             <p th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
                style="color:red"></p>
             <p th:if="${#fields.hasErrors('${product}')}" th:errors="${product}" style="color:red"></p>
@@ -86,7 +86,7 @@
 
         <div id="volume" style="display: none">
             <p>обем</p>
-            <input th:field="*{volume}" type="number" step="0.01">
+            <input th:field="*{volume}" type="number" step="0.001">
             <p th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}"
                style="color:red"></p>
             <p th:if="${#fields.hasErrors('${product}')}" th:errors="${product}" style="color:red"></p>

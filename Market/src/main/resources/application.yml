@@ -11,7 +11,7 @@ spring:
         hibernate.order_by.default_null_ordering: last
     mail:
         host: smtp.gmail.com
-        password: czxzsbtbbellrgli
+        password: eeueyzfvkiyqdsds
         port: 587
         properties:
             mail:
